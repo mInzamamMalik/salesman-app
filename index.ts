@@ -1,15 +1,23 @@
-import express = require("express");
-import mongoose = require("mongoose");
-import firebase = require("firebase");
-
+import express          = require("express");
+import mongoose         = require("mongoose");
+import firebase         = require("firebase");
+import bodyParser       = require("body-parser");
+import path             = require("path");
 
 let app = express();
-app.set('port', (process.env.PORT || 5000));
+
+app.set('port', (process.env.PORT || 3000));
 
 
-app.use((req:express.Request, res:express.Response, next:Function)=> {
+let publicPath = path.resolve(__dirname, "public");
+app.use(express.static(publicPath));
 
-    res.send("hello world");
+
+app.use(bodyParser.json());
+
+app.use("/", (req:express.Request, res:express.Response, next:Function)=> {
+
+    res.sendFile("index.html");
 
 });
 
