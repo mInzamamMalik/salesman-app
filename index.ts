@@ -15,9 +15,12 @@ app.use(express.static(publicPath));
 
 app.use(bodyParser.json());
 
-app.use("/", (req:express.Request, res:express.Response, next:Function)=> {
 
-    res.sendFile("index.html");
+
+
+app.use("/", (req:express.Request, res:express.Response, next:Function)=> {
+    let indexPath = path.resolve(__dirname,"frontendFiles/index.html");
+    res.sendFile(indexPath);
 
 });
 
