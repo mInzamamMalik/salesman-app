@@ -1,0 +1,24 @@
+{
+  "name": "salesman-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/malikasinger1/salesman-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/malikasinger1/salesman-app/issues"
+  },
+  "homepage": "https://github.com/malikasinger1/salesman-app",
+  "dependencies": {
+    "express": "^4.13.4",
+    "firebase": "^2.4.0",
+    "mongoose": "^4.3.6"
+  }
+}
