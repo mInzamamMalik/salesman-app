@@ -17,8 +17,10 @@
   },
   "homepage": "https://github.com/malikasinger1/salesman-app",
   "dependencies": {
+    "body-parser": "^1.14.2",
     "express": "^4.13.4",
     "firebase": "^2.4.0",
-    "mongoose": "^4.3.6"
+    "mongoose": "^4.3.6",
+    "path": "^0.12.7"
   }
 }
