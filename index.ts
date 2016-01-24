@@ -4,8 +4,10 @@ import firebase         = require("firebase");
 import bodyParser       = require("body-parser");
 import path             = require("path");
 
+import userModel = require("./DBrepo/userModel");
+
 let app = express();
-mongoose.connect("mongodb://malikasinger:sales@ds049935.mongolab.com:49935/salesman-app");
+
 
 app.set('port', (process.env.PORT || 3000));
 
