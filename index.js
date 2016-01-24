@@ -1,7 +1,9 @@
 var express = require("express");
+var mongoose = require("mongoose");
 var bodyParser = require("body-parser");
 var path = require("path");
 var app = express();
+mongoose.connect("mongodb://malikasinger:sales@ds049935.mongolab.com:49935/salesman-app");
 app.set('port', (process.env.PORT || 3000));
 var publicPath = path.resolve(__dirname, "public");
 app.use(express.static(publicPath));
