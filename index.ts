@@ -5,7 +5,7 @@ import bodyParser       = require("body-parser");
 import path             = require("path");
 
 let app = express();
-mongoose.connect("");
+mongoose.connect("mongodb://malikasinger:sales@ds049935.mongolab.com:49935/salesman-app");
 
 app.set('port', (process.env.PORT || 3000));
 
