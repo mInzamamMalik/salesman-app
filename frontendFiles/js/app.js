@@ -8,14 +8,23 @@ angular.module('starter', ['ionic'])
 
 .config(function($urlRouterProvider , $stateProvider){
 
-  $urlRouterProvider.otherwise("/");
+  $urlRouterProvider.otherwise("/home");
 
   $stateProvider
-      .state("signup",{
-        url : "/signup",
-        templateUrl : ".views/signup.html"
-      });
+    .state("home",{
+        url : "/home",
+        templateUrl : "views/home/home.html"
+      })
+    .state("login",{
+        url : "/login",
+        templateUrl : "views/login/login.html"
+      })
 
+
+    .state("signup",{
+        url : "/signup",
+        templateUrl : "views/signup/signup.html"
+      })
 
 
 });
