@@ -1,31 +1,31 @@
 <ion-view view-title="signup">
     <ion-content>
 
-        <form ng-submit="">
+        <form ng-submit="signup()">
             <div class="list">
 
                 <label class="item item-input">
-                    <input type="text" placeholder="first name">
+                    <input type="text" placeholder="first name" required ng-model="userObject.fname">
                 </label>
 
                 <label class="item item-input">
-                    <input type="text" placeholder="last name">
+                    <input type="text" placeholder="last name" ng-model="userObject.lname">
                 </label>
 
                 <label class="item item-input">
-                    <input type="text" placeholder="username">
+                    <input type="text" placeholder="username" required ng-model="userObject.username">
                 </label>
 
                 <label class="item item-input">
-                    <input type="password" placeholder="password">
+                    <input type="password" placeholder="password" required ng-model="userObject.password">
                 </label>
 
                 <label class="item item-input">
-                    <input type="password" placeholder="re-type password">
+                    <input type="password" required placeholder="re-type password">
                 </label>
 
 
-                <button class="button button-full button-balanced">signup</button>
+                <button class="button button-full button-balanced" type="submit">signup</button>
 
 
             </div>

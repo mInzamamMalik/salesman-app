@@ -4,6 +4,8 @@ var path = require("path");
 var app = express();
 app.set('port', (process.env.PORT || 3000));
 app.use(bodyParser.json());
+app.use("/v1", function (req, res, next) {
+});
 var publicPath = path.resolve(__dirname, "public");
 app.use(express.static(publicPath));
 var indexPath = path.resolve(__dirname, "frontendFiles");

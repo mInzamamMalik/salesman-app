@@ -1,7 +1,6 @@
 import express          = require("express");
 import mongoose         = require("mongoose");
 import firebase         = require("firebase");
-import bodyParser       = require("body-parser");
 import path             = require("path");
 
 import userModel = require("./DBrepo/userModel");
@@ -12,10 +11,10 @@ let app = express();
 app.set('port', (process.env.PORT || 3000));
 
 
-app.use(bodyParser.json());
 
 
 
+app.use("/v1", );
 
 
 

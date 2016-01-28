@@ -1,12 +1,20 @@
 (function() {
     angular.module("signup", [])
 
-        .controller("signupController", ['$scope', signupController])
+        .controller("signupController", ['$scope', signupController]);
 
 
         function signupController($scope) {
-            $scope.name = "inzi";
-        };
+
+            $scope.userObject = {};
+
+            $scope.signup = function(){
+
+                console.log($scope.userObject);
+
+            }
+
+        }
 
 
 })();
