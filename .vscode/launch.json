@@ -7,7 +7,7 @@
 			"request": "launch",
 			"program": "index.js",
 			"stopOnEntry": false,
-			"args": [],
+			"args": [""],
 			"cwd": ".",
 			"runtimeExecutable": null,
 			"runtimeArgs": [
