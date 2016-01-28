@@ -1,13 +1,12 @@
-(angular.module("signup", [])
+(function() {
+    angular.module("signup", [])
 
         .controller("signupController", ['$scope', signupController])
 
 
-        (function signupController($scope) {
+        function signupController($scope) {
             $scope.name = "inzi";
-        })()
+        };
 
 
-
-
-)();
+})();

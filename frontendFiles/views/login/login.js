@@ -1,15 +1,15 @@
 /**
  * Created by 205 on 1/28/2016.
  */
-(angular.module("login", [])
+(function(){
 
-        .controller("loginController", ['$scope', loginController])
+        angular.module("login", [])
 
-
-        (function loginController($scope) {
-            $scope.name = "inzi";
-        })()
+            .controller("loginController", ['$scope', loginController]);
 
 
+            function loginController($scope) {
+                $scope.name = "inzi";
+            }
 
-)();
+})();

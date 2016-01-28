@@ -1,15 +1,15 @@
 /**
  * Created by 205 on 1/28/2016.
  */
-(angular.module("home", [])
+(function(){
 
-        .controller("homeController", ['$scope', homeController])
+        angular.module("home", [])
 
-
-        (function signupController($scope) {
-            $scope.name = "inzi";
-        })()
+            .controller("homeController", ['$scope', homeController]);
 
 
+            function homeController($scope) {
+                $scope.name = "inzi";
+            }
 
-)();
+})();
