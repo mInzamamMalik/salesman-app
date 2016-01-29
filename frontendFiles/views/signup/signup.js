@@ -12,7 +12,13 @@
                         url : "/v1/signup",
                         data : {
                             email : $scope.userObject.email,
-                            password : $scope.userObject.password
+                            password : $scope.userObject.password,
+
+                            fname : $scope.userObject.firstName,
+                            lname : $scope.userObject.lastName,
+                            username : $scope.userObject.username,
+                            companyName : $scope.userObject.companyName
+
                         }
                     });
 

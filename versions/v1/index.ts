@@ -42,7 +42,9 @@ v1.post("/signup",(req:express.Request , res:express.Response , next:Function)=>
 
     if(userData.uid){
         
-        
+        let fname = req.body.fname;
+        let lname = req.body.lname;
+        let 
         
     }
 

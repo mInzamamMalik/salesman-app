@@ -4,7 +4,7 @@ mongoose.connect("mongodb://malikasinger:sales@ds049935.mongolab.com:49935/sales
 
 let userSchema = new mongoose.Schema({
     firstName : String,
-    LastName : String,
+    lastName : String,
     email : {type:String , unique : true , require: true},
     password : String,
     createdOn : {type : Date , default: Date.now},
