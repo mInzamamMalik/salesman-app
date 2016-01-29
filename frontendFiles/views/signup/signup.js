@@ -1,20 +1,34 @@
 (function() {
     angular.module("signup", [])
 
-        .controller("signupController", ['$scope', signupController]);
+        .controller("signupController",function ($scope, $http) {
+
+                $scope.userObject = {};
+
+                $scope.signup = function(){
+
+                    $http({
+                        method : "post",
+                        url : "/v1/signup",
+                        data : {
+                            email : $scope.userObject.email,
+                            password : $scope.userObject.password
+                        }
+                    });
 
 
-        function signupController($scope) {
 
-            $scope.userObject = {};
 
-            $scope.signup = function(){
 
-                console.log($scope.userObject);
-
+                }
             }
+        );
 
-        }
+
+
+
+
+
 
 
 })();

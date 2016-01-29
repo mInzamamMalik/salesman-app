@@ -3,7 +3,9 @@ import mongoose         = require("mongoose");
 import firebase         = require("firebase");
 import path             = require("path");
 
-import userModel = require("./DBrepo/userModel");
+
+//app versioning
+var v1 = require("./versions/v1");
 
 let app = express();
 
@@ -14,7 +16,7 @@ app.set('port', (process.env.PORT || 3000));
 
 
 
-app.use("/v1", );
+app.use("/v1", v1 );
 
 
 
