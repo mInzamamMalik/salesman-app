@@ -25,19 +25,26 @@ var doSignup = function (signupObject) {
             switch (error.code) {
                 case "EMAIL_TAKEN":
                     console.log("The new user account cannot be created because the email is already in use.");
+                    deferred.reject("The new user account cannot be created because the email is already in use.");
                     break;
                 case "INVALID_EMAIL":
                     console.log("The specified email is not a valid email.");
+                    deferred.reject("The specified email is not a valid email.");
                     break;
                 default:
                     console.log("Error creating user:", error);
+                    deferred.reject(error);
             } // switch ended
         }
         else {
             console.log("Successfully created user account with uid:", userData.uid);
             signupObject.firebaseUid = userData.uid;
-            signupOnMongodb(signupObject);
-        } // else ended --  will execute if no error from firebase createUser
+            signupOnMongodb(signupObject).then(function (data) {
+                deferred.resolve(data);
+            }, function (error) {
+                deferred.reject(error);
+            });
+        } // else ended -- execute on no-error from firebase createUser
     }); //createUser ended -- firebase
     return deferred.promise; //promise returned  
 };

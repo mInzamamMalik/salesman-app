@@ -5,7 +5,8 @@ var userModel_1 = require("../../DBrepo/userModel");
 var v1 = express.Router();
 v1.use(bodyParser.json());
 v1.post("/signup", function (req, res, next) {
-    var signupObject = req.body.signupObject;
+    var signupObject = req.body;
+    console.log("data is : ", signupObject);
     userModel_1.doSignup(signupObject);
 });
 module.exports = v1;

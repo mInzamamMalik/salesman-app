@@ -7,6 +7,19 @@
 
                 $scope.signup = function(){
 
+
+                    /*interface patternOfUserObject {
+
+                            email       :    string,
+                            password    :    string,
+                            firstName   :    string,      //this is a interface which is must required from front end
+                            lastName    :    string,
+                            companyName :    string
+
+                    }*/
+
+
+
                     $http({
                         method : "post",
                         url : "/v1/signup",
@@ -15,7 +28,6 @@
                             email : $scope.userObject.email,
                             password : $scope.userObject.password,
                             firstName : $scope.userObject.firstName,
-                            lastName : $scope.userObject.lastName,
                             companyName : $scope.userObject.companyName
 
                         }

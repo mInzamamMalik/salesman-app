@@ -11,7 +11,7 @@ v1.use(bodyParser.json());
 
 
 v1.post("/signup", (req: express.Request, res: express.Response, next: Function) => {
-
+    
     interface patternOfUserObject {
         
         email:      string,
@@ -22,9 +22,11 @@ v1.post("/signup", (req: express.Request, res: express.Response, next: Function)
 
     }    
     
-    let signupObject:patternOfUserObject  =  req.body.signupObject;
+    let signupObject : patternOfUserObject  =  req.body;
     
-    doSignup(  signupObject  );
+    console.log("data is : ",signupObject);
+    
+     doSignup(  signupObject  );
     
     
 });
