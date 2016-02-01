@@ -27,12 +27,15 @@ v1.post("/signup", (req: express.Request, res: express.Response, next: Function)
     console.log("data is : ",signupObject);
     
      doSignup(  signupObject  ).then((success)=>{
-         console.log("success" , success);
-         res.send("success");
+         
+         console.log("signup success: " , success);
+         
+         res.json({signup : true});
+         
      },
      (err)=>{
-         console.log("error" , err);
-         res.send("error");
+         console.log("signup error: " , err);
+         res.json({signup : false , message : err});
      });
     
     

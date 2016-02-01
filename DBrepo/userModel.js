@@ -31,7 +31,7 @@ var doSignup = function (signupObject) {
                 case "INVALID_EMAIL":
                     console.log("The specified email is not a valid email.");
                     deferred.reject("The specified email is not a valid email.");
-                    break;
+                    break; //
                 default:
                     console.log("Error creating user:", error);
                     deferred.reject(error);

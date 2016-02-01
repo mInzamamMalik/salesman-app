@@ -8,11 +8,11 @@ v1.post("/signup", function (req, res, next) {
     var signupObject = req.body;
     console.log("data is : ", signupObject);
     userModel_1.doSignup(signupObject).then(function (success) {
-        console.log("success", success);
-        res.send("success");
+        console.log("signup success: ", success);
+        res.json({ signup: true });
     }, function (err) {
-        console.log("error", err);
-        res.send("error");
+        console.log("signup error: ", err);
+        res.json({ signup: false, message: err });
     });
 });
 module.exports = v1;
