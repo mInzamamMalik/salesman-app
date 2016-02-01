@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
-	"target": "ES5",
-	"module": "commonjs"
-  }
+        "emitDecoratorMetadata": true,
+        "module": "commonjs",
+        "target": "es5",
+        "outDir": "bin",
+        "rootDir": "src",
+        "sourceMap": true
+    }
 }

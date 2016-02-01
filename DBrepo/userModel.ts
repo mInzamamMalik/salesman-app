@@ -62,7 +62,7 @@ let doSignup = (signupObject) => {
                 deferred.resolve(data);
             },
             (error)=>{
-                deferred.reject(error);
+                deferred.reject(error);//===>> at this point i have to roll back firebase createUser
             });
             ///////// 
             
@@ -90,15 +90,15 @@ let signupOnMongodb = (signupObject) => {
     let deferred = q.defer();
 
     let newUser = new userModule( signupObject );
-    
-    
         newUser.save((err, data)=>{
+    
             if(!err){
-                deferred.resolve(data);
-            }                
+                deferred.resolve(data);                
+            }else{
+                deferred.reject(err);
+            }
             
         });
-
 
     return deferred.promise;
 }
