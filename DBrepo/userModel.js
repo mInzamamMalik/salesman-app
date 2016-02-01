@@ -3,6 +3,7 @@ var firebase = require("firebase");
 var q = require("q");
 mongoose.connect("mongodb://malikasinger:sales@ds049935.mongolab.com:49935/salesman-app");
 var ref = new firebase("https://sales-man-app.firebaseio.com/");
+//////////////schema and model//////////////////////////////////////////
 var userSchema = new mongoose.Schema({
     firstName: String,
     lastName: String,
@@ -10,9 +11,10 @@ var userSchema = new mongoose.Schema({
     email: { type: String, unique: true, require: true },
     password: String,
     createdOn: { type: Date, default: Date.now },
-    firebaseToken: String
+    firebaseUid: String
 });
 var userModule = mongoose.model("users", userSchema);
+//////////////schema and model//////////////////////////////////////////
 ///////////////////////do signup started/////////////////////////////////////////////////////////////////
 var doSignup = function (signupObject) {
     console.log("ok");
@@ -48,7 +50,7 @@ var doSignup = function (signupObject) {
                 deferred.reject(error); //===>> at this point i have to roll back firebase createUser
             });
         } // else ended -- execute on no-error from firebase createUser
-    }); //createUser ended -- firebase
+    }); //createUser ended -- firebase    
     return deferred.promise; //promise returned  
 };
 exports.doSignup = doSignup;
@@ -62,15 +64,20 @@ function signupOnMongodb(signupObject) {
     var newUser = new userModule(signupObject);
     newUser.save(function (err, data) {
         if (!err) {
+            console.log(data);
             deferred.resolve(data);
         }
         else {
+            console.log(err);
             deferred.reject(err);
         }
     });
     return deferred.promise;
 }
 ///////////////////////end signup on mongo db/////////////////////////////////////////////////////
+/////////////////do login started/////////////////////////////////////////////
+//this function takes an object wuth email and password property
+//and return token if user exist
 function doLogin(loginObject) {
     var deferred = q.defer();
     ref.authWithPassword({
@@ -87,3 +94,4 @@ function doLogin(loginObject) {
     return deferred.promise;
 }
 exports.doLogin = doLogin;
+//////////////////////////////do login ended/////////////////////////

@@ -5,6 +5,10 @@ import q = require("q");
 mongoose.connect("mongodb://malikasinger:sales@ds049935.mongolab.com:49935/salesman-app");
 let ref = new firebase("https://sales-man-app.firebaseio.com/");
 
+
+
+
+//////////////schema and model//////////////////////////////////////////
 let userSchema = new mongoose.Schema({
     firstName: String,
     lastName: String,
@@ -12,13 +16,11 @@ let userSchema = new mongoose.Schema({
     email: { type: String, unique: true, require: true },
     password: String,
     createdOn: { type: Date, default: Date.now },
-    firebaseToken: String
+    firebaseUid: String
 });
 
-
-
 let userModule = mongoose.model("users", userSchema);
-
+//////////////schema and model//////////////////////////////////////////
 
 
 
@@ -59,13 +61,13 @@ let doSignup = (signupObject) => {
                     deferred.reject(error);
             }// switch ended
             
-        } else { // if no-error in firebase createUser this else will execute
-            
-            console.log("Successfully created user account with uid:", userData.uid);
+        } else { // if no-error in firebase createUser this else will execute            
+
+            console.log("Successfully created user account with uid:" , userData.uid);
             
             //injecting uid to current userobject
             signupObject.firebaseUid = userData.uid;
-
+            
 
             /////==========////
             signupOnMongodb(signupObject).then((data) => {
@@ -80,8 +82,7 @@ let doSignup = (signupObject) => {
 
         }// else ended -- execute on no-error from firebase createUser
 
-    })//createUser ended -- firebase
-    
+    })//createUser ended -- firebase    
     
     return deferred.promise; //promise returned  
 }
@@ -97,18 +98,22 @@ let doSignup = (signupObject) => {
 //return promise with given object on resolve
 //retirn promise with mongoose error object on reject`
 function signupOnMongodb(signupObject) {
-
+    
     let deferred = q.defer();
 
     let newUser = new userModule(signupObject);
     newUser.save((err, data) => {
 
         if (!err) {
+            
+            console.log(data);
             deferred.resolve(data);
+            
         } else {
+            
+            console.log(err);
             deferred.reject(err);
         }
-
     });
 
     return deferred.promise;
@@ -124,7 +129,10 @@ function signupOnMongodb(signupObject) {
 
 
 
-
+/////////////////do login started/////////////////////////////////////////////
+//this function takes an object wuth email and password property
+//and return token if user exist
+ 
 function doLogin(loginObject: { email: string, password: string }) {
 
     let deferred = q.defer();
@@ -145,6 +153,12 @@ function doLogin(loginObject: { email: string, password: string }) {
     });
     return deferred.promise;
 }
+//////////////////////////////do login ended/////////////////////////
+
+
+
+
+
 
 
 export { doSignup, doLogin }
