@@ -64,7 +64,7 @@ let doSignup = (signupObject) => {
             (error)=>{
                 deferred.reject(error);
             });
-            /////////
+            ///////// 
             
 
         }// else ended -- execute on no-error from firebase createUser
