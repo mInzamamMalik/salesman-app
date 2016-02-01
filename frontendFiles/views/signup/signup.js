@@ -1,8 +1,7 @@
 (function() {
     angular.module("signup", [])
 
-        .controller("signupController",function ($scope, $http) {
-
+        .controller("signupController",function ($scope, $http, $state) {
                 $scope.userObject = {};
 
                 $scope.signup = function(){
@@ -32,7 +31,20 @@
                             companyName : $scope.userObject.companyName
 
                         }
-                    });
+                    }).then(
+                        function(response){
+                            console.log("res: ", response.data);
+
+                            if(response.data.signup){
+                                $state.go("login");
+                            }else{
+                                alert(response.data.message);
+                            }
+                        },
+                        function(error){
+                            console.log("error: ", error);
+                        }
+                    );
 
 
 
