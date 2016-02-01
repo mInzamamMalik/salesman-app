@@ -4,11 +4,9 @@
         .controller("signupController",function ($scope, $http, $state, $ionicLoading, $ionicPopup) {
             $scope.userObject = {};
 
-            $scope.signup = function () {
+            $scope.signup = function () {// when user click on signup this function execute
 
-
-
-                $scope.showLoding();
+                $scope.showLoding(); // show loding until signup success or fail
 
 
                 /*interface patternOfUserObject {
@@ -22,7 +20,7 @@
                  }*/
 
 
-                $http({
+                $http({ // this line will send signup request to server with an object in request body
                     method: "post",
                     url: "/v1/signup",
                     data: {
@@ -35,22 +33,24 @@
 
                     }
                 }).then(
-                    function (response) {
+                    function (response) { //this function execute on signup response
                         console.log("res: ", response.data);
+                        $scope.hideLoding();//hide loading as signup response is arrived
 
-                        $scope.hideLoding();
-                        ////////////////////
 
-                        if (response.data.signup) {
-
+                        if (response.data.signup) { //on signup success
                             $scope.showAlert("Congratulation !!","signed up successfully, please login to continue...");
-                            $state.go("login");
-                        } else {
+                            $state.go("login");//route page to login on successful signup
+
+                        } else { //on signup fail
                             $scope.showAlert("Login Failed !!",response.data.message);
                         }
+
                     },
-                    function (error) {
+                    function (error) {// this function execute when unable to send request
                         console.log("error: ", error);
+                        $scope.hideLoding();//hide loding as unable to send loding
+                        $scope.showAlert("Unknown Error !!","check you internet connection or check log for technical detail");
                     }
                 );
             };

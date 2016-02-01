@@ -13,7 +13,7 @@ var userSchema = new mongoose.Schema({
     firebaseToken: String
 });
 var userModule = mongoose.model("users", userSchema);
-////////////////////////////////////////////////////////////////////////////////
+///////////////////////do signup started/////////////////////////////////////////////////////////////////
 var doSignup = function (signupObject) {
     console.log("ok");
     var deferred = q.defer(); // deferred object created
@@ -41,7 +41,7 @@ var doSignup = function (signupObject) {
             console.log("Successfully created user account with uid:", userData.uid);
             //injecting uid to current userobject
             signupObject.firebaseUid = userData.uid;
-            /////////
+            /////==========////
             signupOnMongodb(signupObject).then(function (data) {
                 deferred.resolve(data);
             }, function (error) {
@@ -51,13 +51,13 @@ var doSignup = function (signupObject) {
     }); //createUser ended -- firebase
     return deferred.promise; //promise returned  
 };
-exports.doSignup = doSignup; //do signup ended
-////////////////////////////////////////////////////////////////////////////////////////
+exports.doSignup = doSignup;
+///////////////////////do signup ended/////////////////////////////////////////////////////////////////
 //////////////////////////start signup on mongo db////////////////////////////////////////
 //this function take userObject with uid and save in mongodb
 //return promise with given object on resolve
 //retirn promise with mongoose error object on reject`
-var signupOnMongodb = function (signupObject) {
+function signupOnMongodb(signupObject) {
     var deferred = q.defer();
     var newUser = new userModule(signupObject);
     newUser.save(function (err, data) {
@@ -69,5 +69,21 @@ var signupOnMongodb = function (signupObject) {
         }
     });
     return deferred.promise;
-};
+}
 ///////////////////////end signup on mongo db/////////////////////////////////////////////////////
+function doLogin(loginObject) {
+    var deferred = q.defer();
+    ref.authWithPassword({
+        "email": loginObject.email,
+        "password": loginObject.password
+    }, function (error, authData) {
+        if (error) {
+            console.log("Login Failed!", error);
+        }
+        else {
+            console.log("Authenticated successfully with payload:", authData);
+        }
+    });
+    return deferred.promise;
+}
+exports.doLogin = doLogin;

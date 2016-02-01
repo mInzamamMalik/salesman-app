@@ -15,4 +15,13 @@ v1.post("/signup", function (req, res, next) {
         res.json({ signup: false, message: err });
     });
 });
+///////////////////////////////////////////////////////////////////////////////////////
+v1.post("/login", function (req, res, next) {
+    var email = req.body.email;
+    var password = req.body.password;
+    userModel_1.doLogin({
+        email: email,
+        password: password
+    });
+});
 module.exports = v1;

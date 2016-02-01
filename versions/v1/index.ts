@@ -2,7 +2,7 @@ import express = require("express");
 import bodyParser = require("body-parser");
 
 //schemas methods
- import { doSignup } from "../../DBrepo/userModel";
+ import { doSignup , doLogin } from "../../DBrepo/userModel";
 
 
 let v1 = express.Router()
@@ -40,7 +40,20 @@ v1.post("/signup", (req: express.Request, res: express.Response, next: Function)
     
     
 });
-
+///////////////////////////////////////////////////////////////////////////////////////
+v1.post("/login", (req: express.Request, res: express.Response, next: Function) => {
+    
+    let email = req.body.email;
+    let password = req.body.password;
+    
+    
+    doLogin({
+        email:email ,
+        password:password
+    });
+    
+    
+});
 
 
 

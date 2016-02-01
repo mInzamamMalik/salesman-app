@@ -21,9 +21,14 @@ let userModule = mongoose.model("users", userSchema);
 
 
 
-////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+///////////////////////do signup started/////////////////////////////////////////////////////////////////
 let doSignup = (signupObject) => {
-    
+
     console.log("ok");
 
     let deferred = q.defer();// deferred object created
@@ -43,7 +48,7 @@ let doSignup = (signupObject) => {
                     console.log("The new user account cannot be created because the email is already in use.");
                     deferred.reject("The new user account cannot be created because the email is already in use.");
                     break;
-                    
+
                 case "INVALID_EMAIL":
                     console.log("The specified email is not a valid email.");
                     deferred.reject("The specified email is not a valid email.");
@@ -51,7 +56,7 @@ let doSignup = (signupObject) => {
                     
                 default:
                     console.log("Error creating user:", error);
-                    deferred.reject(error);                    
+                    deferred.reject(error);
             }// switch ended
             
         } else { // if no-error in firebase createUser this else will execute
@@ -61,14 +66,16 @@ let doSignup = (signupObject) => {
             //injecting uid to current userobject
             signupObject.firebaseUid = userData.uid;
 
-            /////////
-            signupOnMongodb(signupObject).then((data)=>{
+
+            /////==========////
+            signupOnMongodb(signupObject).then((data) => {
                 deferred.resolve(data);
             },
-            (error)=>{
-                deferred.reject(error);//===>> at this point i have to roll back firebase createUser
-            });
-            ///////// 
+                (error) => {
+                    deferred.reject(error);//===>> at this point i have to roll back firebase createUser
+                });
+            /////==========//// 
+            
             
 
         }// else ended -- execute on no-error from firebase createUser
@@ -77,8 +84,8 @@ let doSignup = (signupObject) => {
     
     
     return deferred.promise; //promise returned  
-}//do signup ended
-////////////////////////////////////////////////////////////////////////////////////////
+}
+///////////////////////do signup ended/////////////////////////////////////////////////////////////////
 
 
 
@@ -89,20 +96,20 @@ let doSignup = (signupObject) => {
 
 //return promise with given object on resolve
 //retirn promise with mongoose error object on reject`
-let signupOnMongodb = (signupObject) => {
-    
+function signupOnMongodb(signupObject) {
+
     let deferred = q.defer();
 
-    let newUser = new userModule( signupObject );
-        newUser.save((err, data)=>{
-    
-            if(!err){
-                deferred.resolve(data);                
-            }else{
-                deferred.reject(err);
-            }
-            
-        });
+    let newUser = new userModule(signupObject);
+    newUser.save((err, data) => {
+
+        if (!err) {
+            deferred.resolve(data);
+        } else {
+            deferred.reject(err);
+        }
+
+    });
 
     return deferred.promise;
 }
@@ -112,5 +119,33 @@ let signupOnMongodb = (signupObject) => {
 
 
 
-export { doSignup }
+
+
+
+
+
+
+function doLogin(loginObject: { email: string, password: string }) {
+
+    let deferred = q.defer();
+
+    ref.authWithPassword({
+
+        "email": loginObject.email,
+        "password": loginObject.password
+
+    }, function(error, authData) {
+
+        if (error) {
+            console.log("Login Failed!", error);
+        } else {
+            console.log("Authenticated successfully with payload:", authData);
+        }
+
+    });
+    return deferred.promise;
+}
+
+
+export { doSignup, doLogin }
 
