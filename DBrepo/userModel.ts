@@ -54,14 +54,18 @@ let doSignup = (signupObject) => {
             
             console.log("Successfully created user account with uid:", userData.uid);
             
+            //injecting uid to current userobject
             signupObject.firebaseUid = userData.uid;
 
+            /////////
             signupOnMongodb(signupObject).then((data)=>{
                 deferred.resolve(data);
             },
             (error)=>{
                 deferred.reject(error);
             });
+            /////////
+            
 
         }// else ended -- execute on no-error from firebase createUser
 
@@ -76,15 +80,29 @@ let doSignup = (signupObject) => {
 
 
 
+//////////////////////////start signup on mongo db////////////////////////////////////////
+//this function take userObject with uid and save in mongodb
 
+//return promise with given object on resolve
+//retirn promise with mongoose error object on reject`
 let signupOnMongodb = (signupObject) => {
-
     
+    let deferred = q.defer();
+
+    let newUser = new userModule( signupObject );
+    
+    
+        newUser.save((err, data)=>{
+            if(!err){
+                deferred.resolve(data);
+            }                
+            
+        });
 
 
-
+    return deferred.promise;
 }
-
+///////////////////////end signup on mongo db/////////////////////////////////////////////////////
 
 
 
