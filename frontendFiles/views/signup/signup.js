@@ -11,12 +11,11 @@
                         method : "post",
                         url : "/v1/signup",
                         data : {
+                            // this values are required by api if any one is missing there will be problem
                             email : $scope.userObject.email,
                             password : $scope.userObject.password,
-
-                            fname : $scope.userObject.firstName,
-                            lname : $scope.userObject.lastName,
-                            username : $scope.userObject.username,
+                            firstName : $scope.userObject.firstName,
+                            lastName : $scope.userObject.lastName,
                             companyName : $scope.userObject.companyName
 
                         }
