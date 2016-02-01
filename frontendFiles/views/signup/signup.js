@@ -1,10 +1,13 @@
 (function() {
     angular.module("signup", [])
 
-        .controller("signupController",function ($scope, $http, $state) {
+        .controller("signupController",function ($scope, $http, $state, $ionicLoading) {
                 $scope.userObject = {};
 
                 $scope.signup = function(){
+
+                    $scope.showLoding();
+
 
 
                     /*interface patternOfUserObject {
@@ -35,6 +38,8 @@
                         function(response){
                             console.log("res: ", response.data);
 
+                            $scope.hideLoding();
+
                             if(response.data.signup){
                                 $state.go("login");
                             }else{
@@ -45,12 +50,31 @@
                             console.log("error: ", error);
                         }
                     );
+                };
 
 
 
 
+////////////////////loding code startted ///////////////
+            $scope.showLoding = function() {
+                $ionicLoading.show({
+                    template: 'Signing Up...'
+                });
+            };
+            $scope.hideLoding = function(){
+                $ionicLoading.hide();
+            };
 
-                }
+            $scope.showAlert = function(title,template) {
+                var alertPopup = $ionicPopup.alert({
+                    title: title,
+                    template: template
+                });
+////////////////////loding code ended /////////////////
+
+
+
+
             }
         );
 
