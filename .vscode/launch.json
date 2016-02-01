@@ -5,10 +5,9 @@
 			"name": "Launch",
 			"type": "node",
 			"request": "launch",
-			"program": "index.ts",
+			"program": "index.js",
 			"stopOnEntry": false,
-            
-			"args": [""],
+			"args": [],
 			"cwd": ".",
 			"runtimeExecutable": null,
 			"runtimeArgs": [
@@ -19,7 +18,7 @@
 			},
 			"externalConsole": false,
 			"sourceMaps": true,
-			"outDir": "bin"
+			"outDir": null
 		},
 		{
 			"name": "Attach",

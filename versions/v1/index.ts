@@ -2,7 +2,7 @@ import express = require("express");
 import bodyParser = require("body-parser");
 
 //schemas methods
- import {doSignup} from "../../DBrepo/userModel";
+ import { doSignup } from "../../DBrepo/userModel";
 
 
 let v1 = express.Router()
@@ -22,7 +22,7 @@ v1.post("/signup", (req: express.Request, res: express.Response, next: Function)
 
     }    
     
-    let signupObject : patternOfUserObject  =  req.body;
+    let signupObject  =  req.body;
     
     console.log("data is : ",signupObject);
     

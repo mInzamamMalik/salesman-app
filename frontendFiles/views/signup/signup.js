@@ -28,6 +28,7 @@
                             email : $scope.userObject.email,
                             password : $scope.userObject.password,
                             firstName : $scope.userObject.firstName,
+                            lastName : $scope.userObject.lastName,
                             companyName : $scope.userObject.companyName
 
                         }

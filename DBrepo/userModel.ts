@@ -1,8 +1,10 @@
 import mongoose = require("mongoose");
 import firebase = require("firebase");
 import q = require("q");
+
 mongoose.connect("mongodb://malikasinger:sales@ds049935.mongolab.com:49935/salesman-app");
 let ref = new firebase("https://sales-man-app.firebaseio.com/");
+
 let userSchema = new mongoose.Schema({
     firstName: String,
     lastName: String,
@@ -21,6 +23,8 @@ let userModule = mongoose.model("users", userSchema);
 
 ////////////////////////////////////////////////////////////////////////////////
 let doSignup = (signupObject) => {
+    
+    console.log("ok");
 
     let deferred = q.defer();// deferred object created
 
