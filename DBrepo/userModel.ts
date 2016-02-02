@@ -8,7 +8,7 @@ let ref = new Firebase("https://sales-man-app.firebaseio.com/");
 
 
 
-//////////////schema and model//////////////////////////////////////////
+//////////////schema and model///////////////////////////////////////////
 let userSchema = new mongoose.Schema({
     firstName: String,
     lastName: String,
