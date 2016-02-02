@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 (function() {
-    angular.module('starter', ['ionic', 'home', 'signup', 'login'])
+    angular.module('starter', ['ionic', 'home', 'signup', 'login' , 'adminDashboard'])
 
 
         .controller("appController", ['$scope', appController])
@@ -31,6 +31,12 @@
                     url: "/signup",
                     templateUrl: "views/signup/signup.html",
                     controller: "signupController"
+                })
+
+                .state("adminDashboard", {
+                    url: "/adminDashboard",
+                    templateUrl: "views/adminDashboard/adminDashboard.html",
+                    controller: "adminDashboardController"
                 })
         });
 

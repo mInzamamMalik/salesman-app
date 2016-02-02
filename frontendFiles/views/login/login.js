@@ -5,10 +5,10 @@
 
         angular.module("login", [])
 
-            .controller("loginController", ['$scope', loginController]);
+            .controller("loginController", ['$scope','$http','$state', loginController]);
 
 
-            function loginController($scope,$http) {
+            function loginController($scope,$http,$state) {
 
                 $scope.doLogin = function(){
                     $http({
@@ -21,6 +21,9 @@
                     }).then(
                         function(response){
                             console.log(response.data);
+
+                            $state.go("adminDashboard");
+
                         },
                         function(error){
                             console.log(error);
