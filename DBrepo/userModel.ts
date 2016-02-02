@@ -133,21 +133,34 @@ function signupOnMongodb(signupObject) {
 //this function takes an object wuth email and password property
 //and return token if user exist
  
-function doLogin(loginObject: { email: string, password: string }) {
+function doLogin(loginObject) {
 
     let deferred = q.defer();
+    
+    //console.log("this is under login ", loginObject);
 
     ref.authWithPassword({
 
-        "email": loginObject.email,
-        "password": loginObject.password
+        email       : loginObject.email,
+        password    : loginObject.password
 
     }, function(error, authData) {
 
         if (error) {
             console.log("Login Failed!", error);
+            
+            deferred.reject({
+                 logedIn : false,
+                 message : error
+            });
+            
         } else {
             console.log("Authenticated successfully with payload:", authData);
+            deferred.resolve({
+                 logedIn : true,
+                 uid : authData.uid,
+                 token : authData.token
+            });
         }
 
     });

@@ -17,11 +17,14 @@ v1.post("/signup", function (req, res, next) {
 });
 ///////////////////////////////////////////////////////////////////////////////////////
 v1.post("/login", function (req, res, next) {
-    var email = req.body.email;
-    var password = req.body.password;
+    //console.log(req.body , req.body.password );
     userModel_1.doLogin({
-        email: email,
-        password: password
+        email: req.body.email,
+        password: req.body.password
+    }).then(function (success) {
+        res.json(success);
+    }, function (err) {
+        res.json({ err: err });
     });
 });
 module.exports = v1;

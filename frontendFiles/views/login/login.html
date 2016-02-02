@@ -1,16 +1,16 @@
 <ion-view view-title="Login">
     <ion-content>
 
-        <form ng-submit="">
+        <form ng-submit="doLogin()">
             <div class="list">
 
                 <label class="item item-input">
-                    <input type="text" placeholder="username or email">
+                    <input type="email" placeholder="username or email" ng-model="loginObject.email">
                 </label>
                 <label class="item item-input">
-                    <input type="password" placeholder="password">
+                    <input type="password" placeholder="password" ng-model="loginObject.password">
                 </label>
-                <button class="button button-full button-balanced">Login</button>
+                <button class="button button-full button-balanced" type="submit">Login</button>
 
 
             </div>
