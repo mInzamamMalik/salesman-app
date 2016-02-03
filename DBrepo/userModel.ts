@@ -1,9 +1,9 @@
-import mongoose = require("mongoose");
-import firebase = require("firebase");
+import mongoose = require("mongoose"); //mongodb driver
+import Firebase = require("firebase");
 import q = require("q");
 
 mongoose.connect("mongodb://malikasinger:sales@ds049935.mongolab.com:49935/salesman-app");
-let ref = new firebase("https://sales-man-app.firebaseio.com/");
+let ref = new Firebase("https://sales-man-app.firebaseio.com/");
 
 
 
@@ -12,10 +12,10 @@ let ref = new firebase("https://sales-man-app.firebaseio.com/");
 let userSchema = new mongoose.Schema({
     firstName: String,
     lastName: String,
-    companyName: String,
+    companyName: String, //this will contain company display name
     email: { type: String, unique: true, require: true },
     password: String,
-    createdOn: { type: Date, default: Date.now },
+    createdOn: { type: Date, 'default': Date.now }, //pack 'default' in single quotes(this is Optional) to avoid compile error
     firebaseUid: String
 });
 
