@@ -144,7 +144,7 @@ function doLogin(loginObject) {
         email: loginObject.email,
         password: loginObject.password
 
-    }, (error, authData)=> { // a callback function to authWithPassword()
+    }, (error, authData) => { // a callback function to authWithPassword()
 
         if (error) { /// if any error occured during login this if will execute
             
@@ -198,9 +198,20 @@ function doLogin(loginObject) {
 
 
 
+function validateToken(token) {
+
+    ref.auth( token , function(error, result) {
+        if (error) {
+            console.log("Authentication Failed!", error);
+        } else {
+            console.log("Authenticated successfully with payload:", result.auth);
+            console.log("Auth expires at:", new Date(result.expires * 1000));
+        }
+    });
+
+}
 
 
 
-
-export { doSignup, doLogin }
+export { doSignup, doLogin, validateToken }
 

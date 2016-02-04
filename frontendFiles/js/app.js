@@ -10,7 +10,7 @@
         .controller("appController", ['$scope', appController])
 
 
-        .config(function ($urlRouterProvider, $stateProvider) {
+        .config(function ($urlRouterProvider, $stateProvider, $httpProvider) {
 
             $urlRouterProvider.otherwise("/home");
 
@@ -37,13 +37,32 @@
                     url: "/adminDashboard",
                     templateUrl: "views/adminDashboard/adminDashboard.html",
                     controller: "adminDashboardController"
-                })
+                });
+
+            $httpProvider.interceptors.push('httpInterceptor');
+        })
+
+
+
+        .factory("httpInterceptor", function(){
+            return {
+                request : function(config){
+
+                    //console.log("a http request is intersepted");
+                    var token = localStorage.getItem("token");
+                    if(token){
+                        config.url = config.url + "?token="+token;
+
+                    }
+                    return config;
+                }
+            }
         });
 
 
-    function appController($scope) {
+        function appController($scope) {
 
-    }
+        }
 
 
 })();

@@ -4,6 +4,7 @@ var bodyParser = require("body-parser");
 var userModel_1 = require("../../DBrepo/userModel");
 var v1 = express.Router();
 v1.use(bodyParser.json());
+////////////////////////signup request///////////////////////////////////////////////////////////////////
 v1.post("/signup", function (req, res, next) {
     var signupObject = req.body;
     console.log("data is : ", signupObject);
@@ -15,7 +16,8 @@ v1.post("/signup", function (req, res, next) {
         res.json({ signup: false, message: err });
     });
 });
-///////////////////////////////////////////////////////////////////////////////////////
+/////////////////signup request//////////////////////////////////////////////////////////////////////
+///////////////login resuest/////////////////////////////////////
 v1.post("/login", function (req, res, next) {
     //console.log(req.body , req.body.password );
     userModel_1.doLogin({
@@ -27,4 +29,14 @@ v1.post("/login", function (req, res, next) {
         res.json(err);
     });
 });
+///////////////login resuest/////////////////////////////////////
+/////////start/////if not authenticated return with 401 not autherised/authenticated///////////////////////////////////////////////////
+v1.use(function (req, res, next) {
+    console.log("token is: ", req.query.token);
+    // let parsedUrl = url.parse(req.params.token);
+    //console.log("parsed url is: " , parsedUrl);
+    //validateToken();
+    next();
+});
+///////////end///if not authenticated return with 401 not autherised/authenticated///////////////////////////////////////////////////
 module.exports = v1;

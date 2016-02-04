@@ -79,19 +79,25 @@ function signupOnMongodb(signupObject) {
 //this function takes an object wuth email and password property
 //and return token if user exist
 function doLogin(loginObject) {
-    var deferred = q.defer();
+    var deferred = q.defer(); // a defered object created
     //console.log("this is under login ", loginObject);
     ref.authWithPassword({
         email: loginObject.email,
         password: loginObject.password
     }, function (error, authData) {
         if (error) {
-            console.log("Login Failed!", error);
+            //console.log("Login Failed!", error);
             switch (error.code) {
                 case "INVALID_USER":
                     deferred.reject({
                         logedIn: false,
                         message: "this email is not exist please signup if this is your first time"
+                    });
+                    break;
+                case "INVALID_USER":
+                    deferred.reject({
+                        logedIn: false,
+                        message: "you have entered an incorrect password"
                     });
                     break;
                 default:
@@ -100,7 +106,7 @@ function doLogin(loginObject) {
                         message: error.code
                     });
                     break;
-            }
+            } ///switch which is handling errors is ended here
         }
         else {
             console.log("Authenticated successfully with payload:", authData);
@@ -111,8 +117,20 @@ function doLogin(loginObject) {
                 email: loginObject.email
             });
         }
-    });
+    }); //authWithPassword() is ended here
     return deferred.promise;
 }
 exports.doLogin = doLogin;
 //////////////////////////////do login ended/////////////////////////
+function validateToken(token) {
+    ref.auth(token, function (error, result) {
+        if (error) {
+            console.log("Authentication Failed!", error);
+        }
+        else {
+            console.log("Authenticated successfully with payload:", result.auth);
+            console.log("Auth expires at:", new Date(result.expires * 1000));
+        }
+    });
+}
+exports.validateToken = validateToken;

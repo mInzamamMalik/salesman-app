@@ -1,8 +1,9 @@
 import express = require("express");
 import bodyParser = require("body-parser");
+import url = require("url");
 
 //schemas methods
-import { doSignup, doLogin } from "../../DBrepo/userModel";
+import { doSignup, doLogin, validateToken } from "../../DBrepo/userModel";
 
 
 let v1 = express.Router()
@@ -10,7 +11,7 @@ let v1 = express.Router()
 v1.use(bodyParser.json());
 
 
-
+////////////////////////signup request///////////////////////////////////////////////////////////////////
 v1.post("/signup", (req: express.Request, res: express.Response, next: Function) => {
 
     interface patternOfUserObject {
@@ -41,14 +42,14 @@ v1.post("/signup", (req: express.Request, res: express.Response, next: Function)
 
 
 });
-///////////////////////////////////////////////////////////////////////////////////////
+/////////////////signup request//////////////////////////////////////////////////////////////////////
 
 
 
 
 
 
-
+///////////////login resuest/////////////////////////////////////
 v1.post("/login", (req: express.Request, res: express.Response, next: Function) => {
     
     //console.log(req.body , req.body.password );
@@ -68,7 +69,24 @@ v1.post("/login", (req: express.Request, res: express.Response, next: Function) 
             res.json(err);
         });
 });
+///////////////login resuest/////////////////////////////////////
 
+
+
+/////////start/////if not authenticated return with 401 not autherised/authenticated///////////////////////////////////////////////////
+v1.use((req:express.Request , res:express.Response , next : Function )=>{
+     
+    console.log("token is: ", req.query.token);
+     
+   // let parsedUrl = url.parse(req.params.token);
+     
+    //console.log("parsed url is: " , parsedUrl);
+     
+    //validateToken();
+    next();
+    
+});
+///////////end///if not authenticated return with 401 not autherised/authenticated///////////////////////////////////////////////////
 
 
 module.exports = v1;
