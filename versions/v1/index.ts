@@ -74,17 +74,30 @@ v1.post("/login", (req: express.Request, res: express.Response, next: Function) 
 
 
 /////////start/////if not authenticated return with 401 not autherised/authenticated///////////////////////////////////////////////////
-v1.use((req:express.Request , res:express.Response , next : Function )=>{
-     
+v1.use((req: express.Request, res: express.Response, next: Function) => {
+
     console.log("token is: ", req.query.token);
-     
-   // let parsedUrl = url.parse(req.params.token);
-     
-    //console.log("parsed url is: " , parsedUrl);
-     
-    //validateToken();
+
+    if (req.query.token) {
+
+        validateToken(req.query.token).then(
+            (success) => {
+                console.log("token valid hai");
+                next();
+                return;
+            },
+
+            (err) => {
+                console.log("token galat hai");
+                res.send(401);
+                return;
+            }
+        );
+    }
+
+
     next();
-    
+
 });
 ///////////end///if not authenticated return with 401 not autherised/authenticated///////////////////////////////////////////////////
 
