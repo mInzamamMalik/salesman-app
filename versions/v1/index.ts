@@ -65,7 +65,7 @@ v1.post("/login", (req: express.Request, res: express.Response, next: Function) 
         },
 
         (err) => {
-            res.json({ err });
+            res.json(err);
         });
 });
 

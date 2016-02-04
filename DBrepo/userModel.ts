@@ -63,7 +63,7 @@ let doSignup = (signupObject) => {
             
         } else { // if no-error in firebase createUser this else will execute            
 
-            console.log("Successfully created user account with uid:" , userData.uid);
+            console.log("Successfully created user account with uid:", userData.uid);
             
             //injecting uid to current userobject
             signupObject.firebaseUid = userData.uid;
@@ -98,19 +98,19 @@ let doSignup = (signupObject) => {
 //return promise with given object on resolve
 //retirn promise with mongoose error object on reject`
 function signupOnMongodb(signupObject) {
-    
+
     let deferred = q.defer();
 
     let newUser = new userModule(signupObject);
     newUser.save((err, data) => {
 
         if (!err) {
-            
+
             console.log(data);
             deferred.resolve(data);
-            
+
         } else {
-            
+
             console.log(err);
             deferred.reject(err);
         }
@@ -135,35 +135,63 @@ function signupOnMongodb(signupObject) {
  
 function doLogin(loginObject) {
 
-    let deferred = q.defer();
+    let deferred = q.defer(); // a defered object created
     
     //console.log("this is under login ", loginObject);
 
-    ref.authWithPassword({
+    ref.authWithPassword({ // authWithPassword() is a function which is proveded by firebase for authenticate user
 
-        email       : loginObject.email,
-        password    : loginObject.password
+        email: loginObject.email,
+        password: loginObject.password
 
-    }, function(error, authData) {
+    }, (error, authData)=> { // a callback function to authWithPassword()
 
-        if (error) {
-            console.log("Login Failed!", error);
+        if (error) { /// if any error occured during login this if will execute
             
-            deferred.reject({
-                 logedIn : false,
-                 message : error
-            });
-            
-        } else {
+            //console.log("Login Failed!", error);
+
+            switch (error.code) { //this switch taking error string and reject promise with a custom message 
+
+                case "INVALID_USER": //this case should true if user login with an email which is not exist
+
+                    deferred.reject({
+                        logedIn: false,
+                        message: "this email is not exist please signup if this is your first time"
+                    });
+                    break;
+
+                case "INVALID_USER": //this case should true if user enter correct email and invalid password
+
+                    deferred.reject({
+                        logedIn: false,
+                        message: "you have entered an incorrect password"
+                    });
+                    break;
+
+                default:// if no expected case will matched this will execute
+                    deferred.reject({
+                        logedIn: false,
+                        message: error.code
+                    });
+                    break;
+            }///switch which is handling errors is ended here
+
+        
+        } else { // if no error occured this else will execute and resolve promise with token and other auth data
+
+
             console.log("Authenticated successfully with payload:", authData);
+
             deferred.resolve({
-                 logedIn : true,
-                 uid : authData.uid,
-                 token : authData.token
+                logedIn: true,
+                uid: authData.uid,
+                token: authData.token,
+                email: loginObject.email
             });
         }
 
-    });
+    });//authWithPassword() is ended here
+    
     return deferred.promise;
 }
 //////////////////////////////do login ended/////////////////////////

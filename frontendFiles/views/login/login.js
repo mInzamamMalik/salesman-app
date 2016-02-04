@@ -36,15 +36,29 @@
             }).then(
                 function (response) {
 
-                    $scope.hideLoding();
+                    if(response.data.logedIn){
 
-                    console.log(response.data);
+                        $scope.hideLoding();
 
-                    $state.go("adminDashboard");
+                        console.log(response.data);
+
+                        localStorage.setItem("token", response.data.token);
+                        localStorage.setItem("uid", response.data.uid);
+                        localStorage.setItem("email", response.data.email);
+
+                        $state.go("adminDashboard");
+
+                    }else{
+                        $scope.hideLoding();
+                        console.log(response.data);
+                        $scope.showAlert("Login Failed !!" , response.data.message);
+
+                    }
 
                 },
                 function (error) {
                     console.log(error);
+                    $scope.showAlert("Login Failed !!" , "check your email & password or contact support if not resolved ");
 
                 }
             );
@@ -52,9 +66,14 @@
         };/////////////dologin ended here////////////////////////////
 
 
+
+
+
+
+
+
+
         ////////////////////loding code startted ///////////////
-
-
         $scope.showLoding = function (text) {
             $ionicLoading.show({
                 template: text

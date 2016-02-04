@@ -1,16 +1,16 @@
-var mongoose = require("mongoose");
-var firebase = require("firebase");
+var mongoose = require("mongoose"); //mongodb driver
+var Firebase = require("firebase");
 var q = require("q");
 mongoose.connect("mongodb://malikasinger:sales@ds049935.mongolab.com:49935/salesman-app");
-var ref = new firebase("https://sales-man-app.firebaseio.com/");
-//////////////schema and model//////////////////////////////////////////
+var ref = new Firebase("https://sales-man-app.firebaseio.com/");
+//////////////schema and model///////////////////////////////////////////
 var userSchema = new mongoose.Schema({
     firstName: String,
     lastName: String,
     companyName: String,
     email: { type: String, unique: true, require: true },
     password: String,
-    createdOn: { type: Date, default: Date.now },
+    createdOn: { type: Date, 'default': Date.now },
     firebaseUid: String
 });
 var userModule = mongoose.model("users", userSchema);
@@ -87,17 +87,28 @@ function doLogin(loginObject) {
     }, function (error, authData) {
         if (error) {
             console.log("Login Failed!", error);
-            deferred.reject({
-                logedIn: false,
-                message: error
-            });
+            switch (error.code) {
+                case "INVALID_USER":
+                    deferred.reject({
+                        logedIn: false,
+                        message: "this email is not exist please signup if this is your first time"
+                    });
+                    break;
+                default:
+                    deferred.reject({
+                        logedIn: false,
+                        message: error.code
+                    });
+                    break;
+            }
         }
         else {
             console.log("Authenticated successfully with payload:", authData);
             deferred.resolve({
                 logedIn: true,
                 uid: authData.uid,
-                token: authData.token
+                token: authData.token,
+                email: loginObject.email
             });
         }
     });

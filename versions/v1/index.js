@@ -24,7 +24,7 @@ v1.post("/login", function (req, res, next) {
     }).then(function (success) {
         res.json(success);
     }, function (err) {
-        res.json({ err: err });
+        res.json(err);
     });
 });
 module.exports = v1;
