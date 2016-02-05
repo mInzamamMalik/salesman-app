@@ -48,5 +48,13 @@ v1.use(function (req, res, next) {
     next();
 });
 ///////////end///if not authenticated return with 401 not autherised/authenticated///////////////////////////////////////////////////
-v1.get("");
+v1.get("/getCompanyProfile", function (req, res, next) {
+    userModel_1.getCompanyProfile(req.query.uid).then(function (success) {
+        console.log("ending res with data");
+        res.json(success);
+    }, function (err) {
+        res.json(err);
+        return;
+    });
+});
 module.exports = v1;

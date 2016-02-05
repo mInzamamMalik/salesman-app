@@ -142,20 +142,26 @@ exports.validateToken = validateToken;
 ///////////////this function is now working///////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////
 function getCompanyProfile(companyFirebaseUid) {
+    var deferred = q.defer();
     userModule.findOne({ firebaseUid: companyFirebaseUid }, function (err, user) {
         if (!err) {
             if (!user) {
                 // res.redirect('/login?404=user');
                 console.log("nai mila: case 1: ", err, user);
+                deferred.reject(err);
             }
             else {
                 console.log("mil gya: case 2: ", err, user);
+                deferred.resolve(user);
             }
         }
         else {
             console.log("case 3: ", err, user);
+            //res.redirect('/login?404=error');
+            deferred.reject(err);
         }
     });
+    return deferred.promise;
 }
 exports.getCompanyProfile = getCompanyProfile;
 //////////////////////////////////////////////////////////////////////////////////////////

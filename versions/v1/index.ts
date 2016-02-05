@@ -104,7 +104,26 @@ v1.use((req: express.Request, res: express.Response, next: Function) => {
 ///////////end///if not authenticated return with 401 not autherised/authenticated///////////////////////////////////////////////////
 
 
-v1.get("");
+v1.get("/getCompanyProfile",(req:express.Request , res:express.Response , next:Function)=>{
+    
+    getCompanyProfile(  req.query.uid  ).then(
+        
+            (success) => {
+                console.log("ending res with data");
+                res.json(success);
+
+            },
+
+            (err) => {
+
+                res.json(err);
+                return;
+            }
+        
+    );
+    
+    
+});
 
 
 
