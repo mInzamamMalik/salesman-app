@@ -2,8 +2,11 @@ import mongoose = require("mongoose"); //mongodb driver
 import Firebase = require("firebase");
 import q = require("q"); //to return deferred.promise from function
 
-mongoose.connect("mongodb://malikasinger:sales@ds049935.mongolab.com:49935/salesman-app");
 let ref = new Firebase("https://sales-man-app.firebaseio.com/");
+
+//var dbURI = "mongodb://malikasinger:sales@ds049935.mongolab.com:49935/salesman-app";
+var dbURI = 'mongodb://localhost/mydatabase';
+mongoose.connect(dbURI);
 
 
 
@@ -74,7 +77,7 @@ let doSignup = (signupObject) => {
                 deferred.resolve(data);
             },
                 (error) => {
-                    deferred.reject(error);//===>> at this point i have to roll back firebase createUser
+                    deferred.reject(error);
                 });
             /////==========//// 
             
@@ -110,7 +113,7 @@ function signupOnMongodb(signupObject) {
             deferred.resolve(data);
 
         } else {
-
+            //===>> at this point i have to roll back firebase createUser
             console.log(err);
             deferred.reject(err);
         }
@@ -199,15 +202,15 @@ function doLogin(loginObject) {
 
 ///////////////this function is now working///////////////////////////////////////
 function validateToken(token) {
-    
+
     let deferred = q.defer();
 
     ref.auth(token, function(error, result) {
         if (error) {
             console.log("Authentication Failed!", error);
-            
+
             deferred.reject(error);
-            
+
         } else {
             console.log("Authenticated successfully with payload:", result.auth);
             console.log("Auth expires at:", new Date(result.expires * 1000));
@@ -227,7 +230,7 @@ return deferred.promise;
 
 ////////////////////////////////////////////////////////////////////////////////////////
 function getCompanyProfile(companyFirebaseUid) {
-    
+
     let deferred = q.defer();
 
     userModule.findOne({ firebaseUid: companyFirebaseUid }, (err, user) => {
@@ -239,8 +242,10 @@ function getCompanyProfile(companyFirebaseUid) {
                 deferred.reject(err);
             } else {
                 console.log("mil gya: case 2: ",err,user);
-                
+
                 deferred.resolve(user);
+                
+                //console.log("console after resolve will not work");
                 // req.session.user = {
                 // "name": user.name,
                 // "email": user.email,
@@ -254,7 +259,7 @@ function getCompanyProfile(companyFirebaseUid) {
            deferred.reject(err);
         }
     });
-    
+
     return deferred.promise;
 }
 //////////////////////////////////////////////////////////////////////////////////////////
