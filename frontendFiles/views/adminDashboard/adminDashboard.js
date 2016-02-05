@@ -8,10 +8,15 @@
 
     angular.module("adminDashboard", [])
 
-        .controller("adminDashboardController", ['$scope', '$http', adminDashboardController]);
+        .controller("adminDashboardController", ['$scope', '$http','unversalFunctionsService', adminDashboardController]);
 
 
-    function adminDashboardController($scope,$http) {
+    function adminDashboardController($scope,$http,unversalFunctionsService) {
+
+        unversalFunctionsService.isLoggedIn();
+
+        $scope.logout = unversalFunctionsService.clearCredentials;
+
 
         $scope.token = localStorage.getItem("token");
         $scope.uid = localStorage.getItem("uid");
@@ -23,8 +28,8 @@
         $http.get("/v1/getCompanyProfile").then(
             function (response) {
 
-                    console.log("response: ",response);
-
+                    console.log("response: ",response.data);
+                    $scope.profileObject = response.data;
             },
             function (error) {
                 console.log("error: ",error);
