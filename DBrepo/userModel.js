@@ -122,7 +122,7 @@ function doLogin(loginObject) {
 }
 exports.doLogin = doLogin;
 //////////////////////////////do login ended/////////////////////////
-///////////////this function is now critical and not working///////////////////////////////////////
+///////////////this function is now working///////////////////////////////////////
 function validateToken(token) {
     var deferred = q.defer();
     ref.auth(token, function (error, result) {
@@ -139,7 +139,7 @@ function validateToken(token) {
     return deferred.promise;
 }
 exports.validateToken = validateToken;
-///////////////this function is now critical and not working///////////////////////////////////////
+///////////////this function is now working///////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////
 function getCompanyProfile(companyFirebaseUid) {
     userModule.findOne({ firebaseUid: companyFirebaseUid }, function (err, user) {

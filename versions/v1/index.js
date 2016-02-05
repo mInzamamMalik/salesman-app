@@ -48,4 +48,5 @@ v1.use(function (req, res, next) {
     next();
 });
 ///////////end///if not authenticated return with 401 not autherised/authenticated///////////////////////////////////////////////////
+v1.get("");
 module.exports = v1;

@@ -197,7 +197,7 @@ function doLogin(loginObject) {
 //////////////////////////////do login ended/////////////////////////
 
 
-///////////////this function is now critical and not working///////////////////////////////////////
+///////////////this function is now working///////////////////////////////////////
 function validateToken(token) {
     
     let deferred = q.defer();
@@ -216,7 +216,7 @@ function validateToken(token) {
     });
 return deferred.promise;
 }
-///////////////this function is now critical and not working///////////////////////////////////////
+///////////////this function is now working///////////////////////////////////////
 
 
 
