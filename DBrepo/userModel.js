@@ -1,8 +1,10 @@
 var mongoose = require("mongoose"); //mongodb driver
 var Firebase = require("firebase");
 var q = require("q"); //to return deferred.promise from function
-mongoose.connect("mongodb://malikasinger:sales@ds049935.mongolab.com:49935/salesman-app");
 var ref = new Firebase("https://sales-man-app.firebaseio.com/");
+var dbURI = "mongodb://malikasinger:sales@ds049935.mongolab.com:49935/salesman-app";
+//var dbURI = 'mongodb://localhost/mydatabase';
+mongoose.connect(dbURI);
 //////////////schema and model///////////////////////////////////////////
 var userSchema = new mongoose.Schema({
     firstName: String,
@@ -47,7 +49,7 @@ var doSignup = function (signupObject) {
             signupOnMongodb(signupObject).then(function (data) {
                 deferred.resolve(data);
             }, function (error) {
-                deferred.reject(error); //===>> at this point i have to roll back firebase createUser
+                deferred.reject(error);
             });
         } // else ended -- execute on no-error from firebase createUser
     }); //createUser ended -- firebase    
@@ -68,6 +70,7 @@ function signupOnMongodb(signupObject) {
             deferred.resolve(data);
         }
         else {
+            //===>> at this point i have to roll back firebase createUser
             console.log(err);
             deferred.reject(err);
         }

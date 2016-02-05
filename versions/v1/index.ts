@@ -78,51 +78,55 @@ v1.use((req: express.Request, res: express.Response, next: Function) => {
 
     console.log("token is: ", req.query.token);
     console.log("uid is: ", req.query.uid);
-    
-    
+
+
     if (req.query.token) {
 
         validateToken(req.query.token).then(
             (success) => {
                 console.log("token valid hai");
                 next();
-                return;
-            },
-
-            (err) => {
-                console.log("token galat hai");
-                res.send(401);
-                return;
+                //return;
             }
         );
     }
 
+    console.log("token galat hai");
+    res.send(401);
+    return;
 
-    next();
 
 });
 ///////////end///if not authenticated return with 401 not autherised/authenticated///////////////////////////////////////////////////
 
 
-v1.get("/getCompanyProfile",(req:express.Request , res:express.Response , next:Function)=>{
-    
-    getCompanyProfile(  req.query.uid  ).then(
-        
-            (success) => {
-                console.log("ending res with data");
-                res.json(success);
+v1.get("/isLoggedIn", (req, res, next) => {
 
-            },
+    console.log("isLoggedIn check hitted");
+    res.json({ isLoggedIn: true });
+});
 
-            (err) => {
 
-                res.json(err);
-                return;
-            }
-        
+
+v1.get("/getCompanyProfile", (req: express.Request, res: express.Response, next: Function) => {
+
+    getCompanyProfile(req.query.uid).then(
+
+        (success) => {
+            console.log("ending res with data");
+            res.json(success);
+
+        },
+
+        (err) => {
+
+            res.json(err);
+            return;
+        }
+
     );
-    
-    
+
+
 });
 
 

@@ -4,8 +4,8 @@ import q = require("q"); //to return deferred.promise from function
 
 let ref = new Firebase("https://sales-man-app.firebaseio.com/");
 
-//var dbURI = "mongodb://malikasinger:sales@ds049935.mongolab.com:49935/salesman-app";
-var dbURI = 'mongodb://localhost/mydatabase';
+var dbURI = "mongodb://malikasinger:sales@ds049935.mongolab.com:49935/salesman-app";
+//var dbURI = 'mongodb://localhost/mydatabase';
 mongoose.connect(dbURI);
 
 

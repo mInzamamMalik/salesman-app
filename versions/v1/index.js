@@ -38,16 +38,18 @@ v1.use(function (req, res, next) {
         userModel_1.validateToken(req.query.token).then(function (success) {
             console.log("token valid hai");
             next();
-            return;
-        }, function (err) {
-            console.log("token galat hai");
-            res.send(401);
-            return;
+            //return;
         });
     }
-    next();
+    console.log("token galat hai");
+    res.send(401);
+    return;
 });
 ///////////end///if not authenticated return with 401 not autherised/authenticated///////////////////////////////////////////////////
+v1.get("/isLoggedIn", function (req, res, next) {
+    console.log("isLoggedIn check hitted");
+    res.json({ isLoggedIn: true });
+});
 v1.get("/getCompanyProfile", function (req, res, next) {
     userModel_1.getCompanyProfile(req.query.uid).then(function (success) {
         console.log("ending res with data");

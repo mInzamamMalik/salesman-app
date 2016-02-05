@@ -2,7 +2,7 @@
 
 
     <ion-nav-buttons>
-        <button class="button" ng-click="doSomething()">
+        <button class="button" ng-click="logout()">
             logout
         </button>
     </ion-nav-buttons>
@@ -13,8 +13,9 @@
 
             <div class="item item-avatar" >
                 <img src="./img/profile.jpg" ng-hide="true" >
-                <h2>Marty McFly</h2>
-                <p>November 05, 1955</p>
+                <h2 ng-bind="profileObject.companyName"></h2>
+                <p ng-bind="profileObject.createdOn | date"></p>
+                <p ng-bind="profileObject.email"></p>
             </div>
 
             <div class="item item-body">

@@ -5,18 +5,19 @@
 
     angular.module("login", [])
 
-        .controller("loginController", ['$scope', '$http', '$state', '$ionicLoading', '$ionicPopup', loginController]);
+        .controller("loginController", ['$scope', '$http', '$state','$ionicHistory','unversalFunctionsService', loginController]);
 
 
-    function loginController($scope, $http, $state, $ionicLoading, $ionicPopup) {
+    function loginController($scope, $http, $state,$ionicHistory, unversalFunctionsService) {
 
+        unversalFunctionsService.isLoggedIn();
 
         $scope.loginObject = {};/////this is an empty object for store login information
 
 
         $scope.doLogin = function () {/////////////////doLogin start here/////////////////////////////////////
 
-            $scope.showLoding("Singing in...");//show loading screen
+            unversalFunctionsService.showLoading("Singing in...");//show loading screen
 
             $http({///////////send login request to server with login information in body
                 method: "post",
@@ -38,7 +39,7 @@
 
                     if(response.data.logedIn){
 
-                        $scope.hideLoding();
+                        unversalFunctionsService.hideLoading();
 
                         console.log(response.data);
 
@@ -46,49 +47,34 @@
                         localStorage.setItem("uid", response.data.uid);
                         localStorage.setItem("email", response.data.email);
 
+                        /*
+                            disableAnimate: Do not animate the next transition.
+                            disableBack: The next view should forget its back view, and set it to null.
+                            historyRoot: The next view should become the root view in its history stack.
+                        */
+                        $ionicHistory.nextViewOptions({
+                            disableBack: true,
+                            historyRoot: true
+                        });
                         $state.go("adminDashboard");
 
                     }else{
-                        $scope.hideLoding();
+                        unversalFunctionsService.hideLoading();
                         console.log(response.data);
-                        $scope.showAlert("Login Failed !!" , response.data.message);
+                        unversalFunctionsService.showAlert("Login Failed !!" , response.data.message);
 
                     }
 
                 },
                 function (error) {
                     console.log(error);
-                    $scope.showAlert("Login Failed !!" , "check your email & password or contact support if not resolved ");
+                    unversalFunctionsService.showAlert("Login Failed !!" , "check your email & password or contact support if not resolved ");
 
                 }
             );
 
         };/////////////dologin ended here////////////////////////////
 
-
-
-
-
-
-
-
-
-        ////////////////////loding code startted ///////////////
-        $scope.showLoding = function (text) {
-            $ionicLoading.show({
-                template: text
-            });
-        };
-        $scope.hideLoding = function () {
-            $ionicLoading.hide();
-        };
-        $scope.showAlert = function (title, template) {
-            $ionicPopup.alert({
-                title: title,
-                template: template
-            });
-        };
-        ////////////////////loding code ended /////////////////
 
 
     }/////controller ended here//////////////////////////
