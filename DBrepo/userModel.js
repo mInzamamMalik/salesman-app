@@ -124,15 +124,19 @@ exports.doLogin = doLogin;
 //////////////////////////////do login ended/////////////////////////
 ///////////////this function is now critical and not working///////////////////////////////////////
 function validateToken(token) {
+    var deferred = q.defer();
     ref.auth(token, function (error, result) {
         if (error) {
             console.log("Authentication Failed!", error);
+            deferred.reject(error);
         }
         else {
             console.log("Authenticated successfully with payload:", result.auth);
             console.log("Auth expires at:", new Date(result.expires * 1000));
+            deferred.resolve(result);
         }
     });
+    return deferred.promise;
 }
 exports.validateToken = validateToken;
 ///////////////this function is now critical and not working///////////////////////////////////////

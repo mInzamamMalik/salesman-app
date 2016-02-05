@@ -8,14 +8,31 @@
 
     angular.module("adminDashboard", [])
 
-        .controller("adminDashboardController", ['$scope', loginController]);
+        .controller("adminDashboardController", ['$scope', '$http', adminDashboardController]);
 
 
-    function loginController($scope,$http) {
+    function adminDashboardController($scope,$http) {
 
         $scope.token = localStorage.getItem("token");
         $scope.uid = localStorage.getItem("uid");
         $scope.email = localStorage.getItem("email");
+
+
+        $http({///////////send a request to server
+            method: "get",
+            url: "/v1/getCompanyProfile"
+
+        }).then(
+            function (response) {
+
+                    console.log("response: ",response.data);
+
+            },
+            function (error) {
+                console.log("error: ",error);
+
+            }
+        );
 
 
 

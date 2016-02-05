@@ -80,22 +80,22 @@ v1.use((req: express.Request, res: express.Response, next: Function) => {
     console.log("uid is: ", req.query.uid);
     
     
-    // if (req.query.token) {
+    if (req.query.token) {
 
-    //     validateToken(req.query.token).then(
-    //         (success) => {
-    //             console.log("token valid hai");
-    //             next();
-    //             return;
-    //         },
+        validateToken(req.query.token).then(
+            (success) => {
+                console.log("token valid hai");
+                next();
+                return;
+            },
 
-    //         (err) => {
-    //             console.log("token galat hai");
-    //             res.send(401);
-    //             return;
-    //         }
-    //     );
-    // }
+            (err) => {
+                console.log("token galat hai");
+                res.send(401);
+                return;
+            }
+        );
+    }
 
 
     next();
@@ -104,7 +104,7 @@ v1.use((req: express.Request, res: express.Response, next: Function) => {
 ///////////end///if not authenticated return with 401 not autherised/authenticated///////////////////////////////////////////////////
 
 
-
+v1.get("");
 
 
 
