@@ -77,23 +77,25 @@ v1.post("/login", (req: express.Request, res: express.Response, next: Function) 
 v1.use((req: express.Request, res: express.Response, next: Function) => {
 
     console.log("token is: ", req.query.token);
+    console.log("uid is: ", req.query.uid);
+    
+    
+    // if (req.query.token) {
 
-    if (req.query.token) {
+    //     validateToken(req.query.token).then(
+    //         (success) => {
+    //             console.log("token valid hai");
+    //             next();
+    //             return;
+    //         },
 
-        validateToken(req.query.token).then(
-            (success) => {
-                console.log("token valid hai");
-                next();
-                return;
-            },
-
-            (err) => {
-                console.log("token galat hai");
-                res.send(401);
-                return;
-            }
-        );
-    }
+    //         (err) => {
+    //             console.log("token galat hai");
+    //             res.send(401);
+    //             return;
+    //         }
+    //     );
+    // }
 
 
     next();
@@ -103,9 +105,6 @@ v1.use((req: express.Request, res: express.Response, next: Function) => {
 
 
 
-v1.get(){
-    
-}
 
 
 

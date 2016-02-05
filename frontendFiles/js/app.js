@@ -53,8 +53,7 @@
                     var uid = localStorage.getItem("uid");
 
                     if(token){
-                        config.url = config.url + "?token=" + token + "&" ;
-
+                        config.url = config.url + "?uid=" + uid + "&token=" + token ;
                     }
                     return config;
                 }

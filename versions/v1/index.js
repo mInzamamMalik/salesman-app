@@ -33,17 +33,21 @@ v1.post("/login", function (req, res, next) {
 /////////start/////if not authenticated return with 401 not autherised/authenticated///////////////////////////////////////////////////
 v1.use(function (req, res, next) {
     console.log("token is: ", req.query.token);
-    if (req.query.token) {
-        userModel_1.validateToken(req.query.token).then(function (success) {
-            console.log("token valid hai");
-            next();
-            return;
-        }, function (err) {
-            console.log("token galat hai");
-            res.send(401);
-            return;
-        });
-    }
+    console.log("uid is: ", req.query.uid);
+    // if (req.query.token) {
+    //     validateToken(req.query.token).then(
+    //         (success) => {
+    //             console.log("token valid hai");
+    //             next();
+    //             return;
+    //         },
+    //         (err) => {
+    //             console.log("token galat hai");
+    //             res.send(401);
+    //             return;
+    //         }
+    //     );
+    // }
     next();
 });
 ///////////end///if not authenticated return with 401 not autherised/authenticated///////////////////////////////////////////////////
