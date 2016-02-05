@@ -50,8 +50,10 @@
 
                     //console.log("a http request is intersepted");
                     var token = localStorage.getItem("token");
+                    var uid = localStorage.getItem("uid");
+
                     if(token){
-                        config.url = config.url + "?token="+token;
+                        config.url = config.url + "?token=" + token + "&" ;
 
                     }
                     return config;

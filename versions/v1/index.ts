@@ -3,7 +3,7 @@ import bodyParser = require("body-parser");
 import url = require("url");
 
 //schemas methods
-import { doSignup, doLogin, validateToken } from "../../DBrepo/userModel";
+import { doSignup, doLogin, validateToken, getCompanyProfile } from "../../DBrepo/userModel";
 
 
 let v1 = express.Router()
@@ -100,6 +100,18 @@ v1.use((req: express.Request, res: express.Response, next: Function) => {
 
 });
 ///////////end///if not authenticated return with 401 not autherised/authenticated///////////////////////////////////////////////////
+
+
+
+v1.get(){
+    
+}
+
+
+
+
+
+
 
 
 module.exports = v1;

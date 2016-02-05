@@ -1,6 +1,6 @@
 var mongoose = require("mongoose"); //mongodb driver
 var Firebase = require("firebase");
-var q = require("q");
+var q = require("q"); //to return deferred.promise from function
 mongoose.connect("mongodb://malikasinger:sales@ds049935.mongolab.com:49935/salesman-app");
 var ref = new Firebase("https://sales-man-app.firebaseio.com/");
 //////////////schema and model///////////////////////////////////////////
@@ -9,7 +9,7 @@ var userSchema = new mongoose.Schema({
     lastName: String,
     companyName: String,
     email: { type: String, unique: true, require: true },
-    password: String,
+    //password: String,
     createdOn: { type: Date, 'default': Date.now },
     firebaseUid: String
 });
@@ -122,6 +122,7 @@ function doLogin(loginObject) {
 }
 exports.doLogin = doLogin;
 //////////////////////////////do login ended/////////////////////////
+///////////////this function is now critical and not working///////////////////////////////////////
 function validateToken(token) {
     ref.auth(token, function (error, result) {
         if (error) {
@@ -134,3 +135,23 @@ function validateToken(token) {
     });
 }
 exports.validateToken = validateToken;
+///////////////this function is now critical and not working///////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+function getCompanyProfile(companyFirebaseUid) {
+    userModule.findOne({ firebaseUid: companyFirebaseUid }, function (err, user) {
+        if (!err) {
+            if (!user) {
+                // res.redirect('/login?404=user');
+                console.log("nai mila: case 1: ", err, user);
+            }
+            else {
+                console.log("mil gya: case 2: ", err, user);
+            }
+        }
+        else {
+            console.log("case 3: ", err, user);
+        }
+    });
+}
+exports.getCompanyProfile = getCompanyProfile;
+//////////////////////////////////////////////////////////////////////////////////////////

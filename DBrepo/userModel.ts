@@ -1,6 +1,6 @@
 import mongoose = require("mongoose"); //mongodb driver
 import Firebase = require("firebase");
-import q = require("q");
+import q = require("q"); //to return deferred.promise from function
 
 mongoose.connect("mongodb://malikasinger:sales@ds049935.mongolab.com:49935/salesman-app");
 let ref = new Firebase("https://sales-man-app.firebaseio.com/");
@@ -14,7 +14,7 @@ let userSchema = new mongoose.Schema({
     lastName: String,
     companyName: String, //this will contain company display name
     email: { type: String, unique: true, require: true },
-    password: String,
+    //password: String,
     createdOn: { type: Date, 'default': Date.now }, //pack 'default' in single quotes(this is Optional) to avoid compile error
     firebaseUid: String
 });
@@ -197,10 +197,10 @@ function doLogin(loginObject) {
 //////////////////////////////do login ended/////////////////////////
 
 
-
+///////////////this function is now critical and not working///////////////////////////////////////
 function validateToken(token) {
 
-    ref.auth( token , function(error, result) {
+    ref.auth(token, function(error, result) {
         if (error) {
             console.log("Authentication Failed!", error);
         } else {
@@ -210,8 +210,46 @@ function validateToken(token) {
     });
 
 }
+///////////////this function is now critical and not working///////////////////////////////////////
 
 
 
-export { doSignup, doLogin, validateToken }
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////
+function getCompanyProfile(companyFirebaseUid) {
+
+    userModule.findOne({ firebaseUid: companyFirebaseUid }, (err, user) => {
+
+        if (!err) {
+            if (!user) {
+                // res.redirect('/login?404=user');
+                console.log("nai mila: case 1: ",err,user);
+            } else {
+                console.log("mil gya: case 2: ",err,user);
+                // req.session.user = {
+                // "name": user.name,
+                // "email": user.email,
+                // "_id": user._id
+                // };
+            }
+
+        }else{
+            console.log("case 3: ",err,user);
+            //res.redirect('/login?404=error');
+        }
+    });
+}
+//////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+export { doSignup, doLogin, validateToken, getCompanyProfile }
 
