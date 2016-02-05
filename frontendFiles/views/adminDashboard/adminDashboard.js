@@ -18,14 +18,12 @@
         $scope.email = localStorage.getItem("email");
 
 
-        $http({///////////send a request to server
-            method: "get",
-            url: "/v1/getCompanyProfile"
 
-        }).then(
+
+        $http.get("/v1/getCompanyProfile").then(
             function (response) {
 
-                    console.log("response: ",response.data);
+                    console.log("response: ",response);
 
             },
             function (error) {
