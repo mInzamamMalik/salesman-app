@@ -27,9 +27,9 @@
                 $scope.profileObject = response.data;
             },
             function (error) {
-                console.log("error: ", error);
+                console.log("error getting profile: ", error);
 
-                if(error.ststs == 401){
+                if(error.status == 401){
                     unversalFunctionsService.notLoggedIn();
                 }
 

@@ -115,11 +115,12 @@
                         console.log("isLoggedIn response", res);
                         if (res.data.isLoggedIn) { // it means user is loged in
                             vm.loggedIn();
+                        }else{
+                            vm.notLoggedIn();
                         }
                     });
                 }
 
-                vm.notLoggedIn();
             };
             ///////////////////////////////////////////////////////////////////////////////////////////////////
 

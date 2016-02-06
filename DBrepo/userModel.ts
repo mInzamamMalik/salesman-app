@@ -4,9 +4,40 @@ import q = require("q"); //to return deferred.promise from function
 
 let ref = new Firebase("https://sales-man-app.firebaseio.com/");
 
-var dbURI = "mongodb://malikasinger:sales@ds049935.mongolab.com:49935/salesman-app";
-//var dbURI = 'mongodb://localhost/mydatabase';
+let dbURI = "mongodb://malikasinger:sales@ds049935.mongolab.com:49935/salesman-app";
+// let dbURI = 'mongodb://localhost/mydatabase';
 mongoose.connect(dbURI);
+
+
+
+
+////////////////mongodb connected disconnected events///////////////////////////////////////////////
+mongoose.connection.on('connected', function() {//connected
+    console.log("Mongoose is connected");
+    // process.exit(1);
+});
+
+mongoose.connection.on('disconnected', function() {//disconnected
+    console.log("Mongoose is disconnected");
+    process.exit(1);
+});
+
+mongoose.connection.on('error', function(err) {//any error
+    console.log('Mongoose connection error: ', err);
+    process.exit(1);
+});
+
+process.on('SIGINT', function() {/////this function will run jst before app is closing
+    console.log("app is terminating");
+    mongoose.connection.close(function() {
+        console.log('Mongoose default connection closed');    
+        process.exit(0);
+    });    
+});
+////////////////mongodb connected disconnected events///////////////////////////////////////////////
+
+
+
 
 
 
@@ -189,8 +220,25 @@ function doLogin(loginObject) {
                 logedIn: true,
                 uid: authData.uid,
                 token: authData.token,
-                email: loginObject.email
+                email: loginObject.email,
+                photoUrl: authData.password.profileImageURL 
             });
+            
+            /*
+                       
+           { provider: 'password',
+             uid: '997e255d-d76a-48ca-9909-b0f1063c359c',
+             token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ2IjowLCJkIjp7InByb3ZpZGVyIjoicGFzc3dvcmQiLCJ1aWQiOiI5OTdlMjU1ZC1kNzZhLTQ4Y2EtOTkwOS1iMGYxMDYzYzM1OWMifSwiaWF0IjoxNDU0NzEwOTQxfQ.tAGWXnJxGPk4cukaP3wRMBwOcjUs9tvRD0xvMWO9q5M',
+             password: 
+              { email: 'malikasinger@gmail.com',
+                isTemporaryPassword: false,
+                profileImageURL: 'https://secure.gravatar.com/avatar/1eb899bbc24cd82bd9ef9dbbe10c5b82?d=retro' },
+             auth: 
+              { provider: 'password',
+                uid: '997e255d-d76a-48ca-9909-b0f1063c359c' },
+             expires: 1454797341 }
+           
+           */
         }
 
     });//authWithPassword() is ended here
@@ -217,7 +265,7 @@ function validateToken(token) {
             deferred.resolve(result);
         }
     });
-return deferred.promise;
+    return deferred.promise;
 }
 ///////////////this function is now working///////////////////////////////////////
 
@@ -238,10 +286,10 @@ function getCompanyProfile(companyFirebaseUid) {
         if (!err) {
             if (!user) {
                 // res.redirect('/login?404=user');
-                console.log("nai mila: case 1: ",err,user);
+                console.log("nai mila: case 1: ", err, user);
                 deferred.reject(err);
             } else {
-                console.log("mil gya: case 2: ",err,user);
+                console.log("mil gya: case 2: ", err, user);
 
                 deferred.resolve(user);
                 
@@ -253,10 +301,10 @@ function getCompanyProfile(companyFirebaseUid) {
                 // };
             }
 
-        }else{
-            console.log("case 3: ",err,user);
+        } else {
+            console.log("case 3: ", err, user);
             //res.redirect('/login?404=error');
-           deferred.reject(err);
+            deferred.reject(err);
         }
     });
 

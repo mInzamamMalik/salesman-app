@@ -86,14 +86,17 @@ v1.use((req: express.Request, res: express.Response, next: Function) => {
             (success) => {
                 console.log("token valid hai");
                 next();
-                //return;
+                return;
+            },
+            (err) => {
+                console.log("token galat hai");
+                res.send(401);
+                return;
             }
         );
     }
 
-    console.log("token galat hai");
-    res.send(401);
-    return;
+
 
 
 });

@@ -43,7 +43,7 @@
                             $state.go("login");//route page to login on successful signup
 
                         } else { //on signup fail
-                            $scope.showAlert("Login Failed !!",response.data.message);
+                            $scope.showAlert("Signup Failed !!",response.data.message);
                         }
 
                     },
