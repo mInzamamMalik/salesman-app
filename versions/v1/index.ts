@@ -94,7 +94,7 @@ v1.use((req: express.Request, res: express.Response, next: Function) => {
                 return;
             }
         );
-    }
+    };
 
 
 
