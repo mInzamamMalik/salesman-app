@@ -14,7 +14,7 @@
             <div class="item item-avatar" >
                 <img src="./img/profile.jpg" ng-hide="true" >
                 <h2 ng-bind="profileObject.companyName"></h2>
-                <p ng-show="profileObject.createdOn | date">{{}}</p>
+                <p ng-show="profileObject.createdOn">{{profileObject.createdOn | date}}</p>
                 <p ng-bind="profileObject.email"></p>
             </div>
 
