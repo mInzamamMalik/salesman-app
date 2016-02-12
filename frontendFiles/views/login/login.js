@@ -39,7 +39,6 @@
 
                     if (response.data.logedIn) {
 
-                        unversalFunctionsService.hideLoading();
 
                         console.log(response.data);
 
@@ -54,25 +53,26 @@
                          historyRoot: The next view should become the root view in its history stack.
                          */
 
-                        $http.get("/v1/isAdmin").then(function (res) {
 
-                            console.log("isLoggedIn response", res);
-                            if (res.data.isAdmin) { // it means user is loged in
+                        if (response.data.isAdmin) { // it means user is loged in
 
-                                $ionicHistory.nextViewOptions({
-                                    disableBack: true,
-                                    historyRoot: true
-                                });
-                                $state.go("adminDashboard", {}, {reload: true});
+                            unversalFunctionsService.hideLoading();
 
-                            } else if(!res.data.isAdmin){
-                                $ionicHistory.nextViewOptions({
-                                    disableBack: true,
-                                    historyRoot: true
-                                });
-                                $state.go("salesmanDashboard", {}, {reload: true});//this dash board is not yet created
-                            }
-                        });
+                            $ionicHistory.nextViewOptions({
+                                disableBack: true,
+                                historyRoot: true
+                            });
+                            $state.go("adminDashboard", {}, {reload: true});
+
+                        } else if (!response.data.isAdmin) {
+                            unversalFunctionsService.hideLoading();
+
+                            $ionicHistory.nextViewOptions({
+                                disableBack: true,
+                                historyRoot: true
+                            });
+                            $state.go("salesmanDashboard", {}, {reload: true});//this dash board is not yet created
+                        }
 
 
                     } else {

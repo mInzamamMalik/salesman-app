@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 (function () {
-    angular.module('starter', ['ionic', 'home', 'signup', 'login', 'adminDashboard'])
+    angular.module('starter', ['ionic', 'home', 'signup', 'login', 'adminDashboard','salesmanDashboard'])
 
 
         .controller("appController", ['$scope', appController])
@@ -36,7 +36,7 @@
                 .state("adminDashboard", {
                     cache: false, // controller will terminate on state change and not keep running
                     url: "/adminDashboard",
-                    templateUrl: "views/adminDashboard/salesmanDashboard.html",
+                    templateUrl: "views/adminDashboard/adminDashboard.html",
                     controller: "adminDashboardController"
                 })
 

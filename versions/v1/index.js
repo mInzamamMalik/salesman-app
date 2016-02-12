@@ -24,7 +24,15 @@ v1.post("/login", function (req, res, next) {
         email: req.body.email,
         password: req.body.password
     }).then(function (success) {
-        res.json(success);
+        ///////////////////////////checking that loggedin person is admin or not
+        userModel_1.isAdmin(req.query.uid).then(function (yes) {
+            success.isAdmin = true;
+            res.json(success);
+        }, function (no) {
+            success.isAdmin = false;
+            res.json(success);
+        });
+        //////////////////////////       
     }, function (err) {
         res.json(err);
     });
@@ -61,14 +69,9 @@ v1.get("/isLoggedIn", function (req, res, next) {
     res.json({ isLoggedIn: true });
 });
 /////////////////////////////////////////////////////////////////////////
-v1.get("/isAdmin", function (req, res, next) {
-    console.log("isAdmin Hitted");
-    userModel_1.isAdmin(req.query.uid).then(function (success) {
-        res.json({ isAdmin: true });
-    }, function (err) {
-        res.json({ isAdmin: true });
-    });
-});
+// v1.get("/isAdmin",(req , res , next)=>{
+//     console.log("isAdmin Hitted");
+// });
 v1.get("/getCompanyProfile", function (req, res, next) {
     userModel_1.getCompanyProfile(req.query.uid).then(function (success) {
         console.log("ending res with data");
@@ -77,5 +80,7 @@ v1.get("/getCompanyProfile", function (req, res, next) {
         res.json(err);
         return;
     });
+});
+v1.get("/addSalesman", function (req, res, next) {
 });
 module.exports = v1;

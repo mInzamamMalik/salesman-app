@@ -3,7 +3,7 @@ import bodyParser = require("body-parser");
 import url = require("url");
 
 //schemas methods
-import { doSignup, doLogin, validateToken,isAdmin, getCompanyProfile } from "../../DBrepo/userModel";
+import { doSignup, doLogin, validateToken, isAdmin, getCompanyProfile } from "../../DBrepo/userModel";
 
 
 let v1 = express.Router()
@@ -62,7 +62,24 @@ v1.post("/login", (req: express.Request, res: express.Response, next: Function) 
     }).then(
 
         (success) => {
-            res.json(success);
+
+///////////////////////////checking that loggedin person is admin or not
+            isAdmin(req.query.uid).then((yes) => {
+                
+                    success.isAdmin = true;
+                    res.json(success);
+                    
+                    
+                },(no) => {
+                    
+                    success.isAdmin = false;
+                    res.json(success);
+                }
+            );    
+//////////////////////////       
+            
+            
+           
         },
 
         (err) => {
@@ -94,11 +111,11 @@ v1.use((req: express.Request, res: express.Response, next: Function) => {
                 return;
             }
         );
-    }else{
-        
+    } else {
+
         console.log("token hai he nhee");
-                res.send(401);
-                return;        
+        res.send(401);
+        return;
     };
 });
 ///////////end///if not authenticated return with 401 not autherised/authenticated///////////////////////////////////////////////////
@@ -121,20 +138,11 @@ v1.get("/isLoggedIn", (req, res, next) => {
 
 
 
-v1.get("/isAdmin",(req , res , next)=>{
-    console.log("isAdmin Hitted");
-    isAdmin(req.query.uid).then(
-
-        (success) => {
-            res.json({ isAdmin: true });
-        },
-
-        (err) => {
-            res.json({ isAdmin: true });            
-        }
-
-    );    
-});
+// v1.get("/isAdmin",(req , res , next)=>{
+//     console.log("isAdmin Hitted");
+    
+    
+// });
 
 
 v1.get("/getCompanyProfile", (req: express.Request, res: express.Response, next: Function) => {
@@ -154,6 +162,13 @@ v1.get("/getCompanyProfile", (req: express.Request, res: express.Response, next:
         }
 
     );
+
+
+});
+
+v1.get("/addSalesman", (req: express.Request, res: express.Response, next: Function) => {
+
+
 
 
 });

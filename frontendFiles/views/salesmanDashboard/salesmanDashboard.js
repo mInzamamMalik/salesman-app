@@ -3,9 +3,9 @@
  */
 (function () {// a self calling function in which adminDashboard module and controller are written
 
-    angular.module("adminDashboard", [])
+    angular.module("salesmanDashboard", [])
 
-        .controller("adminDashboardController", ['$scope', '$http', 'unversalFunctionsService', adminDashboardController]);
+        .controller("salesmanDashboardController", ['$scope', '$http', 'unversalFunctionsService', adminDashboardController]);
 
 
     function adminDashboardController($scope, $http, unversalFunctionsService) {
