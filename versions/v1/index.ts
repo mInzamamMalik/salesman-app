@@ -3,7 +3,7 @@ import bodyParser = require("body-parser");
 import url = require("url");
 
 //schemas methods
-import { doSignup, doLogin, validateToken, getCompanyProfile } from "../../DBrepo/userModel";
+import { doSignup, doLogin, validateToken,isAdmin, getCompanyProfile } from "../../DBrepo/userModel";
 
 
 let v1 = express.Router()
@@ -104,12 +104,37 @@ v1.use((req: express.Request, res: express.Response, next: Function) => {
 ///////////end///if not authenticated return with 401 not autherised/authenticated///////////////////////////////////////////////////
 
 
+
+
+/////////////////////////////////////////////////////////////////////////
+//this route will only hit if user is authenticated
+//and whenever hitted must return with isLoggedIn:true
 v1.get("/isLoggedIn", (req, res, next) => {
 
     console.log("isLoggedIn check hitted");
     res.json({ isLoggedIn: true });
 });
+/////////////////////////////////////////////////////////////////////////
 
+
+
+
+
+
+v1.get("/isAdmin",(req , res , next)=>{
+    console.log("isAdmin Hitted");
+    isAdmin(req.query.uid).then(
+
+        (success) => {
+            res.json({ isAdmin: true });
+        },
+
+        (err) => {
+            res.json({ isAdmin: true });            
+        }
+
+    );    
+});
 
 
 v1.get("/getCompanyProfile", (req: express.Request, res: express.Response, next: Function) => {

@@ -45,11 +45,29 @@ v1.use(function (req, res, next) {
             return;
         });
     }
+    else {
+        console.log("token hai he nhee");
+        res.send(401);
+        return;
+    }
+    ;
 });
 ///////////end///if not authenticated return with 401 not autherised/authenticated///////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+//this route will only hit if user is authenticated
+//and whenever hitted must return with isLoggedIn:true
 v1.get("/isLoggedIn", function (req, res, next) {
     console.log("isLoggedIn check hitted");
     res.json({ isLoggedIn: true });
+});
+/////////////////////////////////////////////////////////////////////////
+v1.get("/isAdmin", function (req, res, next) {
+    console.log("isAdmin Hitted");
+    userModel_1.isAdmin(req.query.uid).then(function (success) {
+        res.json({ isAdmin: true });
+    }, function (err) {
+        res.json({ isAdmin: true });
+    });
 });
 v1.get("/getCompanyProfile", function (req, res, next) {
     userModel_1.getCompanyProfile(req.query.uid).then(function (success) {

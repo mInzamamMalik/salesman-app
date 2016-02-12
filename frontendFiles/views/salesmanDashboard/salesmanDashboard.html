@@ -2,14 +2,14 @@
 
 
     <ion-nav-buttons side="primary">
-        <button class="button" ng-click="logout()" >
+        <button class="button" >
             logout
         </button>
     </ion-nav-buttons>
 
     <ion-nav-buttons side="secondary">
-        <button class="button button-balanced" ng-click="addSalesman()" >
-            Add Salesman
+        <button class="button button-balanced" >
+            Place Order
         </button>
     </ion-nav-buttons>
 
@@ -23,7 +23,7 @@
                 <a href="https://secure.gravatar.com" target="_blank" ng-hide="photoUrl" >set a profile img</a>
 
 
-                <h2 ng-bind="profileObject.companyName"></h2>
+                <h2 ng-bind="profileObject.salesnamName"></h2>
                 <p ng-bind="profileObject.email"></p>
                 <p ng-show="profileObject.createdOn">Joined: {{profileObject.createdOn | date}}</p>
             </div>
@@ -43,8 +43,8 @@
 
         </div>
         <ion-list class="list">
-            <div class="item item-divider">Salesmans List</div>
-            <div class="item " ng-repeat="saleman in salesmansList"> {{saleman}} </div>
+            <div class="item item-divider">Orders List</div>
+            <div class="item " ng-repeat="saleman in orderList"> {{saleman}} </div>
 
 
         </ion-list>

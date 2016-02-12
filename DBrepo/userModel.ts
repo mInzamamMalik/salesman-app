@@ -30,9 +30,9 @@ mongoose.connection.on('error', function(err) {//any error
 process.on('SIGINT', function() {/////this function will run jst before app is closing
     console.log("app is terminating");
     mongoose.connection.close(function() {
-        console.log('Mongoose default connection closed');    
+        console.log('Mongoose default connection closed');
         process.exit(0);
-    });    
+    });
 });
 ////////////////mongodb connected disconnected events///////////////////////////////////////////////
 
@@ -144,7 +144,21 @@ function signupOnMongodb(signupObject) {
             deferred.resolve(data);
 
         } else {
+            
             //===>> at this point i have to roll back firebase createUser
+            ref.removeUser({                                            //
+                email: "bobtony@firebase.com",                          //
+                password: "correcthorsebatterystaple"                   // 
+            },(err)=>{                                                  //
+                if(!err){                                               //
+                    console.log("removed user");                        //
+                }else{                                                  //
+                    console.log("error during remove user");            //
+                }                                                       //
+            });                                                         //
+            //response of this function is not handled yet              //
+            //===>> at this point i have to roll back firebase createUser
+            
             console.log(err);
             deferred.reject(err);
         }
@@ -221,7 +235,7 @@ function doLogin(loginObject) {
                 uid: authData.uid,
                 token: authData.token,
                 email: loginObject.email,
-                photoUrl: authData.password.profileImageURL 
+                photoUrl: authData.password.profileImageURL
             });
             
             /*
@@ -270,8 +284,28 @@ function validateToken(token) {
 ///////////////this function is now working///////////////////////////////////////
 
 
-
-
+function isAdmin(companyFirebaseUid){
+    
+    let deferred = q.defer();
+    
+        userModule.findOne({ firebaseUid: companyFirebaseUid }, (err, user) => {
+            if(!err){
+                if(!user){
+                    //user nhe mila
+                    deferred.reject("NOT_ADMIN");
+                    return;
+                }else{
+                    //user mil gya
+                    deferred.resolve("ADMIN");
+                }
+                //this area should not execute if user not found 
+                //and you may execute this area if user found
+            }
+            
+        })
+        return deferred.promise;
+};
+//////////////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -285,10 +319,12 @@ function getCompanyProfile(companyFirebaseUid) {
 
         if (!err) {
             if (!user) {
-                // res.redirect('/login?404=user');
+               //user nhe mila
                 console.log("nai mila: case 1: ", err, user);
                 deferred.reject(err);
+                return;
             } else {
+                //user mil gya
                 console.log("mil gya: case 2: ", err, user);
 
                 deferred.resolve(user);
@@ -300,12 +336,9 @@ function getCompanyProfile(companyFirebaseUid) {
                 // "_id": user._id
                 // };
             }
-
-        } else {
-            console.log("case 3: ", err, user);
-            //res.redirect('/login?404=error');
-            deferred.reject(err);
-        }
+            //this area should not execute if user not found
+            //and you may execute this area if user found
+        } 
     });
 
     return deferred.promise;
@@ -318,5 +351,5 @@ function getCompanyProfile(companyFirebaseUid) {
 
 
 
-export { doSignup, doLogin, validateToken, getCompanyProfile }
+export { doSignup, doLogin, validateToken, getCompanyProfile, isAdmin }
 

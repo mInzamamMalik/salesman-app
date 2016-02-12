@@ -5,12 +5,12 @@
 
     angular.module("login", [])
 
-        .controller("loginController", ['$scope', '$http', '$state','$ionicHistory','unversalFunctionsService', loginController]);
+        .controller("loginController", ['$scope', '$http', '$state', '$ionicHistory', 'unversalFunctionsService', loginController]);
 
 
-    function loginController($scope, $http, $state,$ionicHistory, unversalFunctionsService) {
+    function loginController($scope, $http, $state, $ionicHistory, unversalFunctionsService) {
 
-        unversalFunctionsService.isLoggedIn();
+        //unversalFunctionsService.isLoggedIn();
 
         $scope.loginObject = {};/////this is an empty object for store login information
 
@@ -37,7 +37,7 @@
             }).then(
                 function (response) {
 
-                    if(response.data.logedIn){
+                    if (response.data.logedIn) {
 
                         unversalFunctionsService.hideLoading();
 
@@ -49,33 +49,48 @@
                         localStorage.setItem("photoUrl", response.data.photoUrl);
 
                         /*
-                            disableAnimate: Do not animate the next transition.
-                            disableBack: The next view should forget its back view, and set it to null.
-                            historyRoot: The next view should become the root view in its history stack.
-                        */
-                        $ionicHistory.nextViewOptions({
-                            disableBack: true,
-                            historyRoot: true
-                        });
-                        $state.go("adminDashboard",{},{reload:true});
+                         disableAnimate: Do not animate the next transition.
+                         disableBack: The next view should forget its back view, and set it to null.
+                         historyRoot: The next view should become the root view in its history stack.
+                         */
 
-                    }else{
+                        $http.get("/v1/isAdmin").then(function (res) {
+
+                            console.log("isLoggedIn response", res);
+                            if (res.data.isAdmin) { // it means user is loged in
+
+                                $ionicHistory.nextViewOptions({
+                                    disableBack: true,
+                                    historyRoot: true
+                                });
+                                $state.go("adminDashboard", {}, {reload: true});
+
+                            } else if(!res.data.isAdmin){
+                                $ionicHistory.nextViewOptions({
+                                    disableBack: true,
+                                    historyRoot: true
+                                });
+                                $state.go("salesmanDashboard", {}, {reload: true});//this dash board is not yet created
+                            }
+                        });
+
+
+                    } else {
                         unversalFunctionsService.hideLoading();
                         console.log(response.data);
-                        unversalFunctionsService.showAlert("Login Failed !!" , response.data.message);
+                        unversalFunctionsService.showAlert("Login Failed !!", response.data.message);
 
                     }
 
                 },
                 function (error) {
                     console.log(error);
-                    unversalFunctionsService.showAlert("Login Failed !!" , "check your email & password or contact support if not resolved ");
+                    unversalFunctionsService.showAlert("Login Failed !!", "check your email & password or contact support if not resolved ");
 
                 }
             );
 
         };/////////////dologin ended here////////////////////////////
-
 
 
     }/////controller ended here//////////////////////////

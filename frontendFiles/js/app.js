@@ -36,8 +36,15 @@
                 .state("adminDashboard", {
                     cache: false, // controller will terminate on state change and not keep running
                     url: "/adminDashboard",
-                    templateUrl: "views/adminDashboard/adminDashboard.html",
+                    templateUrl: "views/adminDashboard/salesmanDashboard.html",
                     controller: "adminDashboardController"
+                })
+
+                .state("salesmanDashboard", {
+                    cache: false, // controller will terminate on state change and not keep running
+                    url: "/salesmanDashboard",
+                    templateUrl: "views/salesmanDashboard/salesmanDashboard.html",
+                    controller: "salesmanDashboardController"
                 });
 
             $httpProvider.interceptors.push('httpInterceptor');
