@@ -34,6 +34,7 @@
                 })
 
                 .state("adminDashboard", {
+                    cache: false, // controller will terminate on state change and not keep running
                     url: "/adminDashboard",
                     templateUrl: "views/adminDashboard/adminDashboard.html",
                     controller: "adminDashboardController"
@@ -69,6 +70,7 @@
                 localStorage.setItem("token", "");
                 localStorage.setItem("uid", "");
                 localStorage.setItem("email", "");
+                localStorage.setItem("photoUrl", "");
                 /*
                  disableAnimate: Do not animate the next transition.
                  disableBack: The next view should forget its back view, and set it to null.
@@ -78,7 +80,7 @@
                     disableBack: true,
                     historyRoot: true
                 });
-                $state.go("login");
+                $state.go("login",{},{reload:true});
             };
 
             ///////////////////////////////////////////////////////////////////////////////

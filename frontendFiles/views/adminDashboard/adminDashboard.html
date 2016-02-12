@@ -12,7 +12,10 @@
         <div class="list card">
 
             <div class="item item-avatar" >
-                <img src="./img/profile.jpg" ng-hide="true" >
+                <img ng-src={{photoUrl}} ng-show="photoUrl" >
+                <a href="https://secure.gravatar.com" target="_blank" ng-hide="photoUrl" >set a profile img</a>
+
+
                 <h2 ng-bind="profileObject.companyName"></h2>
                 <p ng-bind="profileObject.email"></p>
                 <p ng-show="profileObject.createdOn">Joined: {{profileObject.createdOn | date}}</p>

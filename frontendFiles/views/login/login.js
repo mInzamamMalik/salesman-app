@@ -46,6 +46,7 @@
                         localStorage.setItem("token", response.data.token);
                         localStorage.setItem("uid", response.data.uid);
                         localStorage.setItem("email", response.data.email);
+                        localStorage.setItem("photoUrl", response.data.photoUrl);
 
                         /*
                             disableAnimate: Do not animate the next transition.
@@ -56,7 +57,7 @@
                             disableBack: true,
                             historyRoot: true
                         });
-                        $state.go("adminDashboard");
+                        $state.go("adminDashboard",{},{reload:true});
 
                     }else{
                         unversalFunctionsService.hideLoading();

@@ -94,11 +94,12 @@ v1.use((req: express.Request, res: express.Response, next: Function) => {
                 return;
             }
         );
+    }else{
+        
+        console.log("token hai he nhee");
+                res.send(401);
+                return;        
     };
-
-
-
-
 });
 ///////////end///if not authenticated return with 401 not autherised/authenticated///////////////////////////////////////////////////
 

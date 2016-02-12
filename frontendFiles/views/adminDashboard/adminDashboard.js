@@ -11,6 +11,7 @@
     function adminDashboardController($scope, $http, unversalFunctionsService) {
 
         //unversalFunctionsService.isLoggedIn();
+        $scope.photoUrl = localStorage.getItem("photoUrl");
 
         $scope.logout = unversalFunctionsService.clearCredentials;
 
@@ -25,6 +26,7 @@
 
                 console.log("response: ", response);
                 $scope.profileObject = response.data;
+
             },
             function (error) {
                 console.log("error getting profile: ", error);
@@ -35,7 +37,6 @@
 
             }
         );
-
 
     }/////controller ended here//////////////////////////
 
