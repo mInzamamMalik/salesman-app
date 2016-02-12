@@ -24,15 +24,7 @@ v1.post("/login", function (req, res, next) {
         email: req.body.email,
         password: req.body.password
     }).then(function (success) {
-        ///////////////////////////checking that loggedin person is admin or not
-        userModel_1.isAdmin(req.query.uid).then(function (yes) {
-            success.isAdmin = true;
-            res.json(success);
-        }, function (no) {
-            success.isAdmin = false;
-            res.json(success);
-        });
-        //////////////////////////       
+        res.json(success);
     }, function (err) {
         res.json(err);
     });

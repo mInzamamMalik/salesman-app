@@ -147,12 +147,25 @@ function doLogin(loginObject) {
         }
         else {
             console.log("Authenticated successfully with payload:", authData);
-            deferred.resolve({
-                logedIn: true,
-                uid: authData.uid,
-                token: authData.token,
-                email: loginObject.email,
-                photoUrl: authData.password.profileImageURL
+            ///////////////////////////checking that loggedin person is admin or not
+            isAdmin(authData.uid).then(function (yes) {
+                deferred.resolve({
+                    logedIn: true,
+                    uid: authData.uid,
+                    token: authData.token,
+                    email: loginObject.email,
+                    photoUrl: authData.password.profileImageURL,
+                    isAdmin: true
+                });
+            }, function (no) {
+                deferred.resolve({
+                    logedIn: true,
+                    uid: authData.uid,
+                    token: authData.token,
+                    email: loginObject.email,
+                    photoUrl: authData.password.profileImageURL,
+                    isAdmin: false
+                });
             });
         }
     }); //authWithPassword() is ended here

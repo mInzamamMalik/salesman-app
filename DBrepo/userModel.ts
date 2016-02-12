@@ -149,10 +149,10 @@ function signupOnMongodb(signupObject) {
             ref.removeUser({                                            //
                 email: "bobtony@firebase.com",                          //
                 password: "correcthorsebatterystaple"                   // 
-            },(err)=>{                                                  //
-                if(!err){                                               //
+            }, (err) => {                                                  //
+                if (!err) {                                               //
                     console.log("removed user");                        //
-                }else{                                                  //
+                } else {                                                  //
                     console.log("error during remove user");            //
                 }                                                       //
             });                                                         //
@@ -229,14 +229,38 @@ function doLogin(loginObject) {
 
 
             console.log("Authenticated successfully with payload:", authData);
+            
+            
+            ///////////////////////////checking that loggedin person is admin or not
+            isAdmin(authData.uid).then(
+                (yes) => {
 
-            deferred.resolve({
-                logedIn: true,
-                uid: authData.uid,
-                token: authData.token,
-                email: loginObject.email,
-                photoUrl: authData.password.profileImageURL
-            });
+                    deferred.resolve({
+                        logedIn: true,
+                        uid: authData.uid,
+                        token: authData.token,
+                        email: loginObject.email,
+                        photoUrl: authData.password.profileImageURL,
+                        isAdmin: true
+                    });
+
+
+                }, (no) => {
+
+                    deferred.resolve({
+                        logedIn: true,
+                        uid: authData.uid,
+                        token: authData.token,
+                        email: loginObject.email,
+                        photoUrl: authData.password.profileImageURL,
+                        isAdmin: false
+                    });
+
+                });    
+            //////////////////////////       
+            
+
+            
             
             /*
                        
@@ -284,26 +308,26 @@ function validateToken(token) {
 ///////////////this function is now working///////////////////////////////////////
 
 
-function isAdmin(companyFirebaseUid){
-    
+function isAdmin(companyFirebaseUid) {
+
     let deferred = q.defer();
-    
-        userModule.findOne({ firebaseUid: companyFirebaseUid }, (err, user) => {
-            if(!err){
-                if(!user){
-                    //user nhe mila
-                    deferred.reject("NOT_ADMIN");
-                    return;
-                }else{
-                    //user mil gya
-                    deferred.resolve("ADMIN");
-                }
-                //this area should not execute if user not found 
-                //and you may execute this area if user found
+
+    userModule.findOne({ firebaseUid: companyFirebaseUid }, (err, user) => {
+        if (!err) {
+            if (!user) {
+                //user nhe mila
+                deferred.reject("NOT_ADMIN");
+                return;
+            } else {
+                //user mil gya
+                deferred.resolve("ADMIN");
             }
-            
-        })
-        return deferred.promise;
+            //this area should not execute if user not found 
+            //and you may execute this area if user found
+        }
+
+    })
+    return deferred.promise;
 };
 //////////////////////////////////////////////////////////////////////////////////////
 
@@ -319,7 +343,7 @@ function getCompanyProfile(companyFirebaseUid) {
 
         if (!err) {
             if (!user) {
-               //user nhe mila
+                //user nhe mila
                 console.log("nai mila: case 1: ", err, user);
                 deferred.reject(err);
                 return;
@@ -338,7 +362,7 @@ function getCompanyProfile(companyFirebaseUid) {
             }
             //this area should not execute if user not found
             //and you may execute this area if user found
-        } 
+        }
     });
 
     return deferred.promise;

@@ -62,24 +62,7 @@ v1.post("/login", (req: express.Request, res: express.Response, next: Function) 
     }).then(
 
         (success) => {
-
-///////////////////////////checking that loggedin person is admin or not
-            isAdmin(req.query.uid).then((yes) => {
-                
-                    success.isAdmin = true;
-                    res.json(success);
-                    
-                    
-                },(no) => {
-                    
-                    success.isAdmin = false;
-                    res.json(success);
-                }
-            );    
-//////////////////////////       
-            
-            
-           
+            res.json(success);
         },
 
         (err) => {
