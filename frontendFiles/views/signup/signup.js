@@ -1,12 +1,12 @@
 (function() {
     angular.module("signup", [])
 
-        .controller("signupController",function ($scope, $http, $state, $ionicLoading, $ionicPopup) {
+        .controller("signupController",function ($scope, $http, $state, unversalFunctionsService) {
             $scope.userObject = {};
 
             $scope.signup = function () {// when user click on signup this function execute
 
-                $scope.showLoding(); // show loding until signup success or fail
+                unversalFunctionsService.showLoding(); // show loding until signup success or fail
 
 
                 /*interface patternOfUserObject {
@@ -35,44 +35,26 @@
                 }).then(
                     function (response) { //this function execute on signup response
                         console.log("res: ", response.data);
-                        $scope.hideLoding();//hide loading as signup response is arrived
+                        unversalFunctionsService.hideLoding();//hide loading as signup response is arrived
 
 
                         if (response.data.signup) { //on signup success
-                            $scope.showAlert("Congratulation !!","signed up successfully, please login to continue...");
+                            unversalFunctionsService.showAlert("Congratulation !!","signed up successfully, please login to continue...");
                             $state.go("login");//route page to login on successful signup
 
                         } else { //on signup fail
-                            $scope.showAlert("Signup Failed !!",response.data.message);
+                            unversalFunctionsService.showAlert("Signup Failed !!",response.data.message);
                         }
 
                     },
                     function (error) {// this function execute when unable to send request
                         console.log("error: ", error);
-                        $scope.hideLoding();//hide loding as unable to send loding
-                        $scope.showAlert("Unknown Error !!","check you internet connection or check log for technical detail");
+                        unversalFunctionsService.hideLoding();//hide loding as unable to send loding
+                        unversalFunctionsService.showAlert("Unknown Error !!","check you internet connection or check log for technical detail");
                     }
                 );
             };
 
-
-////////////////////loding code startted ///////////////
-            $scope.showLoding = function () {
-                $ionicLoading.show({
-                    template: 'Signing Up...'
-                });
-            };
-            $scope.hideLoding = function () {
-                $ionicLoading.hide();
-            };
-            $scope.showAlert = function(title,template){
-                $ionicPopup.alert({
-                    title: title,
-                    template: template
-                });
-            };
-
-////////////////////loding code ended /////////////////
 
 
         })

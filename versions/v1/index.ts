@@ -149,7 +149,7 @@ v1.get("/getCompanyProfile", (req: express.Request, res: express.Response, next:
 
 });
 
-v1.get("/salesmanSignup", (req: express.Request, res: express.Response, next: Function) => {
+v1.post("/salesmanSignup", (req: express.Request, res: express.Response, next: Function) => {
 
     //  db method "salesmanSignup"" will take an object in input like this object
     // {

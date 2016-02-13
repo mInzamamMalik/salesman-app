@@ -74,22 +74,24 @@ v1.get("/getCompanyProfile", function (req, res, next) {
         return;
     });
 });
-v1.get("/addSalesman", function (req, res, next) {
-    //  salesmanSignup function will take an object in input like this object
+v1.post("/salesmanSignup", function (req, res, next) {
+    //  db method "salesmanSignup"" will take an object in input like this object
     // {
     //     firstName: String,
     //     lastName: String,
     //     companyUid: String,
-    //     email: { type: String, unique: true, require: true },    
+    //     email: { type: String, unique: true, require: true },  
+    //     password : String,  
     //     createdOn: { type: Date, 'default': Date.now }, 
     //     firebaseUid: String
     // }
     salesmanModel_1.salesmanSignup({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
-        companyUid: req.query.uid,
         email: req.body.email,
-        firebaseUid: ""
+        password: req.body.password,
+        companyUid: req.query.uid,
+        firebaseUid: "" //this field will fill by the method
     }).then(function (success) {
         console.log("signup success: ", success);
         res.json({ signup: true });

@@ -44,7 +44,8 @@ var salesmanModel = mongoose.model("salesmans", salesmanSchema);
 //     firstName: String,
 //     lastName: String,
 //     companyUid: String,
-//     email: { type: String, unique: true, require: true },    
+//     email: { type: String, unique: true, require: true }, 
+//     password : string   
 //     createdOn: { type: Date, 'default': Date.now }, 
 //     firebaseUid: String
 // }
