@@ -1,0 +1,50 @@
+<ion-view view-title="signup">
+    <ion-content>
+
+        <form name="myForm" ng-submit="signup()">
+            <div class="list">
+
+
+
+
+                <label name="firstName" class="item item-input item-floating-label">
+                    <span class="input-label">First Name</span>
+                    <input type="text" placeholder="first name" required ng-model="newSalesmanObject.firstName">
+                </label>
+
+                <label name="lastName" class="item item-input item-icon-right item-floating-label">
+                    <i class="icon ion-asterisk required assertive"></i>
+                    <span class="input-label">Last Name</span>
+                    <input type="text" placeholder="last name" ng-model="newSalesmanObject.lastName">
+                </label>
+
+                <label name="compnayName" class="item item-input item-floating-label">
+                    <span class="input-label">Company Name</span>
+                    <input type="text" placeholder="company name" ng-model="newSalesmanObject.companyName">
+                </label>
+
+                <label name="email" class="item item-input item-icon-right item-floating-label">
+
+                    <i class="icon ion-asterisk required assertive"></i>
+                    <span class="input-label">Email</span>
+                    <input type="email" placeholder="email" required ng-model="newSalesmanObject.email">
+                </label>
+
+                <label name="password" class="item item-input item-floating-label">
+                    <span class="input-label">Password</span>
+                    <input type="password" placeholder="password" required ng-model="newSalesmanObject.password">
+                </label>
+
+                <label name="retype-passeord" class="item item-input item-floating-label">
+                    <span class="input-label">Re-Type Password</span>
+                    <input type="password" placeholder="re-type password" required pattern="{{newSalesmanObject.password}}">
+                </label>
+
+
+
+            </div>
+        </form>
+
+    </ion-content>
+
+</ion-view>

@@ -34,7 +34,7 @@ v1.post("/signup", (req: express.Request, res: express.Response, next: Function)
 
         res.json({ signup: true });
 
-    },
+        },
         (err) => {
             console.log("signup error: ", err);
             res.json({ signup: false, message: err });
@@ -161,7 +161,24 @@ v1.get("/addSalesman", (req: express.Request, res: express.Response, next: Funct
     //     firebaseUid: String
     // }
     
-    salesmanSignup();
+    salesmanSignup({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        companyUid: req.query.uid,
+        email: req.body.email,
+        firebaseUid: ""
+    }).then((success) => {
+
+        console.log("signup success: ", success);
+
+        res.json({ signup: true });
+
+    },
+        (err) => {
+            console.log("signup error: ", err);
+            res.json({ signup: false, message: err });
+        });
+
 
 });
 

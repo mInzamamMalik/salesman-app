@@ -93,8 +93,8 @@ function signupOnMongodb(signupObject) {
         else {
             //===>> at this point i have to roll back firebase createUser
             ref.removeUser({
-                email: "bobtony@firebase.com",
-                password: "correcthorsebatterystaple" // 
+                email: signupObject.email,
+                password: signupObject.password // 
             }, function (err) {
                 if (!err) {
                     console.log("removed user"); //

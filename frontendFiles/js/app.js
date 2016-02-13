@@ -4,16 +4,13 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 (function () {
-    angular.module('starter', ['ionic', 'home', 'signup', 'login', 'adminDashboard','salesmanDashboard'])
+    angular.module('starter', ['ionic', 'home', 'signup', 'login', 'adminDashboard', 'salesmanDashboard', 'salesmanSignup'])
 
 
         .controller("appController", ['$scope', appController])
 
 
         .config(function ($urlRouterProvider, $stateProvider, $httpProvider) {
-
-            $urlRouterProvider.otherwise("/home");
-
             $stateProvider
                 .state("home", {
                     url: "/home",
@@ -39,6 +36,11 @@
                     templateUrl: "views/adminDashboard/adminDashboard.html",
                     controller: "adminDashboardController"
                 })
+                .state("salesmanSignup", {
+                    url: "/salesmanSignup",
+                    templateUrl: "views/salesmanSignup/salesmanSignup.html",
+                    controller: "salesmanSignupController"
+                })
 
                 .state("salesmanDashboard", {
                     cache: false, // controller will terminate on state change and not keep running
@@ -46,6 +48,9 @@
                     templateUrl: "views/salesmanDashboard/salesmanDashboard.html",
                     controller: "salesmanDashboardController"
                 });
+
+
+            $urlRouterProvider.otherwise("/home");
 
             $httpProvider.interceptors.push('httpInterceptor');
         })
@@ -87,7 +92,7 @@
                     disableBack: true,
                     historyRoot: true
                 });
-                $state.go("login",{},{reload:true});
+                $state.go("login", {}, {reload: true});
             };
 
             ///////////////////////////////////////////////////////////////////////////////
@@ -124,7 +129,7 @@
                         console.log("isLoggedIn response", res);
                         if (res.data.isLoggedIn) { // it means user is loged in
                             vm.loggedIn();
-                        }else{
+                        } else {
                             vm.notLoggedIn();
                         }
                     });

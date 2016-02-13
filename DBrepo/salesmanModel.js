@@ -4,7 +4,7 @@ var q = require("q"); //to return deferred.promise from function
 var ref = new Firebase("https://sales-man-app.firebaseio.com/");
 var dbURI = "mongodb://malikasinger:sales@ds049935.mongolab.com:49935/salesman-app";
 // let dbURI = 'mongodb://localhost/mydatabase';
-mongoose.connect(dbURI);
+// mongoose.connect(dbURI);
 ////////////////mongodb connected disconnected events///////////////////////////////////////////////
 mongoose.connection.on('connected', function () {
     console.log("Mongoose is connected");
@@ -39,9 +39,15 @@ var salesmanSchema = new mongoose.Schema({
 var salesmanModel = mongoose.model("salesmans", salesmanSchema);
 //////////////schema and model//////////////////////////////////////////
 ///////////////////////do signup of sales man started/////////////////////////////////////////////////////////////////
-// 
-// 
-// 
+//  this function will take an object in input like this object
+// {
+//     firstName: String,
+//     lastName: String,
+//     companyUid: String,
+//     email: { type: String, unique: true, require: true },    
+//     createdOn: { type: Date, 'default': Date.now }, 
+//     firebaseUid: String
+// }
 var salesmanSignup = function (signupObject) {
     console.log("ok");
     var deferred = q.defer(); // deferred object created
@@ -79,6 +85,7 @@ var salesmanSignup = function (signupObject) {
     }); //createUser ended -- firebase    
     return deferred.promise; //promise returned  
 };
+exports.salesmanSignup = salesmanSignup;
 ///////////////////////do signup of sales man ended/////////////////////////////////////////////////////////////////
 //////////////////////////start salesman signup on mongo db////////////////////////////////////////
 //this function take userObject with uid and save in mongodb
@@ -95,8 +102,8 @@ function signupOnMongodb(signupObject) {
         else {
             //===>> at this point i have to roll back firebase createUser
             ref.removeUser({
-                email: "bobtony@firebase.com",
-                password: "correcthorsebatterystaple" // 
+                email: signupObject.email,
+                password: signupObject.password // 
             }, function (err) {
                 if (!err) {
                     console.log("removed user"); //
@@ -114,3 +121,6 @@ function signupOnMongodb(signupObject) {
     return deferred.promise;
 }
 ///////////////////////end salesman signup on mongo db/////////////////////////////////////////////////////
+// this is a list of exported functions/methods
+// which are exported from this .ts file 
+// and free to import in any other .ts file

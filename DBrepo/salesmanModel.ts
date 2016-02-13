@@ -3,10 +3,9 @@ import Firebase = require("firebase");
 import q = require("q"); //to return deferred.promise from function
 
 let ref = new Firebase("https://sales-man-app.firebaseio.com/");
-
 let dbURI = "mongodb://malikasinger:sales@ds049935.mongolab.com:49935/salesman-app";
 // let dbURI = 'mongodb://localhost/mydatabase';
-mongoose.connect(dbURI);
+// mongoose.connect(dbURI);
 
 
 
@@ -155,8 +154,8 @@ function signupOnMongodb(signupObject) {
             
             //===>> at this point i have to roll back firebase createUser
             ref.removeUser({                                            //
-                email: "bobtony@firebase.com",                          //
-                password: "correcthorsebatterystaple"                   // 
+                email: signupObject.email,                          //
+                password: signupObject.password                   // 
             }, (err) => {                                                  //
                 if (!err) {                                               //
                     console.log("removed user");                        //

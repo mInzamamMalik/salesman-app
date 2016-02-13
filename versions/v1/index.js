@@ -2,6 +2,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 //schemas methods
 var userModel_1 = require("../../DBrepo/userModel");
+var salesmanModel_1 = require("../../DBrepo/salesmanModel");
 var v1 = express.Router();
 v1.use(bodyParser.json());
 ////////////////////////signup request///////////////////////////////////////////////////////////////////
@@ -74,5 +75,27 @@ v1.get("/getCompanyProfile", function (req, res, next) {
     });
 });
 v1.get("/addSalesman", function (req, res, next) {
+    //  salesmanSignup function will take an object in input like this object
+    // {
+    //     firstName: String,
+    //     lastName: String,
+    //     companyUid: String,
+    //     email: { type: String, unique: true, require: true },    
+    //     createdOn: { type: Date, 'default': Date.now }, 
+    //     firebaseUid: String
+    // }
+    salesmanModel_1.salesmanSignup({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        companyUid: req.query.uid,
+        email: req.body.email,
+        firebaseUid: ""
+    }).then(function (success) {
+        console.log("signup success: ", success);
+        res.json({ signup: true });
+    }, function (err) {
+        console.log("signup error: ", err);
+        res.json({ signup: false, message: err });
+    });
 });
 module.exports = v1;
