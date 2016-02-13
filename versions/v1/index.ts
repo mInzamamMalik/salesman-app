@@ -4,7 +4,7 @@ import url = require("url");
 
 //schemas methods
 import { doSignup, doLogin, validateToken, isAdmin, getCompanyProfile } from "../../DBrepo/userModel";
-import { salesmanSignup } from "../../DBrepo/salesmanModel";
+import { salesmanSignup , getSalesmanList } from "../../DBrepo/salesmanModel";
 
 let v1 = express.Router()
 
@@ -186,8 +186,19 @@ v1.post("/salesmanSignup", (req: express.Request, res: express.Response, next: F
 });
 
 
-
-
+v1.get("/getSalesmanList",(req:express.Request , res:express.Response , next:Function)=>{
+    
+    getSalesmanList.byCompanyId( req.query.uid ).then(
+        (res)=>{
+            
+        },
+        (err)=>{
+            
+        }
+        
+    );
+    
+});
 
 
 

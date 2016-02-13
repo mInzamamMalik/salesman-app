@@ -60,15 +60,15 @@ let salesmanModel = mongoose.model("salesmans", salesmanSchema);
 
 ///////////////////////do signup of sales man started/////////////////////////////////////////////////////////////////
 //  this function will take an object in input like this object
-    // {
-    //     firstName: String,
-    //     lastName: String,
-    //     companyUid: String,
-    //     email: { type: String, unique: true, require: true }, 
-    //     password : string   
-    //     createdOn: { type: Date, 'default': Date.now }, 
-    //     firebaseUid: String
-    // }
+// {
+//     firstName: String,
+//     lastName: String,
+//     companyUid: String,
+//     email: { type: String, unique: true, require: true }, 
+//     password : string   
+//     createdOn: { type: Date, 'default': Date.now }, 
+//     firebaseUid: String
+// }
 
 
 let salesmanSignup = (signupObject) => {
@@ -178,6 +178,50 @@ function signupOnMongodb(signupObject) {
 
 
 
+let getSalesmanList = {// this is an object of functions, in which varity of functions
+                       // will be found for getting salesmans list
+
+    //==>salesman schema detail                       
+    // firstName: String,
+    // lastName: String,
+    // companyUid: String, //this will contain company identification of current salesman
+    // email: { type: String, unique: true, require: true },
+    // //password: String,//password will not be present in mongolab
+    // createdOn: { type: Date, 'default': Date.now }, //pack 'default' in single quotes(this is Optional) to avoid compile error
+    // firebaseUid: String
+    
+    byCompanyId: (firebaseUid) => {//this method will take company firebaseUid 
+                                   //and return all salesman list related to the company
+        let deferred = q.defer();
+        
+        salesmanModel.find({ firebaseUid: firebaseUid },
+            (err, userArray) => {
+                if (!err) {
+                    deferred.resolve(userArray);
+                }else{
+                    deferred.reject(err);   
+                }
+            });
+        
+        return deferred.promise;
+    }
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -186,4 +230,4 @@ function signupOnMongodb(signupObject) {
 // this is a list of exported functions/methods
 // which are exported from this .ts file 
 // and free to import in any other .ts file
-export { salesmanSignup }
+export { salesmanSignup, getSalesmanList }

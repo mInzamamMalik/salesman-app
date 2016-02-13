@@ -344,12 +344,12 @@ function getCompanyProfile(companyFirebaseUid) {
         if (!err) {
             if (!user) {
                 //user nhe mila
-                console.log("nai mila: case 1: ", err, user);
+                console.log("koi user nai mila: case 1: ", err, user);
                 deferred.reject(err);
                 return;
             } else {
                 //user mil gya
-                console.log("mil gya: case 2: ", err, user);
+                console.log("user mil gya: case 2: ", err, user);
 
                 deferred.resolve(user);
                 
