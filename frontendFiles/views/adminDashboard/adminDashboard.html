@@ -46,8 +46,9 @@
             <div class="item item-divider">Salesmans List</div>
             <div class="item " ng-repeat="saleman in salesmansList">
                 <h2>{{saleman.firstName + " " + saleman.lastName}}</h2>
-                <br/>
+
                 <p class="ionic-body" ng-show="saleman.createdOn">since: {{saleman.createdOn | date}}</p>
+                <p class="ionic-body" ng-show="saleman.email">since: {{saleman.email}}</p>
             </div>
 
 
