@@ -149,24 +149,27 @@ v1.get("/getCompanyProfile", (req: express.Request, res: express.Response, next:
 
 });
 
-v1.get("/addSalesman", (req: express.Request, res: express.Response, next: Function) => {
+v1.get("/salesmanSignup", (req: express.Request, res: express.Response, next: Function) => {
 
-    //  salesmanSignup function will take an object in input like this object
+    //  db method "salesmanSignup"" will take an object in input like this object
     // {
     //     firstName: String,
     //     lastName: String,
     //     companyUid: String,
-    //     email: { type: String, unique: true, require: true },    
+    //     email: { type: String, unique: true, require: true },  
+    //     password : String,  
     //     createdOn: { type: Date, 'default': Date.now }, 
     //     firebaseUid: String
     // }
     
     salesmanSignup({
         firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        companyUid: req.query.uid,
+        lastName: req.body.lastName,        
         email: req.body.email,
-        firebaseUid: ""
+        password: req.body.password,        
+        companyUid: req.query.uid,
+        firebaseUid: "" //this field will fill by the method
+        
     }).then((success) => {
 
         console.log("signup success: ", success);

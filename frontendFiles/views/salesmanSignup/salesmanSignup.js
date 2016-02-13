@@ -9,28 +9,23 @@
                 $scope.showLoding(); // show loding until signup success or fail
 
 
-                /*interface patternOfUserObject {
-
-                 email       :    string,
-                 password    :    string,
-                 firstName   :    string,      //this is a interface which is must required from front end
-                 lastName    :    string,
-                 companyName :    string
-
-                 }*/
+                //  /v1/salesmanSignup will take an object in input like this object
+                // {
+                //     firstName: String,
+                //     lastName: String,
+                //     email: { type: String, unique: true, require: true },
+                //     password : string
+                // }
 
 
                 $http({ // this line will send signup request to server with an object in request body
                     method: "post",
-                    url: "/v1/signup",
+                    url: "/v1/salesmanSignup",
                     data: {
-                        // this values are required by api if any one is missing there will be problem
-                        email: $scope.userObject.email,
-                        password: $scope.userObject.password,
-                        firstName: $scope.userObject.firstName,
-                        lastName: $scope.userObject.lastName,
-                        companyName: $scope.userObject.companyName
-
+                        email: $scope.newSalesmanObject.email,
+                        password: $scope.newSalesmanObject.password,
+                        firstName: $scope.newSalesmanObject.firstName,
+                        lastName: $scope.newSalesmanObject.lastName
                     }
                 }).then(
                     function (response) { //this function execute on signup response
