@@ -190,11 +190,13 @@ let getSalesmanList = {// this is an object of functions, in which varity of fun
     // createdOn: { type: Date, 'default': Date.now }, //pack 'default' in single quotes(this is Optional) to avoid compile error
     // firebaseUid: String
     
-    byCompanyId: (firebaseUid) => {//this method will take company firebaseUid 
+    byCompanyId: (companyFirebaseUid) => {//this method will take company firebaseUid 
                                    //and return all salesman list related to the company
         let deferred = q.defer();
         
-        salesmanModel.find({ firebaseUid: firebaseUid },
+        console.log(companyFirebaseUid);
+        
+        salesmanModel.find({ companyUid: companyFirebaseUid.toString() },
             (err, userArray) => {
                 if (!err) {
                     deferred.resolve(userArray);

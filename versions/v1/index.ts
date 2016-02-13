@@ -4,7 +4,7 @@ import url = require("url");
 
 //schemas methods
 import { doSignup, doLogin, validateToken, isAdmin, getCompanyProfile } from "../../DBrepo/userModel";
-import { salesmanSignup , getSalesmanList } from "../../DBrepo/salesmanModel";
+import { salesmanSignup, getSalesmanList } from "../../DBrepo/salesmanModel";
 
 let v1 = express.Router()
 
@@ -34,7 +34,7 @@ v1.post("/signup", (req: express.Request, res: express.Response, next: Function)
 
         res.json({ signup: true });
 
-        },
+    },
         (err) => {
             console.log("signup error: ", err);
             res.json({ signup: false, message: err });
@@ -133,7 +133,7 @@ v1.get("/getCompanyProfile", (req: express.Request, res: express.Response, next:
     getCompanyProfile(req.query.uid).then(
 
         (success) => {
-            console.log("ending res with data");
+            console.log("ending res with company profile data");
             res.json(success);
 
         },
@@ -164,9 +164,9 @@ v1.post("/salesmanSignup", (req: express.Request, res: express.Response, next: F
     
     salesmanSignup({
         firstName: req.body.firstName,
-        lastName: req.body.lastName,        
+        lastName: req.body.lastName,
         email: req.body.email,
-        password: req.body.password,        
+        password: req.body.password,
         companyUid: req.query.uid,
         firebaseUid: "" //this field will fill by the method
         
@@ -186,18 +186,20 @@ v1.post("/salesmanSignup", (req: express.Request, res: express.Response, next: F
 });
 
 
-v1.get("/getSalesmanList",(req:express.Request , res:express.Response , next:Function)=>{
-    
-    getSalesmanList.byCompanyId( req.query.uid ).then(
-        (res)=>{
-            
+v1.get("/getSalesmanList", (req: express.Request, res: express.Response, next: Function) => {
+
+    getSalesmanList.byCompanyId(req.query.uid).then(
+        (salesmanList) => {
+            console.log("ending res with salesman list");
+            res.json(salesmanList);
         },
-        (err)=>{
-            
+        (err) => {
+            res.json(err);
+            return;
         }
-        
+
     );
-    
+
 });
 
 

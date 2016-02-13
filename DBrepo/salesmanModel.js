@@ -122,6 +122,32 @@ function signupOnMongodb(signupObject) {
     return deferred.promise;
 }
 ///////////////////////end salesman signup on mongo db/////////////////////////////////////////////////////
+var getSalesmanList = {
+    // will be found for getting salesmans list
+    //==>salesman schema detail                       
+    // firstName: String,
+    // lastName: String,
+    // companyUid: String, //this will contain company identification of current salesman
+    // email: { type: String, unique: true, require: true },
+    // //password: String,//password will not be present in mongolab
+    // createdOn: { type: Date, 'default': Date.now }, //pack 'default' in single quotes(this is Optional) to avoid compile error
+    // firebaseUid: String
+    byCompanyId: function (companyFirebaseUid) {
+        //and return all salesman list related to the company
+        var deferred = q.defer();
+        console.log(companyFirebaseUid);
+        salesmanModel.find({ companyUid: companyFirebaseUid.toString() }, function (err, userArray) {
+            if (!err) {
+                deferred.resolve(userArray);
+            }
+            else {
+                deferred.reject(err);
+            }
+        });
+        return deferred.promise;
+    }
+};
+exports.getSalesmanList = getSalesmanList;
 // this is a list of exported functions/methods
 // which are exported from this .ts file 
 // and free to import in any other .ts file

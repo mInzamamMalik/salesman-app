@@ -21,22 +21,43 @@
         $scope.email = localStorage.getItem("email");
 
 
-        $http.get("/v1/getCompanyProfile").then(
-            function (response) {
+        $scope.getCompanyProfile = function(){
+            $http.get("/v1/getCompanyProfile").then(
+                function (response) {
 
-                console.log("response: ", response);
-                $scope.profileObject = response.data;
+                    console.log("profile: ", response);
+                    $scope.profileObject = response.data;
 
-            },
-            function (error) {
-                console.log("error getting profile: ", error);
+                },
+                function (error) {
+                    console.log("error getting profile: ", error);
 
-                if(error.status == 401){
-                    unversalFunctionsService.notLoggedIn();
+                    if(error.status == 401){
+                        unversalFunctionsService.notLoggedIn();
+                    }
+
                 }
+            );
+        }(); // this function will call it self once on controller load
 
-            }
-        );
+        $scope.getSalesmanList = function(){
+            $http.get("/v1/getSalesmanList").then(
+                function (response) {
+
+                    console.log("salesman list: ", response.data);
+                    $scope.salesmansList = response.data;
+
+                },
+                function (error) {
+                    console.log("error getting salesman list: ", error);
+
+                    if(error.status == 401){
+                        unversalFunctionsService.notLoggedIn();
+                    }
+
+                }
+            );
+        }(); // this function will call it self once on controller load
 
     }/////controller ended here//////////////////////////
 

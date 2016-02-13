@@ -67,7 +67,7 @@ v1.get("/isLoggedIn", function (req, res, next) {
 // });
 v1.get("/getCompanyProfile", function (req, res, next) {
     userModel_1.getCompanyProfile(req.query.uid).then(function (success) {
-        console.log("ending res with data");
+        console.log("ending res with company profile data");
         res.json(success);
     }, function (err) {
         res.json(err);
@@ -98,6 +98,15 @@ v1.post("/salesmanSignup", function (req, res, next) {
     }, function (err) {
         console.log("signup error: ", err);
         res.json({ signup: false, message: err });
+    });
+});
+v1.get("/getSalesmanList", function (req, res, next) {
+    salesmanModel_1.getSalesmanList.byCompanyId(req.query.uid).then(function (salesmanList) {
+        console.log("ending res with salesman list");
+        res.json(salesmanList);
+    }, function (err) {
+        res.json(err);
+        return;
     });
 });
 module.exports = v1;

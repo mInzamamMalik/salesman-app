@@ -44,14 +44,18 @@
         </div>
         <ion-list class="list">
             <div class="item item-divider">Salesmans List</div>
-            <div class="item " ng-repeat="saleman in salesmansList"> {{saleman}} </div>
+            <div class="item " ng-repeat="saleman in salesmansList">
+                <h2>{{saleman.firstName + " " + saleman.lastName}}</h2>
+                <br/>
+                <p class="ionic-body" ng-show="saleman.createdOn">since: {{saleman.createdOn | date}}</p>
+            </div>
 
 
         </ion-list>
 
 
 
-
+<button ng-click="getSalesmanList()">refresh</button>
 
     </ion-content>
 </ion-view>
