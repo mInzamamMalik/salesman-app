@@ -53,7 +53,7 @@ let userSchema = new mongoose.Schema({
     firebaseUid: String
 });
 
-let userModule = mongoose.model("users", userSchema);
+let userModel = mongoose.model("users", userSchema);
 //////////////schema and model//////////////////////////////////////////
 
 
@@ -135,7 +135,7 @@ function signupOnMongodb(signupObject) {
 
     let deferred = q.defer();
 
-    let newUser = new userModule(signupObject);
+    let newUser = new userModel(signupObject);
     newUser.save((err, data) => {
 
         if (!err) {
@@ -312,7 +312,7 @@ function isAdmin(companyFirebaseUid) {
 
     let deferred = q.defer();
 
-    userModule.findOne({ firebaseUid: companyFirebaseUid }, (err, user) => {
+    userModel.findOne({ firebaseUid: companyFirebaseUid }, (err, user) => {
         if (!err) {
             if (!user) {
                 //user nhe mila
@@ -339,7 +339,7 @@ function getCompanyProfile(companyFirebaseUid) {
 
     let deferred = q.defer();
 
-    userModule.findOne({ firebaseUid: companyFirebaseUid }, (err, user) => {
+    userModel.findOne({ firebaseUid: companyFirebaseUid }, (err, user) => {
 
         if (!err) {
             if (!user) {

@@ -36,7 +36,7 @@ var userSchema = new mongoose.Schema({
     createdOn: { type: Date, 'default': Date.now },
     firebaseUid: String
 });
-var userModule = mongoose.model("users", userSchema);
+var userModel = mongoose.model("users", userSchema);
 //////////////schema and model//////////////////////////////////////////
 ///////////////////////do signup started/////////////////////////////////////////////////////////////////
 var doSignup = function (signupObject) {
@@ -84,7 +84,7 @@ exports.doSignup = doSignup;
 //retirn promise with mongoose error object on reject`
 function signupOnMongodb(signupObject) {
     var deferred = q.defer();
-    var newUser = new userModule(signupObject);
+    var newUser = new userModel(signupObject);
     newUser.save(function (err, data) {
         if (!err) {
             console.log(data);
@@ -193,7 +193,7 @@ exports.validateToken = validateToken;
 ///////////////this function is now working///////////////////////////////////////
 function isAdmin(companyFirebaseUid) {
     var deferred = q.defer();
-    userModule.findOne({ firebaseUid: companyFirebaseUid }, function (err, user) {
+    userModel.findOne({ firebaseUid: companyFirebaseUid }, function (err, user) {
         if (!err) {
             if (!user) {
                 //user nhe mila
@@ -214,7 +214,7 @@ exports.isAdmin = isAdmin;
 ////////////////////////////////////////////////////////////////////////////////////////
 function getCompanyProfile(companyFirebaseUid) {
     var deferred = q.defer();
-    userModule.findOne({ firebaseUid: companyFirebaseUid }, function (err, user) {
+    userModel.findOne({ firebaseUid: companyFirebaseUid }, function (err, user) {
         if (!err) {
             if (!user) {
                 //user nhe mila

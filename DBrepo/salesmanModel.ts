@@ -30,26 +30,26 @@ mongoose.connection.on('error', function(err) {//any error
 process.on('SIGINT', function() {/////this function will run jst before app is closing
     console.log("app is terminating");
     mongoose.connection.close(function() {
-        console.log('Mongoose default connection closed');    
+        console.log('Mongoose default connection closed');
         process.exit(0);
-    });    
+    });
 });
 ////////////////mongodb connected disconnected events///////////////////////////////////////////////
 
 
 //////////////schema and model///////////////////////////////////////////
 let salesmanSchema = new mongoose.Schema({
-    
+
     firstName: String,
     lastName: String,
     companyUid: String, //this will contain company identification of current salesman
     email: { type: String, unique: true, require: true },
-    //password: String,
+    //password: String,//password will not be present in mongolab
     createdOn: { type: Date, 'default': Date.now }, //pack 'default' in single quotes(this is Optional) to avoid compile error
     firebaseUid: String
 });
 
-let userModule = mongoose.model("users", salesmanSchema);
+let salesmanModel = mongoose.model("salesmans", salesmanSchema);
 //////////////schema and model//////////////////////////////////////////
 
 
@@ -58,8 +58,20 @@ let userModule = mongoose.model("users", salesmanSchema);
 
 
 
+
 ///////////////////////do signup of sales man started/////////////////////////////////////////////////////////////////
-let doSignup = (signupObject) => {
+//  this function will take an object in input like this object
+    // {
+    //     firstName: String,
+    //     lastName: String,
+    //     companyUid: String,
+    //     email: { type: String, unique: true, require: true },    
+    //     createdOn: { type: Date, 'default': Date.now }, 
+    //     firebaseUid: String
+    // }
+
+
+let salesmanSignup = (signupObject) => {
 
     console.log("ok");
 
@@ -131,7 +143,7 @@ function signupOnMongodb(signupObject) {
 
     let deferred = q.defer();
 
-    let newUser = new userModule(signupObject);
+    let newUser = new salesmanModel(signupObject);
     newUser.save((err, data) => {
 
         if (!err) {
@@ -145,10 +157,10 @@ function signupOnMongodb(signupObject) {
             ref.removeUser({                                            //
                 email: "bobtony@firebase.com",                          //
                 password: "correcthorsebatterystaple"                   // 
-            },(err)=>{                                                  //
-                if(!err){                                               //
+            }, (err) => {                                                  //
+                if (!err) {                                               //
                     console.log("removed user");                        //
-                }else{                                                  //
+                } else {                                                  //
                     console.log("error during remove user");            //
                 }                                                       //
             });                                                         //
@@ -163,3 +175,15 @@ function signupOnMongodb(signupObject) {
     return deferred.promise;
 }
 ///////////////////////end salesman signup on mongo db/////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+// this is a list of exported functions/methods
+// which are exported from this .ts file 
+// and free to import in any other .ts file
+export { salesmanSignup }

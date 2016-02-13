@@ -4,7 +4,7 @@ import url = require("url");
 
 //schemas methods
 import { doSignup, doLogin, validateToken, isAdmin, getCompanyProfile } from "../../DBrepo/userModel";
-
+import { salesmanSignup } from "../../DBrepo/salesmanModel";
 
 let v1 = express.Router()
 
@@ -151,8 +151,17 @@ v1.get("/getCompanyProfile", (req: express.Request, res: express.Response, next:
 
 v1.get("/addSalesman", (req: express.Request, res: express.Response, next: Function) => {
 
-
-
+    //  salesmanSignup function will take an object in input like this object
+    // {
+    //     firstName: String,
+    //     lastName: String,
+    //     companyUid: String,
+    //     email: { type: String, unique: true, require: true },    
+    //     createdOn: { type: Date, 'default': Date.now }, 
+    //     firebaseUid: String
+    // }
+    
+    salesmanSignup();
 
 });
 

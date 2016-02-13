@@ -32,14 +32,17 @@ var salesmanSchema = new mongoose.Schema({
     lastName: String,
     companyUid: String,
     email: { type: String, unique: true, require: true },
-    //password: String,
+    //password: String,//password will not be present in mongolab
     createdOn: { type: Date, 'default': Date.now },
     firebaseUid: String
 });
-var userModule = mongoose.model("users", salesmanSchema);
+var salesmanModel = mongoose.model("salesmans", salesmanSchema);
 //////////////schema and model//////////////////////////////////////////
 ///////////////////////do signup of sales man started/////////////////////////////////////////////////////////////////
-var doSignup = function (signupObject) {
+// 
+// 
+// 
+var salesmanSignup = function (signupObject) {
     console.log("ok");
     var deferred = q.defer(); // deferred object created
     ref.createUser({
@@ -83,7 +86,7 @@ var doSignup = function (signupObject) {
 //retirn promise with mongoose error object on reject`
 function signupOnMongodb(signupObject) {
     var deferred = q.defer();
-    var newUser = new userModule(signupObject);
+    var newUser = new salesmanModel(signupObject);
     newUser.save(function (err, data) {
         if (!err) {
             console.log(data);
