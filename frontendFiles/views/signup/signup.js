@@ -6,7 +6,7 @@
 
             $scope.signup = function () {// when user click on signup this function execute
 
-                unversalFunctionsService.showLoding(); // show loding until signup success or fail
+                unversalFunctionsService.showLoading(); // show loding until signup success or fail
 
 
                 /*interface patternOfUserObject {
@@ -35,7 +35,7 @@
                 }).then(
                     function (response) { //this function execute on signup response
                         console.log("res: ", response.data);
-                        unversalFunctionsService.hideLoding();//hide loading as signup response is arrived
+                        unversalFunctionsService.hideLoading();//hide loading as signup response is arrived
 
 
                         if (response.data.signup) { //on signup success
@@ -49,7 +49,7 @@
                     },
                     function (error) {// this function execute when unable to send request
                         console.log("error: ", error);
-                        unversalFunctionsService.hideLoding();//hide loding as unable to send loding
+                        unversalFunctionsService.hideLoading();//hide loding as unable to send loding
                         unversalFunctionsService.showAlert("Unknown Error !!","check you internet connection or check log for technical detail");
                     }
                 );
