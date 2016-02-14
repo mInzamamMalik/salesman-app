@@ -6,7 +6,7 @@
 
             $scope.salesmanSignup = function () {// when user click on signup this function execute
 
-                unversalFunctionsService.showLoading(); // show loding until signup success or fail
+                unversalFunctionsService.showLoading("Signing up..."); // show loding until signup success or fail
 
 
                 //  /v1/salesmanSignup will take an object in input like this object
