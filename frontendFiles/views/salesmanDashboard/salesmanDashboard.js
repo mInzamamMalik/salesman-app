@@ -21,8 +21,8 @@
         $scope.email = localStorage.getItem("email");
 
 
-        $http.get("/v1/getCompanyProfile").then(
-            function (response) {
+        $http.get("/v1/getSalesmanProfile").then(
+                function (response) {
 
                 console.log("response: ", response);
                 $scope.profileObject = response.data;

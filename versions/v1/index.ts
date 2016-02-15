@@ -3,8 +3,14 @@ import bodyParser = require("body-parser");
 import url = require("url");
 
 //schemas methods
-import { doSignup, doLogin, validateToken, isAdmin, getCompanyProfile } from "../../DBrepo/userModel";
+import { doSignup, doLogin, validateToken, isAdmin } from "../../DBrepo/userModel";
 import { salesmanSignup, getSalesmanList } from "../../DBrepo/salesmanModel";
+
+//salesman routes
+var salesmanRoutes = require("./salesmanRoutes");
+//admin routes
+var adminRoutes = require("./adminRoutes");
+
 
 let v1 = express.Router()
 
@@ -117,90 +123,33 @@ v1.get("/isLoggedIn", (req, res, next) => {
 /////////////////////////////////////////////////////////////////////////
 
 
-
-
-
-
-// v1.get("/isAdmin",(req , res , next)=>{
-//     console.log("isAdmin Hitted");
+ 
+v1.use("/admin", (req: express.Request, res: express.Response, next: Function) => {
     
-    
-// });
+    ///////////////////////////checking that loggedin person is admin or not///////////////////
+    isAdmin(req.query.uid).then(
+        (yes) => {
+            console.log("safgasd");
+            
+            //turn app flow to admin routes
+            adminRoutes(req,res,next);
 
-
-v1.get("/getCompanyProfile", (req: express.Request, res: express.Response, next: Function) => {
-
-    getCompanyProfile(req.query.uid).then(
-
-        (success) => {
-            console.log("ending res with company profile data");
-            res.json(success);
-
-        },
-
-        (err) => {
-
-            res.json(err);
+        }, (no) => {
+            
+            console.log("ye banda admin nhe hai");
+            //return with 401 Unautherise
+            res.send(401);
             return;
-        }
-
-    );
-
-
+        });                 
+    ////////////////////////////////////////////////////////////   /    
 });
 
-v1.post("/salesmanSignup", (req: express.Request, res: express.Response, next: Function) => {
-
-    //  db method "salesmanSignup"" will take an object in input like this object
-    // {
-    //     firstName: String,
-    //     lastName: String,
-    //     companyUid: String,
-    //     email: { type: String, unique: true, require: true },  
-    //     password : String,  
-    //     createdOn: { type: Date, 'default': Date.now }, 
-    //     firebaseUid: String
-    // }
-    
-    salesmanSignup({
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        email: req.body.email,
-        password: req.body.password,
-        companyUid: req.query.uid,
-        firebaseUid: "" //this field will fill by the method
-        
-    }).then((success) => {
-
-        console.log("signup success: ", success);
-
-        res.json({ signup: true });
-
-    },
-        (err) => {
-            console.log("signup error: ", err);
-            res.json({ signup: false, message: err });
-        });
+//turn app flow to salesman routes
+v1.use(salesmanRoutes);
 
 
-});
 
 
-v1.get("/getSalesmanList", (req: express.Request, res: express.Response, next: Function) => {
-
-    getSalesmanList.byCompanyId(req.query.uid).then(
-        (salesmanList) => {
-            console.log("ending res with salesman list");
-            res.json(salesmanList);
-        },
-        (err) => {
-            res.json(err);
-            return;
-        }
-
-    );
-
-});
 
 
 

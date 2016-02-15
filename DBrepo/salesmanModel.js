@@ -122,6 +122,7 @@ function signupOnMongodb(signupObject) {
     return deferred.promise;
 }
 ///////////////////////end salesman signup on mongo db/////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////
 var getSalesmanList = {
     // will be found for getting salesmans list
     //==>salesman schema detail                       
@@ -148,6 +149,29 @@ var getSalesmanList = {
     }
 };
 exports.getSalesmanList = getSalesmanList;
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////
+function getSalesmanProfile(salesmanFirebaseUid) {
+    var deferred = q.defer();
+    salesmanModel.findOne({ firebaseUid: salesmanFirebaseUid }, function (err, salesman) {
+        if (!err) {
+            if (!salesman) {
+                //user nhe mila
+                console.log("koi salesman nai mila: case 1: ", err, salesman);
+                deferred.reject(err);
+                return;
+            }
+            else {
+                //user mil gya
+                console.log("salesman mil gya: case 2: ", err, salesman);
+                deferred.resolve(salesman);
+            }
+        }
+    });
+    return deferred.promise;
+}
+exports.getSalesmanProfile = getSalesmanProfile;
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
 // this is a list of exported functions/methods
 // which are exported from this .ts file 
 // and free to import in any other .ts file

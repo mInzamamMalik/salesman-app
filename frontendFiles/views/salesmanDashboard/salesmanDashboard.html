@@ -1,8 +1,8 @@
-<ion-view  view-title="Admin Dashboard" hide-back-button="true">
+<ion-view  view-title="Salesman Dashboard" hide-back-button="true">
 
 
     <ion-nav-buttons side="primary">
-        <button class="button" >
+        <button class="button" ng-click="logout()">
             logout
         </button>
     </ion-nav-buttons>
@@ -19,11 +19,11 @@
         <div class="list card">
 
             <div class="item item-avatar" >
-                <img ng-src={{photoUrl}} ng-show="photoUrl" >
+                <img ng-src={{photoUrl}} onClick=window.open("https://secure.gravatar.com","change-profile-photo","width=550,height=300,left=150,top=200,toolbar=0,status=0,"); value="Open child Window">
                 <a href="https://secure.gravatar.com" target="_blank" ng-hide="photoUrl" >set a profile img</a>
 
 
-                <h2 ng-bind="profileObject.salesnamName"></h2>
+                <h2 ng-bind="profileObject.firstName + ' ' + profileObject.lastName" ></h2>
                 <p ng-bind="profileObject.email"></p>
                 <p ng-show="profileObject.createdOn">Joined: {{profileObject.createdOn | date}}</p>
             </div>

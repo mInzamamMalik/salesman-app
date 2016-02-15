@@ -20,7 +20,7 @@
 
                 $http({ // this line will send signup request to server with an object in request body
                     method: "post",
-                    url: "/v1/salesmanSignup",
+                    url: "/v1/admin/salesmanSignup",
                     data: {
                         email: $scope.newSalesmanObject.email,
                         password: $scope.newSalesmanObject.password,

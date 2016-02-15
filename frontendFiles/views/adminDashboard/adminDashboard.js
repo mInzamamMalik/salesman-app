@@ -22,7 +22,7 @@
 
 
         $scope.getCompanyProfile = function(){
-            $http.get("/v1/getCompanyProfile").then(
+            $http.get("/v1/admin/getCompanyProfile").then(
                 function (response) {
 
                     console.log("profile: ", response);
@@ -41,7 +41,7 @@
         }(); // this function will call it self once on controller load
 
         $scope.getSalesmanList = function(){
-            $http.get("/v1/getSalesmanList").then(
+            $http.get("/v1/admin/getSalesmanList").then(
                 function (response) {
 
                     console.log("salesman list: ", response.data);

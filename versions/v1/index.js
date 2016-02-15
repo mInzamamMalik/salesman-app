@@ -2,7 +2,10 @@ var express = require("express");
 var bodyParser = require("body-parser");
 //schemas methods
 var userModel_1 = require("../../DBrepo/userModel");
-var salesmanModel_1 = require("../../DBrepo/salesmanModel");
+//salesman routes
+var salesmanRoutes = require("./salesmanRoutes");
+//admin routes
+var adminRoutes = require("./adminRoutes");
 var v1 = express.Router();
 v1.use(bodyParser.json());
 ////////////////////////signup request///////////////////////////////////////////////////////////////////
@@ -62,51 +65,20 @@ v1.get("/isLoggedIn", function (req, res, next) {
     res.json({ isLoggedIn: true });
 });
 /////////////////////////////////////////////////////////////////////////
-// v1.get("/isAdmin",(req , res , next)=>{
-//     console.log("isAdmin Hitted");
-// });
-v1.get("/getCompanyProfile", function (req, res, next) {
-    userModel_1.getCompanyProfile(req.query.uid).then(function (success) {
-        console.log("ending res with company profile data");
-        res.json(success);
-    }, function (err) {
-        res.json(err);
+v1.use("/admin", function (req, res, next) {
+    ///////////////////////////checking that loggedin person is admin or not///////////////////
+    userModel_1.isAdmin(req.query.uid).then(function (yes) {
+        console.log("safgasd");
+        //turn app flow to admin routes
+        adminRoutes(req, res, next);
+    }, function (no) {
+        console.log("ye banda admin nhe hai");
+        //return with 401 Unautherise
+        res.send(401);
         return;
     });
+    ////////////////////////////////////////////////////////////   /    
 });
-v1.post("/salesmanSignup", function (req, res, next) {
-    //  db method "salesmanSignup"" will take an object in input like this object
-    // {
-    //     firstName: String,
-    //     lastName: String,
-    //     companyUid: String,
-    //     email: { type: String, unique: true, require: true },  
-    //     password : String,  
-    //     createdOn: { type: Date, 'default': Date.now }, 
-    //     firebaseUid: String
-    // }
-    salesmanModel_1.salesmanSignup({
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        email: req.body.email,
-        password: req.body.password,
-        companyUid: req.query.uid,
-        firebaseUid: "" //this field will fill by the method
-    }).then(function (success) {
-        console.log("signup success: ", success);
-        res.json({ signup: true });
-    }, function (err) {
-        console.log("signup error: ", err);
-        res.json({ signup: false, message: err });
-    });
-});
-v1.get("/getSalesmanList", function (req, res, next) {
-    salesmanModel_1.getSalesmanList.byCompanyId(req.query.uid).then(function (salesmanList) {
-        console.log("ending res with salesman list");
-        res.json(salesmanList);
-    }, function (err) {
-        res.json(err);
-        return;
-    });
-});
+//turn app flow to salesman routes
+v1.use(salesmanRoutes);
 module.exports = v1;

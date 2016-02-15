@@ -19,9 +19,7 @@
         <div class="list card">
 
             <div class="item item-avatar" >
-                <img ng-src={{photoUrl}} href="https://secure.gravatar.com" target="_blank" >
-
-
+                <img ng-src={{photoUrl}} onClick=window.open("https://secure.gravatar.com","change-profile-photo","width=550,height=300,left=150,top=200,toolbar=0,status=0,"); value="Open child Window">
 
                 <h2 ng-bind="profileObject.companyName"></h2>
                 <p ng-bind="profileObject.email"></p>

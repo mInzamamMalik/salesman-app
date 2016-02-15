@@ -178,6 +178,11 @@ function signupOnMongodb(signupObject) {
 
 
 
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////
 let getSalesmanList = {// this is an object of functions, in which varity of functions
                        // will be found for getting salesmans list
 
@@ -207,15 +212,52 @@ let getSalesmanList = {// this is an object of functions, in which varity of fun
         
         return deferred.promise;
     }
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////
+function getSalesmanProfile(salesmanFirebaseUid) {
+
+    let deferred = q.defer();
+
+    salesmanModel.findOne({ firebaseUid: salesmanFirebaseUid }, (err, salesman) => {
+
+        if (!err) {
+            if (!salesman) {
+                //user nhe mila
+                console.log("koi salesman nai mila: case 1: ", err, salesman);
+                deferred.reject(err);
+                return;
+            } else {
+                //user mil gya
+                console.log("salesman mil gya: case 2: ", err, salesman);
+
+                deferred.resolve(salesman);
+                
+                //console.log("console after resolve will not work");
+                // req.session.user = {
+                // "name": user.name,
+                // "email": user.email,
+                // "_id": user._id
+                // };
+            }
+            //this area should not execute if user not found
+            //and you may execute this area if user found
+        }
+    });
+
+    return deferred.promise;
 }
 
 
-
-
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -232,4 +274,4 @@ let getSalesmanList = {// this is an object of functions, in which varity of fun
 // this is a list of exported functions/methods
 // which are exported from this .ts file 
 // and free to import in any other .ts file
-export { salesmanSignup, getSalesmanList }
+export { salesmanSignup, getSalesmanList, getSalesmanProfile }
