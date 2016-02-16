@@ -20,23 +20,41 @@
         $scope.uid = localStorage.getItem("uid");
         $scope.email = localStorage.getItem("email");
 
+        //this function call itself one time
+        $scope.getSalesmanProfile = function () {
+            $http.get("/v1/getSalesmanProfile").then(
 
-        $http.get("/v1/getSalesmanProfile").then(
                 function (response) {
+                    console.log("response: ", response);
+                    $scope.profileObject = response.data;
+                },
+                function (error) {
+                    console.log("error getting profile: ", error);
 
-                console.log("response: ", response);
-                $scope.profileObject = response.data;
+                    if (error.status == 401) {
+                        unversalFunctionsService.notLoggedIn();
+                    }
+                });
+        }();
 
-            },
-            function (error) {
-                console.log("error getting profile: ", error);
+        //page for this route is not created on server yet
+        $scope.placeOrderAsSalesman = function(){
+            $http.get("/v1/placeOrderAsSalesman").then(
 
-                if(error.status == 401){
-                    unversalFunctionsService.notLoggedIn();
-                }
+                function (response) {
+                    console.log("response: ", response);
+                    $scope.profileObject = response.data;
+                },
+                function (error) {
+                    console.log("error getting profile: ", error);
 
-            }
-        );
+                    if (error.status == 401) {
+                        unversalFunctionsService.notLoggedIn();
+                    }
+                });
+
+        };
+
 
     }/////controller ended here//////////////////////////
 
