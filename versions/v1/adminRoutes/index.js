@@ -13,6 +13,16 @@ adminRoutes.get("/getCompanyProfile", function (req, res, next) {
         return;
     });
 });
+//return with list of salesman related to this company
+adminRoutes.get("/getSalesmanList", function (req, res, next) {
+    salesmanModel_1.getSalesmanList.byCompanyId(req.query.uid).then(function (salesmanList) {
+        console.log("ending res with salesman list");
+        res.json(salesmanList);
+    }, function (err) {
+        res.json(err);
+        return;
+    });
+});
 //this route will regester a salesman in company
 adminRoutes.post("/salesmanSignup", function (req, res, next) {
     //  db method "salesmanSignup"" will take an object in input like this object
