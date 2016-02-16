@@ -27,6 +27,22 @@ adminRoutes.get("/getCompanyProfile", (req: express.Request, res: express.Respon
 });
 
 
+
+//return with list of salesman related to this company
+adminRoutes.get("/getSalesmanList", (req: express.Request, res: express.Response, next: Function) => {
+
+    getSalesmanList.byCompanyId(req.query.uid).then(
+        (salesmanList) => {
+            console.log("ending res with salesman list");
+            res.json(salesmanList);
+        },
+        (err) => {
+            res.json(err);
+            return;
+        });
+});
+
+
 //this route will regester a salesman in company
 adminRoutes.post("/salesmanSignup", (req: express.Request, res: express.Response, next: Function) => {
 
