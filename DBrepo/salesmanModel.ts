@@ -184,7 +184,7 @@ function signupOnMongodb(signupObject) {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 let getSalesmanList = {// this is an object of functions, in which varity of functions
-                       // will be found for getting salesmans list
+    // will be found for getting salesmans list
 
     //==>salesman schema detail                       
     // firstName: String,
@@ -195,23 +195,26 @@ let getSalesmanList = {// this is an object of functions, in which varity of fun
     // createdOn: { type: Date, 'default': Date.now }, //pack 'default' in single quotes(this is Optional) to avoid compile error
     // firebaseUid: String
     
-    byCompanyId: (companyFirebaseUid) => {//this method will take company firebaseUid 
-                                   //and return all salesman list related to the company
+    byCompanyId: (companyFirebaseUid) => {
+        //this method will take company firebaseUid 
+        //and return all salesman list related to the company
         let deferred = q.defer();
-        
+
         console.log(companyFirebaseUid);
-        
+
         salesmanModel.find({ companyUid: companyFirebaseUid.toString() },
             (err, userArray) => {
                 if (!err) {
                     deferred.resolve(userArray);
-                }else{
-                    deferred.reject(err);   
+                } else {
+                    deferred.reject(err);
                 }
             });
-        
+
         return deferred.promise;
     }
+
+
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -223,7 +226,7 @@ let getSalesmanList = {// this is an object of functions, in which varity of fun
 
 
 ////////////////////////////////////////////////////////////////////////////////////////
-function getSalesmanProfile(salesmanFirebaseUid) {
+function getSalesmanProfile(salesmanFirebaseUid) { //this function wil take salesman  
 
     let deferred = q.defer();
 

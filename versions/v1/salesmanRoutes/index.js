@@ -12,4 +12,7 @@ salesmanRoutes.get("/getSalesmanProfile", function (req, res, next) {
         return;
     });
 });
+salesmanRoutes.get("/placeOrder", function (req, res, next) {
+    req.query.uid;
+});
 module.exports = salesmanRoutes;

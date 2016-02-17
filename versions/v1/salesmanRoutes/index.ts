@@ -27,7 +27,12 @@ salesmanRoutes.get("/getSalesmanProfile", (req: express.Request, res: express.Re
 });
 
 
-
+salesmanRoutes.get("/placeOrder", (req: express.Request, res: express.Response, next: Function) => {
+    
+    req.query.uid;
+    
+    
+})
 
 
 
