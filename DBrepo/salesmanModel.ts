@@ -235,12 +235,12 @@ function getSalesmanProfile(salesmanFirebaseUid) { //this function wil take sale
         if (!err) {
             if (!salesman) {
                 //user nhe mila
-                console.log("koi salesman nai mila: case 1: ", err, salesman);
+                //console.log("koi salesman nai mila: case 1: ", err, salesman);
                 deferred.reject(err);
                 return;
             } else {
                 //user mil gya
-                console.log("salesman mil gya: case 2: ", err, salesman);
+                //console.log("salesman mil gya: case 2: ", err, salesman);
 
                 deferred.resolve(salesman);
                 

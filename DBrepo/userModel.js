@@ -182,7 +182,7 @@ function validateToken(token) {
             deferred.reject(error);
         }
         else {
-            console.log("Authenticated successfully with payload:", result.auth);
+            //console.log("Authenticated successfully with payload:", result.auth);
             console.log("Auth expires at:", new Date(result.expires * 1000));
             deferred.resolve(result);
         }

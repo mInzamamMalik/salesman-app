@@ -79,10 +79,7 @@
             this.clearCredentials = function () {
 
                 console.log("clear");
-                localStorage.setItem("token", "");
-                localStorage.setItem("uid", "");
-                localStorage.setItem("email", "");
-                localStorage.setItem("photoUrl", "");
+                localStorage.clear();//clear all entry of localstorage
                 /*
                  disableAnimate: Do not animate the next transition.
                  disableBack: The next view should forget its back view, and set it to null.

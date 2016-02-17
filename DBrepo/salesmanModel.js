@@ -134,6 +134,7 @@ var getSalesmanList = {
     // createdOn: { type: Date, 'default': Date.now }, //pack 'default' in single quotes(this is Optional) to avoid compile error
     // firebaseUid: String
     byCompanyId: function (companyFirebaseUid) {
+        //this method will take company firebaseUid 
         //and return all salesman list related to the company
         var deferred = q.defer();
         console.log(companyFirebaseUid);
@@ -157,13 +158,13 @@ function getSalesmanProfile(salesmanFirebaseUid) {
         if (!err) {
             if (!salesman) {
                 //user nhe mila
-                console.log("koi salesman nai mila: case 1: ", err, salesman);
+                //console.log("koi salesman nai mila: case 1: ", err, salesman);
                 deferred.reject(err);
                 return;
             }
             else {
                 //user mil gya
-                console.log("salesman mil gya: case 2: ", err, salesman);
+                //console.log("salesman mil gya: case 2: ", err, salesman);
                 deferred.resolve(salesman);
             }
         }

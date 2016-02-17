@@ -27,6 +27,9 @@
                 function (response) {
                     console.log("response: ", response);
                     $scope.profileObject = response.data;
+
+                    //localstorage.setItem("companyUid" , response.data.companyUid);//will save company uid of salesman in local storage
+                    //i think this is not secure as salesman can change uid of company and can place order to another company
                 },
                 function (error) {
                     console.log("error getting profile: ", error);
@@ -37,9 +40,9 @@
                 });
         }();
 
-        //page for this route is not created on server yet
+        //page for this route is created on server but not yet tested
         $scope.placeOrderAsSalesman = function(){
-            $http.get("/v1/placeOrderAsSalesman").then(
+            $http.post("/v1/placeOrderAsSalesman").then(
 
                 function (response) {
                     console.log("response: ", response);

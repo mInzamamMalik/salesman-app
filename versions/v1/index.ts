@@ -82,8 +82,8 @@ v1.post("/login", (req: express.Request, res: express.Response, next: Function) 
 /////////start/////if not authenticated return with 401 not autherised/authenticated///////////////////////////////////////////////////
 v1.use((req: express.Request, res: express.Response, next: Function) => {
 
-    console.log("token is: ", req.query.token);
-    console.log("uid is: ", req.query.uid);
+    //console.log("token is: ", req.query.token);
+    //console.log("uid is: ", req.query.uid);
 
 
     if (req.query.token) {
@@ -129,7 +129,7 @@ v1.use("/admin", (req: express.Request, res: express.Response, next: Function) =
     ///////////////////////////checking that loggedin person is admin or not///////////////////
     isAdmin(req.query.uid).then(
         (yes) => {
-            console.log("safgasd");
+            console.log("this person is admin");
             
             //turn app flow to admin routes
             adminRoutes(req,res,next);

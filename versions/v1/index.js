@@ -36,8 +36,8 @@ v1.post("/login", function (req, res, next) {
 ///////////////login resuest/////////////////////////////////////
 /////////start/////if not authenticated return with 401 not autherised/authenticated///////////////////////////////////////////////////
 v1.use(function (req, res, next) {
-    console.log("token is: ", req.query.token);
-    console.log("uid is: ", req.query.uid);
+    //console.log("token is: ", req.query.token);
+    //console.log("uid is: ", req.query.uid);
     if (req.query.token) {
         userModel_1.validateToken(req.query.token).then(function (success) {
             console.log("token valid hai");
@@ -68,7 +68,7 @@ v1.get("/isLoggedIn", function (req, res, next) {
 v1.use("/admin", function (req, res, next) {
     ///////////////////////////checking that loggedin person is admin or not///////////////////
     userModel_1.isAdmin(req.query.uid).then(function (yes) {
-        console.log("safgasd");
+        console.log("this person is admin");
         //turn app flow to admin routes
         adminRoutes(req, res, next);
     }, function (no) {
