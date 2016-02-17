@@ -48,7 +48,7 @@ function placeOrderAsSalesMan(salesmanUid, orderTitle, orderText) {
     salesmanModel_1.getSalesmanProfile(salesmanUid).then(function (success) {
         console.log("ending res with company profile data");
         //console.log("this is success : ", success);
-        var companyUid = success.companyUid;
+        //let companyUid: string = success.companyUid;
         //if geSalesmanProfile return with success then place a new entry in order collection
         // this is schema of order
         // companyUid: String, //this will contain company identification of which this order is related
@@ -65,8 +65,20 @@ function placeOrderAsSalesMan(salesmanUid, orderTitle, orderText) {
         });
         newOrder.save(function (err, data) {
             if (!err) {
-                //console.log(data);
+                //console.log("this order is placed",data);
                 deferred.resolve(data);
+                //flaging on firebase that notification is fired
+                var companyNode = ref.child(data.companyUid.toString());
+                companyNode.set({
+                    alanisawesome: {
+                        date_of_birth: "June 23, 1912",
+                        full_name: "Alan Turing"
+                    },
+                    gracehop: {
+                        date_of_birth: "December 9, 1906",
+                        full_name: "Grace Hopper"
+                    }
+                });
             }
             else {
                 console.log(err);
@@ -74,7 +86,7 @@ function placeOrderAsSalesMan(salesmanUid, orderTitle, orderText) {
             }
         });
     }, function (err) {
-        deferred.reject("cannot find and sales man against provided uid");
+        deferred.reject(err);
         return;
     });
     return deferred.promise;

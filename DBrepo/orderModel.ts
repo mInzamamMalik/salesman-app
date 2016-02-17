@@ -88,7 +88,7 @@ function placeOrderAsSalesMan(salesmanUid, orderTitle, orderText) {
 
 
             //console.log("this is success : ", success);
-            let companyUid: string = success.companyUid;
+            //let companyUid: string = success.companyUid;
             
             //if geSalesmanProfile return with success then place a new entry in order collection
             // this is schema of order
@@ -107,23 +107,35 @@ function placeOrderAsSalesMan(salesmanUid, orderTitle, orderText) {
                 orderTiile: orderTitle,
                 orderText: orderText
             });
-            
+
             newOrder.save((err, data) => {
 
-                if (!err) {
-                                        
-                    //console.log(data);
+                if (!err) {                                        
+                    //console.log("this order is placed",data);
                     deferred.resolve(data);
-
-                } else {           
                     
+                    //flaging on firebase that notification is fired
+                    let companyNode = ref.child(data.companyUid.toString());
+                    
+                    companyNode.set({
+                        alanisawesome: {
+                            date_of_birth: "June 23, 1912",
+                            full_name: "Alan Turing"
+                        },
+                        gracehop: {
+                            date_of_birth: "December 9, 1906",
+                            full_name: "Grace Hopper"
+                        }
+                    });
+
+                } else {
                     console.log(err);
                     deferred.reject(err);
                 }
             });
         },
         (err) => {
-            deferred.reject("cannot find and sales man against provided uid");
+            deferred.reject(err);
             return;
         });
 
