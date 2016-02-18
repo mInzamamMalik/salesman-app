@@ -3,13 +3,11 @@ import Firebase = require("firebase");
 import q = require("q"); //to return deferred.promise from function
 
 let ref = new Firebase("https://sales-man-app.firebaseio.com/");
-let dbURI = "mongodb://malikasinger:sales@ds049935.mongolab.com:49935/salesman-app";
-// let dbURI = 'mongodb://localhost/mydatabase';
-// mongoose.connect(dbURI);
+
 
 //db methods
 import { getSalesmanProfile } from "./../DBrepo/salesmanModel";
-
+import { notification } from "./../DBrepo/notificationMethods";
 
 
 
@@ -28,18 +26,6 @@ let orderSchema = new mongoose.Schema({
 
 let orderModel = mongoose.model("orders", orderSchema);
 //////////////end order schema and model//////////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -84,9 +70,7 @@ function placeOrderAsSalesMan(salesmanUid, orderTitle, orderText) {
 
     getSalesmanProfile(salesmanUid).then(
         (success) => {
-            console.log("ending res with company profile data");
-
-
+            
             //console.log("this is success : ", success);
             //let companyUid: string = success.companyUid;
             
@@ -110,24 +94,12 @@ function placeOrderAsSalesMan(salesmanUid, orderTitle, orderText) {
 
             newOrder.save((err, data) => {
 
-                if (!err) {                                        
+                if (!err) { 
+                    //flaging on firebase that notification is placed
+                    notification.incrementOne(success.companyUid);
+                                                      
                     //console.log("this order is placed",data);
-                    deferred.resolve(data);
-                    
-                    //flaging on firebase that notification is fired
-                    let companyNode = ref.child(data.companyUid.toString());
-                    
-                    companyNode.set({
-                        alanisawesome: {
-                            date_of_birth: "June 23, 1912",
-                            full_name: "Alan Turing"
-                        },
-                        gracehop: {
-                            date_of_birth: "December 9, 1906",
-                            full_name: "Grace Hopper"
-                        }
-                    });
-
+                    deferred.resolve(data); 
                 } else {
                     console.log(err);
                     deferred.reject(err);

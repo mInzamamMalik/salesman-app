@@ -2,11 +2,9 @@ var mongoose = require("mongoose"); //mongodb driver
 var Firebase = require("firebase");
 var q = require("q"); //to return deferred.promise from function
 var ref = new Firebase("https://sales-man-app.firebaseio.com/");
-var dbURI = "mongodb://malikasinger:sales@ds049935.mongolab.com:49935/salesman-app";
-// let dbURI = 'mongodb://localhost/mydatabase';
-// mongoose.connect(dbURI);
 //db methods
 var salesmanModel_1 = require("./../DBrepo/salesmanModel");
+var notificationMethods_1 = require("./../DBrepo/notificationMethods");
 //////////////order schema and model///////////////////////////////////////////
 var orderSchema = new mongoose.Schema({
     companyUid: String,
@@ -46,7 +44,6 @@ function placeOrderAsSalesMan(salesmanUid, orderTitle, orderText) {
     // }
     //we just need his company uid to push in order Object
     salesmanModel_1.getSalesmanProfile(salesmanUid).then(function (success) {
-        console.log("ending res with company profile data");
         //console.log("this is success : ", success);
         //let companyUid: string = success.companyUid;
         //if geSalesmanProfile return with success then place a new entry in order collection
@@ -65,20 +62,10 @@ function placeOrderAsSalesMan(salesmanUid, orderTitle, orderText) {
         });
         newOrder.save(function (err, data) {
             if (!err) {
+                //flaging on firebase that notification is placed
+                notificationMethods_1.notification.incrementOne(success.companyUid);
                 //console.log("this order is placed",data);
                 deferred.resolve(data);
-                //flaging on firebase that notification is fired
-                var companyNode = ref.child(data.companyUid.toString());
-                companyNode.set({
-                    alanisawesome: {
-                        date_of_birth: "June 23, 1912",
-                        full_name: "Alan Turing"
-                    },
-                    gracehop: {
-                        date_of_birth: "December 9, 1906",
-                        full_name: "Grace Hopper"
-                    }
-                });
             }
             else {
                 console.log(err);
