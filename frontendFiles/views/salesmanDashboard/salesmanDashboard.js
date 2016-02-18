@@ -5,10 +5,10 @@
 
     angular.module("salesmanDashboard", [])
 
-        .controller("salesmanDashboardController", ['$scope', '$http', 'unversalFunctionsService', adminDashboardController]);
+        .controller("salesmanDashboardController", ['$scope', '$http', 'unversalFunctionsService', '$ionicModal', adminDashboardController]);
 
 
-    function adminDashboardController($scope, $http, unversalFunctionsService) {
+    function adminDashboardController($scope, $http, unversalFunctionsService, $ionicModal) {
 
         //unversalFunctionsService.isLoggedIn();
         $scope.photoUrl = localStorage.getItem("photoUrl");
@@ -23,7 +23,6 @@
         //this function call itself one time
         $scope.getSalesmanProfile = function () {
             $http.get("/v1/getSalesmanProfile").then(
-
                 function (response) {
                     console.log("response: ", response);
                     $scope.profileObject = response.data;
@@ -41,15 +40,13 @@
         }();
 
         //page for this route is created on server but not yet tested
-        $scope.placeOrderAsSalesman = function(){
+        $scope.placeOrderAsSalesman = function () {
             $http.post("/v1/placeOrderAsSalesman").then(
-
                 function (response) {
                     console.log("response: ", response);
-                    $scope.profileObject = response.data;
                 },
                 function (error) {
-                    console.log("error getting profile: ", error);
+                    console.log("error in placing order: ", error);
 
                     if (error.status == 401) {
                         unversalFunctionsService.notLoggedIn();
@@ -59,6 +56,31 @@
         };
 
 
+        $ionicModal.fromTemplateUrl('./modal-views/placeOrder.html', {
+
+            scope: $scope,
+            //animation: 'slide-in-up'
+            animation: 'mh-slide'
+
+        }).then(function (modal) {
+
+            $scope.modal = modal;
+
+        });
+
+        $scope.openModal = function () {
+            $scope.modal.show();
+        };
+        $scope.closeModal = function() {
+            $scope.modal.hide();
+        };
+
+
     }/////controller ended here//////////////////////////
 
 })();//self calling function ended here
+
+
+
+
+
