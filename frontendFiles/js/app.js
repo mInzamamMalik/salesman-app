@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 (function () {
-    angular.module('starter', ['ionic', 'home', 'signup', 'login', 'adminDashboard', 'salesmanDashboard', 'salesmanSignup'])
+    angular.module('starter', ['ionic','geolocation', 'home', 'signup', 'login', 'adminDashboard', 'salesmanDashboard', 'salesmanSignup'])
 
 
         .controller("appController", ['$scope', appController])

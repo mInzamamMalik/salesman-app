@@ -16,8 +16,12 @@ let orderSchema = new mongoose.Schema({
 
     companyUid: String, //this will contain company identification of which this order is related
     salesmanUid: String, // this will contain sale man identification who is placing this order
-    orderTiile: String, // this will contain title text of order
-    orderText: String, //this will contain order detail in string
+    
+    clientName: String, // this will contain client which order is placing for
+    
+    orderSubject: String, // this will contain subject of order
+    
+    orderDetail: String, //this will contain order detail in string
     unRead: { type: Boolean, 'default': true },
     createdOn: { type: Date, 'default': Date.now } //pack 'default' in single quotes(this is Optional) to avoid compile error
     
@@ -37,7 +41,7 @@ let orderModel = mongoose.model("orders", orderSchema);
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //this function will place order as salesman , take input salesman uid and order detail
 //then 
-function placeOrderAsSalesMan(salesmanUid, orderTitle, orderText) {
+function placeOrderAsSalesMan(salesmanUid, clientName, orderSubject, orderDetail) {
 
     let deferred = q.defer();
     
@@ -88,8 +92,9 @@ function placeOrderAsSalesMan(salesmanUid, orderTitle, orderText) {
             let newOrder = new orderModel({
                 companyUid: success.companyUid,
                 salesmanUid: salesmanUid,
-                orderTiile: orderTitle,
-                orderText: orderText
+                clientName : clientName,
+                orderSubject: orderSubject,
+                orderDetail: orderDetail
             });
 
             newOrder.save((err, data) => {

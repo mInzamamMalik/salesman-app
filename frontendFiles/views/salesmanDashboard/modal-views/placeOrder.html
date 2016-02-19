@@ -15,31 +15,29 @@
 
     <ion-content>
 
-
-        <div class="list">
-            <label class="item item-input">
-                <input type="text" placeholder="Client / Shop Name" required ng-model="newOrderObject.clientName">
-            </label>
-
-            <div class="row padding">
-
-                <label class="item item-input col">
-                    <input type="text" placeholder="items" ng-model="newOrderObject.itemName">
+        <form ng-submit="placeOrderAsSalesman(newOrderObject)">
+            <div class="list">
+                <label class="item item-input">
+                    <input type="text"
+                           placeholder="Client / Shop Name"
+                           required ng-model="newOrderObject.clientName">
                 </label>
 
-                <label class="item item-input col">
-                    <input type="number" placeholder="count" ng-model="newOrderObject.itemCount">
+
+                <label class="item item-input ">
+                    <input type="text"
+                           placeholder="order subject"
+                           ng-model="newOrderObject.orderSubject">
                 </label>
+
+
+                <label class="item item-input">
+                    <textarea rows="4" placeholder="order detail" ng-model="newOrderObject.orderDetail"></textarea>
+                </label>
+
+                <button class="button button-positive button-full" type="submit">Submit</button>
             </div>
-
-            <label class="item item-input">
-                <textarea rows="4" placeholder="description if any" ng-model="newOrderObject.itemDetail"></textarea>
-            </label>
-
-            <button class="button button-positive button-full" type="submit">Submit</button>
-        </div>
-
-
+        </form>
 
 
     </ion-content>

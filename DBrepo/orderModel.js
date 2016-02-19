@@ -9,8 +9,9 @@ var notificationMethods_1 = require("./../DBrepo/notificationMethods");
 var orderSchema = new mongoose.Schema({
     companyUid: String,
     salesmanUid: String,
-    orderTiile: String,
-    orderText: String,
+    clientName: String,
+    orderSubject: String,
+    orderDetail: String,
     unRead: { type: Boolean, 'default': true },
     createdOn: { type: Date, 'default': Date.now } //pack 'default' in single quotes(this is Optional) to avoid compile error
 });
@@ -19,7 +20,7 @@ var orderModel = mongoose.model("orders", orderSchema);
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //this function will place order as salesman , take input salesman uid and order detail
 //then 
-function placeOrderAsSalesMan(salesmanUid, orderTitle, orderText) {
+function placeOrderAsSalesMan(salesmanUid, clientName, orderSubject, orderDetail) {
     var deferred = q.defer();
     // input pattern of placeOrderAsSalesMan function
     // interface placeOrderAsSalesMan  {
@@ -57,8 +58,9 @@ function placeOrderAsSalesMan(salesmanUid, orderTitle, orderText) {
         var newOrder = new orderModel({
             companyUid: success.companyUid,
             salesmanUid: salesmanUid,
-            orderTiile: orderTitle,
-            orderText: orderText
+            clientName: clientName,
+            orderSubject: orderSubject,
+            orderDetail: orderDetail
         });
         newOrder.save(function (err, data) {
             if (!err) {
