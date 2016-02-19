@@ -56,7 +56,7 @@
         };
 
 
-        $ionicModal.fromTemplateUrl('./modal-views/placeOrder.html', {
+        $ionicModal.fromTemplateUrl('./views/salesmanDashboard/modal-views/placeOrder.html', {
 
             scope: $scope,
             //animation: 'slide-in-up'
