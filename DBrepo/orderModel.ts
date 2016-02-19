@@ -22,7 +22,7 @@ let orderSchema = new mongoose.Schema({
     orderSubject: String, // this will contain subject of order
     
     orderDetail: String, //this will contain order detail in string
-    geoCoords : [Number],
+    geoCoords: [Number],
     unRead: { type: Boolean, 'default': true },
     createdOn: { type: Date, 'default': Date.now } //pack 'default' in single quotes(this is Optional) to avoid compile error
     
@@ -93,10 +93,10 @@ function placeOrderAsSalesMan(salesmanUid, clientName, orderSubject, orderDetail
             let newOrder = new orderModel({
                 companyUid: success.companyUid,
                 salesmanUid: salesmanUid,
-                clientName : clientName,
+                clientName: clientName,
                 orderSubject: orderSubject,
                 orderDetail: orderDetail,
-                geoCoords : geoCoords
+                geoCoords: geoCoords
             });
 
             newOrder.save((err, data) => {
@@ -106,7 +106,7 @@ function placeOrderAsSalesMan(salesmanUid, clientName, orderSubject, orderDetail
                     notification.incrementOne(success.companyUid);
                                                       
                     //console.log("this order is placed",data);
-                    deferred.resolve(data); 
+                    deferred.resolve(data);
                 } else {
                     console.log(err);
                     deferred.reject(err);
@@ -123,6 +123,23 @@ function placeOrderAsSalesMan(salesmanUid, clientName, orderSubject, orderDetail
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+function getOrderListAsSalesman(salesmanUid) {
+    let deferred = q.defer();
+
+
+    orderModel.find({ 'salesmanUid': salesmanUid }, // all orders placed by this salesman
+    
+        (err, orderList) => {
+            if (!err) {
+                console.log(orderList);
+                deferred.resolve(orderList);
+            } else {
+                deferred.reject(err);
+            }
+        });
+
+    return deferred.promise;
+}
 
 
 
@@ -135,4 +152,4 @@ function placeOrderAsSalesMan(salesmanUid, clientName, orderSubject, orderDetail
 // this is a list of exported functions/methods
 // which are exported from this .ts file 
 // and free to import in any other .ts file
-export { placeOrderAsSalesMan }
+export { placeOrderAsSalesMan, getOrderListAsSalesman }

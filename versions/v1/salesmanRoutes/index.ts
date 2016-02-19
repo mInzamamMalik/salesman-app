@@ -3,7 +3,7 @@ import bodyParser = require("body-parser");
 import url = require("url");
 //db methods
 import { salesmanSignup, getSalesmanProfile } from "../../../DBrepo/salesmanModel";
-import { placeOrderAsSalesMan } from "../../../DBrepo/orderModel";
+import { placeOrderAsSalesMan , getOrderListAsSalesman} from "../../../DBrepo/orderModel";
 
 
 let salesmanRoutes = express.Router()
@@ -45,9 +45,27 @@ salesmanRoutes.post("/placeOrderAsSalesman", (req: express.Request, res: express
             return;
         });
 
+});
+
+
+
+salesmanRoutes.get("/getOrderListAsSalesman", (req: express.Request, res: express.Response, next: Function) => {
+
+    console.log("get order by salesman is hitted");
+
+    getOrderListAsSalesman(req.query.uid).then(
+
+        (success) => {
+            //console.log("order is placed successfully");
+            res.json(success);
+        },
+        (err) => {
+
+            res.json(err);
+            return;
+        });
+
 })
-
-
 
 
 

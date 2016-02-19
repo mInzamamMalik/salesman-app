@@ -25,4 +25,14 @@ salesmanRoutes.post("/placeOrderAsSalesman", function (req, res, next) {
         return;
     });
 });
+salesmanRoutes.get("/getOrderListAsSalesman", function (req, res, next) {
+    console.log("get order by salesman is hitted");
+    orderModel_1.getOrderListAsSalesman(req.query.uid).then(function (success) {
+        //console.log("order is placed successfully");
+        res.json(success);
+    }, function (err) {
+        res.json(err);
+        return;
+    });
+});
 module.exports = salesmanRoutes;

@@ -128,7 +128,7 @@
                         if ( (response.status / 100) < 4 ) {
 
                             console.log("response: ", response);
-                            $scope.OrderList = response.data;//data should be an array
+                            $scope.orderList = response.data;//data should be an array
 
                         } else {
                             console.log(response.data);

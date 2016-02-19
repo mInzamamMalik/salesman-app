@@ -1,6 +1,4 @@
-
-
-<ion-view  view-title="Salesman Dashboard" hide-back-button="true">
+<ion-view view-title="Salesman Dashboard" hide-back-button="true">
 
 
     <ion-nav-buttons side="primary">
@@ -20,41 +18,47 @@
 
         <div class="list card">
 
-            <div class="item item-avatar" >
-                <img ng-src={{photoUrl}} onClick=window.open("https://secure.gravatar.com","change-profile-photo","width=550,height=300,left=150,top=200,toolbar=0,status=0,"); value="Open child Window">
-                <a href="https://secure.gravatar.com" target="_blank" ng-hide="photoUrl" >set a profile img</a>
+            <div class="item item-avatar">
+                <img ng-src={{photoUrl}}
+                     onClick=window.open("https://secure.gravatar.com","change-profile-photo","width=550,height=300,left=150,top=200,toolbar=0,status=0,");
+                     value="Open child Window">
+                <a href="https://secure.gravatar.com" target="_blank" ng-hide="photoUrl">set a profile img</a>
 
 
-                <h2 ng-bind="profileObject.firstName + ' ' + profileObject.lastName" ></h2>
+                <h2 ng-bind="profileObject.firstName + ' ' + profileObject.lastName"></h2>
+
                 <p ng-bind="profileObject.email"></p>
+
                 <p ng-show="profileObject.createdOn">Joined: {{profileObject.createdOn | date}}</p>
             </div>
 
             <!--<div class="item item-body">-->
-                <!--<img class="full-image" src="./img/delorean.jpg">-->
-                <!--<p>-->
-                    <!--This is a "Facebook" styled Card. The header is created from a Thumbnail List item,-->
-                    <!--the content is from a card-body consisting of an image and paragraph text. The footer-->
-                    <!--consists of tabs, icons aligned left, within the card-footer.-->
-                <!--</p>-->
-                <!--<p>-->
-                    <!--<a href="#" class="subdued">1 Like</a>-->
-                    <!--<a href="#" class="subdued">5 Comments</a>-->
-                <!--</p>-->
+            <!--<img class="full-image" src="./img/delorean.jpg">-->
+            <!--<p>-->
+            <!--This is a "Facebook" styled Card. The header is created from a Thumbnail List item,-->
+            <!--the content is from a card-body consisting of an image and paragraph text. The footer-->
+            <!--consists of tabs, icons aligned left, within the card-footer.-->
+            <!--</p>-->
+            <!--<p>-->
+            <!--<a href="#" class="subdued">1 Like</a>-->
+            <!--<a href="#" class="subdued">5 Comments</a>-->
+            <!--</p>-->
             <!--</div>-->
 
         </div>
         <ion-list class="list">
             <div class="item item-divider">Orders List</div>
 
-            <div class="item" ng-repeat="saleman in orderList"> {{saleman}} </div>
+            <div class="item" ng-repeat="order in orderList">
+                <h2>{{order.clientName}}</h2>
 
-<!--<span ng-bind="time | date:'yyyy-MM-dd HH:mm:ss Z'">  </span>-->
+                <p>{{order.orderSubject}}</p>
 
+                <p>{{order.createdOn | date}} -- Lat: {{order.geoCoords[0]}} , Lon: {{order.geoCoords[1]}}</p>
+                <p>{{order.orderDetail}}</p>
+                <!--<span ng-bind="time | date:'yyyy-MM-dd HH:mm:ss Z'">  </span>-->
+            </div>
         </ion-list>
-
-
-
 
 
     </ion-content>
