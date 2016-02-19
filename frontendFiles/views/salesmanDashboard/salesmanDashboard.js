@@ -46,8 +46,10 @@
         $scope.placeOrderAsSalesman = function (newOrderObject) {
 
             geolocation.getLocation().then(function (geoLocation) {
-                console.log(geoLocation);
 
+                unversalFunctionsService.showLoading("sending to server...");
+
+                console.log(geoLocation);
 
                 $http({///////////send login request to server with login information in body
                     method: "post",
@@ -57,57 +59,27 @@
                         clientName: newOrderObject.clientName,
                         orderSubject: newOrderObject.orderSubject,
                         orderDetail: newOrderObject.orderDetail,
-                        geoCoords: {
-                            lat: geoLocation.coords.latitude,
-                            long: geoLocation.coords.longitude
-                        }
+                        geoCoords: [
+                            geoLocation.coords.latitude,
+                            geoLocation.coords.longitude
+                        ]
                     }
 
                 }).then(
                     function (response) {
-                        console.log(response.data);
+                        console.log(response);
 
 
-                        //if (response.data.logedIn) {
-                        //
-                        //
+                        if ( (response.status / 100) < 4 ) {
+                            unversalFunctionsService.hideLoading();
+                            $scope.closeModal();
+                            //every thing is ok hide loading and modal and do nothing
 
-
-                        //
-                        //    /*
-                        //     disableAnimate: Do not animate the next transition.
-                        //     disableBack: The next view should forget its back view, and set it to null.
-                        //     historyRoot: The next view should become the root view in its history stack.
-                        //     */
-                        //
-                        //
-                        //    if (response.data.isAdmin) { // it means user is loged in
-                        //
-                        //        unversalFunctionsService.hideLoading();
-                        //
-                        //        $ionicHistory.nextViewOptions({
-                        //            disableBack: true,
-                        //            historyRoot: true
-                        //        });
-                        //        $state.go("adminDashboard", {}, {reload: true});
-                        //
-                        //    } else if (!response.data.isAdmin) {
-                        //        unversalFunctionsService.hideLoading();
-                        //
-                        //        $ionicHistory.nextViewOptions({
-                        //            disableBack: true,
-                        //            historyRoot: true
-                        //        });
-                        //        $state.go("salesmanDashboard", {}, {reload: true});//this dash board is not yet created
-                        //    }
-                        //
-                        //
-                        //} else {
-                        //    unversalFunctionsService.hideLoading();
-                        //    console.log(response.data);
-                        //    unversalFunctionsService.showAlert("Login Failed !!", response.data.message);
-                        //
-                        //}
+                        } else {
+                            unversalFunctionsService.hideLoading();
+                            console.log(response.data);
+                            unversalFunctionsService.showAlert(response.statusText, "check logs for more information");
+                        }
 
                     },
                     function (error) {
@@ -116,6 +88,8 @@
 
                     }
                 );//http req ends here
+            },function(geoError){
+                unversalFunctionsService.showAlert(geoError,"please allow your browser to get your location or contact admin for more information");
             });//getGeolocation ends here
         };//place order ended here
 

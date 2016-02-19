@@ -22,6 +22,7 @@ let orderSchema = new mongoose.Schema({
     orderSubject: String, // this will contain subject of order
     
     orderDetail: String, //this will contain order detail in string
+    geoCoords : [Number],
     unRead: { type: Boolean, 'default': true },
     createdOn: { type: Date, 'default': Date.now } //pack 'default' in single quotes(this is Optional) to avoid compile error
     
@@ -41,7 +42,7 @@ let orderModel = mongoose.model("orders", orderSchema);
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //this function will place order as salesman , take input salesman uid and order detail
 //then 
-function placeOrderAsSalesMan(salesmanUid, clientName, orderSubject, orderDetail) {
+function placeOrderAsSalesMan(salesmanUid, clientName, orderSubject, orderDetail, geoCoords) {
 
     let deferred = q.defer();
     
@@ -94,7 +95,8 @@ function placeOrderAsSalesMan(salesmanUid, clientName, orderSubject, orderDetail
                 salesmanUid: salesmanUid,
                 clientName : clientName,
                 orderSubject: orderSubject,
-                orderDetail: orderDetail
+                orderDetail: orderDetail,
+                geoCoords : geoCoords
             });
 
             newOrder.save((err, data) => {

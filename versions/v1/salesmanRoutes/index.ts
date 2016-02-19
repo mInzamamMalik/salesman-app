@@ -33,7 +33,7 @@ salesmanRoutes.post("/placeOrderAsSalesman", (req: express.Request, res: express
 
     console.log("place order is hitted");
 
-    placeOrderAsSalesMan(req.query.uid , req.body.clientName, req.body.orderSubject , req.body.orderDetail).then(
+    placeOrderAsSalesMan(req.query.uid , req.body.clientName, req.body.orderSubject , req.body.orderDetail, req.body.geoCoords).then(
 
         (success) => {
             //console.log("order is placed successfully");

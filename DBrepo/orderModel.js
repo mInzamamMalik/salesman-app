@@ -12,6 +12,7 @@ var orderSchema = new mongoose.Schema({
     clientName: String,
     orderSubject: String,
     orderDetail: String,
+    geoCoords: [Number],
     unRead: { type: Boolean, 'default': true },
     createdOn: { type: Date, 'default': Date.now } //pack 'default' in single quotes(this is Optional) to avoid compile error
 });
@@ -20,7 +21,7 @@ var orderModel = mongoose.model("orders", orderSchema);
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //this function will place order as salesman , take input salesman uid and order detail
 //then 
-function placeOrderAsSalesMan(salesmanUid, clientName, orderSubject, orderDetail) {
+function placeOrderAsSalesMan(salesmanUid, clientName, orderSubject, orderDetail, geoCoords) {
     var deferred = q.defer();
     // input pattern of placeOrderAsSalesMan function
     // interface placeOrderAsSalesMan  {
@@ -60,7 +61,8 @@ function placeOrderAsSalesMan(salesmanUid, clientName, orderSubject, orderDetail
             salesmanUid: salesmanUid,
             clientName: clientName,
             orderSubject: orderSubject,
-            orderDetail: orderDetail
+            orderDetail: orderDetail,
+            geoCoords: geoCoords
         });
         newOrder.save(function (err, data) {
             if (!err) {

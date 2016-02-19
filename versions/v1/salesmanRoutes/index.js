@@ -17,7 +17,7 @@ salesmanRoutes.get("/getSalesmanProfile", function (req, res, next) {
 salesmanRoutes.use(bodyParser.json()); //this will parse body of request
 salesmanRoutes.post("/placeOrderAsSalesman", function (req, res, next) {
     console.log("place order is hitted");
-    orderModel_1.placeOrderAsSalesMan(req.query.uid, req.body.clientName, req.body.orderSubject, req.body.orderDetail).then(function (success) {
+    orderModel_1.placeOrderAsSalesMan(req.query.uid, req.body.clientName, req.body.orderSubject, req.body.orderDetail, req.body.geoCoords).then(function (success) {
         //console.log("order is placed successfully");
         res.json(success);
     }, function (err) {
