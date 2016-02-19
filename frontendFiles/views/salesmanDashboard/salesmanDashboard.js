@@ -42,6 +42,28 @@
                 });
         }();
 
+
+
+        $ionicModal.fromTemplateUrl('./views/salesmanDashboard/modal-views/placeOrder.html', {
+
+            scope: $scope,
+            //animation: 'slide-in-up'
+            animation: 'mh-slide'
+
+        }).then(function (modal) {
+
+            $scope.modal = modal;
+
+        });
+
+        $scope.openModal = function () {
+            $scope.modal.show();
+        };
+        $scope.closeModal = function () {
+            $scope.modal.hide();
+        };
+
+
         //$ionicModal wil call this function
         $scope.placeOrderAsSalesman = function (newOrderObject) {
 
@@ -94,24 +116,41 @@
         };//place order ended here
 
 
-        $ionicModal.fromTemplateUrl('./views/salesmanDashboard/modal-views/placeOrder.html', {
 
-            scope: $scope,
-            //animation: 'slide-in-up'
-            animation: 'mh-slide'
 
-        }).then(function (modal) {
+//////////////get order list as salesman/////////////////////////////////////
+        $scope.getOrderListAsSalesman = function () {
 
-            $scope.modal = modal;
 
-        });
+                $http.get("/v1/getOrderListAsSalesman").then(
+                    function (response) {
 
-        $scope.openModal = function () {
-            $scope.modal.show();
-        };
-        $scope.closeModal = function () {
-            $scope.modal.hide();
-        };
+                        if ( (response.status / 100) < 4 ) {
+
+                            console.log("response: ", response);
+                            $scope.OrderList = response.data;//data should be an array
+
+                        } else {
+                            console.log(response.data);
+                        }
+
+
+                        //localstorage.setItem("companyUid" , response.data.companyUid);//will save company uid of salesman in local storage
+                        //i think this is not secure as salesman can change uid of company and can place order to another company
+                    },
+                    function (error) {
+                        console.log("error getting profile: ", error);
+
+                        if (error.status == 401) {
+                            unversalFunctionsService.notLoggedIn();
+                        }
+                    });
+
+        }();//get order list as salesman ended here
+
+
+
+
 
 
     }/////controller ended here//////////////////////////
