@@ -11,6 +11,8 @@
     function adminDashboardController($scope, $http, unversalFunctionsService, $ionicModal, geolocation) {
 
 
+        var vm = $scope;
+
 
 
         //unversalFunctionsService.isLoggedIn();
@@ -95,6 +97,7 @@
                         if ( (response.status / 100) < 4 ) {
                             unversalFunctionsService.hideLoading();
                             $scope.closeModal();
+                            vm.getOrderListAsSalesman();//refresh order list
                             //every thing is ok hide loading and modal and do nothing
 
                         } else {
@@ -146,8 +149,8 @@
                         }
                     });
 
-        }();//get order list as salesman ended here
-
+        };//get order list as salesman ended here
+        $scope.getOrderListAsSalesman();//get order list as salesman call one time itself
 
 
 
