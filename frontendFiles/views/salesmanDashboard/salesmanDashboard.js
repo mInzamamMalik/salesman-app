@@ -97,7 +97,7 @@
                         if ( (response.status / 100) < 4 ) {
                             unversalFunctionsService.hideLoading();
                             $scope.closeModal();
-                            vm.getOrderListAsSalesman();//refresh order list
+                            vm.getOrderList();//refresh order list
                             //every thing is ok hide loading and modal and do nothing
 
                         } else {
@@ -122,10 +122,10 @@
 
 
 //////////////get order list as salesman/////////////////////////////////////
-        $scope.getOrderListAsSalesman = function () {
+        $scope.getOrderList = function () {
 
 
-                $http.get("/v1/getOrderListAsSalesman").then(
+                $http.get("/v1/getOrderList").then(
                     function (response) {
 
                         if ( (response.status / 100) < 4 ) {
@@ -150,7 +150,7 @@
                     });
 
         };//get order list as salesman ended here
-        $scope.getOrderListAsSalesman();//get order list as salesman call one time itself
+        $scope.getOrderList();//get order list as salesman call one time itself
 
 
 

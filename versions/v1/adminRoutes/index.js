@@ -2,6 +2,7 @@ var express = require("express");
 //schemas methods
 var userModel_1 = require("../../../DBrepo/userModel");
 var salesmanModel_1 = require("../../../DBrepo/salesmanModel");
+var orderModel_1 = require("../../../DBrepo/orderModel");
 var adminRoutes = express.Router();
 //this route will return with company profile information
 adminRoutes.get("/getCompanyProfile", function (req, res, next) {
@@ -48,6 +49,16 @@ adminRoutes.post("/salesmanSignup", function (req, res, next) {
     }, function (err) {
         console.log("signup error: ", err);
         res.json({ signup: false, message: err });
+    });
+});
+adminRoutes.get("/getOrderList", function (req, res, next) {
+    console.log("get order by salesman is hitted");
+    orderModel_1.getOrderList.asCompany(req.query.uid).then(function (success) {
+        //console.log("order is placed successfully");
+        res.json(success);
+    }, function (err) {
+        res.json(err);
+        return;
     });
 });
 module.exports = adminRoutes;

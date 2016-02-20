@@ -3,7 +3,7 @@ import bodyParser = require("body-parser");
 import url = require("url");
 //db methods
 import { salesmanSignup, getSalesmanProfile } from "../../../DBrepo/salesmanModel";
-import { placeOrderAsSalesMan , getOrderListAsSalesman} from "../../../DBrepo/orderModel";
+import { placeOrderAsSalesMan , getOrderList} from "../../../DBrepo/orderModel";
 
 
 let salesmanRoutes = express.Router()
@@ -29,7 +29,7 @@ salesmanRoutes.get("/getSalesmanProfile", (req: express.Request, res: express.Re
 
 salesmanRoutes.use(bodyParser.json());//this will parse body of request
 
-salesmanRoutes.post("/placeOrderAsSalesman", (req: express.Request, res: express.Response, next: Function) => {
+salesmanRoutes.post("/placeOrder", (req: express.Request, res: express.Response, next: Function) => {
 
     console.log("place order is hitted");
 
@@ -49,11 +49,11 @@ salesmanRoutes.post("/placeOrderAsSalesman", (req: express.Request, res: express
 
 
 
-salesmanRoutes.get("/getOrderListAsSalesman", (req: express.Request, res: express.Response, next: Function) => {
+salesmanRoutes.get("/getOrderList", (req: express.Request, res: express.Response, next: Function) => {
 
     console.log("get order by salesman is hitted");
 
-    getOrderListAsSalesman(req.query.uid).then(
+    getOrderList.asSalesman(req.query.uid).then(
 
         (success) => {
             //console.log("order is placed successfully");

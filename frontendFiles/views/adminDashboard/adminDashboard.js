@@ -59,6 +59,52 @@
             );
         }(); // this function will call it self once on controller load
 
+
+
+        //////////////get order list as salesman/////////////////////////////////////
+        $scope.getOrderList = function () {
+
+            $http.get("/v1/admin/getOrderList").then(
+                function (response) {
+
+                    if ( (response.status / 100) < 4 ) {
+
+                        console.log("order list as admin: ", response);
+                        $scope.orderList = response.data;//data should be an array
+
+                    } else {
+                        console.log(response.data);
+                    }
+
+
+                    //localstorage.setItem("companyUid" , response.data.companyUid);//will save company uid of salesman in local storage
+                    //i think this is not secure as salesman can change uid of company and can place order to another company
+                },
+                function (error) {
+                    console.log("error getting orders list: ", error);
+
+                    if (error.status == 401) {
+                        unversalFunctionsService.notLoggedIn();
+                    }
+                });
+
+        };//get order list as salesman ended here
+        $scope.getOrderList();//get order list as salesman call one time itself
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }/////controller ended here//////////////////////////
 
 })();//self calling function ended here

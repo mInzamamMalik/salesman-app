@@ -44,17 +44,17 @@
             <!--<a href="#" class="subdued">5 Comments</a>-->
             <!--</p>-->
             <!--</div>-->
-
         </div>
         <ion-list class="list">
             <div class="item item-divider">Orders List</div>
 
-            <div class="item" ng-repeat="order in orderList">
+            <div class="item" ng-repeat="order in orderList | orderBy: index:true ">
                 <h2>{{order.clientName}}</h2>
 
                 <p>{{order.orderSubject}}</p>
 
-                <p>{{order.createdOn | date}} -- Lat: {{order.geoCoords[0]}} , Lon: {{order.geoCoords[1]}}</p>
+                <p class="text-right">{{order.createdOn | date}} -- Lat: {{order.geoCoords[0]}} , Lon: {{order.geoCoords[1]}}</p>
+
                 <p>{{order.orderDetail}}</p>
                 <!--<span ng-bind="time | date:'yyyy-MM-dd HH:mm:ss Z'">  </span>-->
             </div>

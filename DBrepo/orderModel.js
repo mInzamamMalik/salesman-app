@@ -84,21 +84,37 @@ function placeOrderAsSalesMan(salesmanUid, clientName, orderSubject, orderDetail
 }
 exports.placeOrderAsSalesMan = placeOrderAsSalesMan;
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-function getOrderListAsSalesman(salesmanUid) {
-    var deferred = q.defer();
-    orderModel.find({ 'salesmanUid': salesmanUid }, // all orders placed by this salesman
-    function (err, orderList) {
-        if (!err) {
-            console.log(orderList);
-            deferred.resolve(orderList);
-        }
-        else {
-            deferred.reject(err);
-        }
-    });
-    return deferred.promise;
-}
-exports.getOrderListAsSalesman = getOrderListAsSalesman;
+var getOrderList = {
+    asSalesman: function (salesmanUid) {
+        var deferred = q.defer();
+        orderModel.find({ 'salesmanUid': salesmanUid }, // all orders placed by this salesman    
+        function (err, orderList) {
+            if (!err) {
+                console.log(orderList);
+                deferred.resolve(orderList);
+            }
+            else {
+                deferred.reject(err);
+            }
+        });
+        return deferred.promise;
+    },
+    asCompany: function (companyUid) {
+        var deferred = q.defer();
+        orderModel.find({ 'companyUid': companyUid }, // all orders placed by this salesman    
+        function (err, orderList) {
+            if (!err) {
+                console.log(orderList);
+                deferred.resolve(orderList);
+            }
+            else {
+                deferred.reject(err);
+            }
+        });
+        return deferred.promise;
+    }
+};
+exports.getOrderList = getOrderList;
 // this is a list of exported functions/methods
 // which are exported from this .ts file 
 // and free to import in any other .ts file

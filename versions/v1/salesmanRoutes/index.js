@@ -15,7 +15,7 @@ salesmanRoutes.get("/getSalesmanProfile", function (req, res, next) {
     });
 });
 salesmanRoutes.use(bodyParser.json()); //this will parse body of request
-salesmanRoutes.post("/placeOrderAsSalesman", function (req, res, next) {
+salesmanRoutes.post("/placeOrder", function (req, res, next) {
     console.log("place order is hitted");
     orderModel_1.placeOrderAsSalesMan(req.query.uid, req.body.clientName, req.body.orderSubject, req.body.orderDetail, req.body.geoCoords).then(function (success) {
         //console.log("order is placed successfully");
@@ -25,9 +25,9 @@ salesmanRoutes.post("/placeOrderAsSalesman", function (req, res, next) {
         return;
     });
 });
-salesmanRoutes.get("/getOrderListAsSalesman", function (req, res, next) {
+salesmanRoutes.get("/getOrderList", function (req, res, next) {
     console.log("get order by salesman is hitted");
-    orderModel_1.getOrderListAsSalesman(req.query.uid).then(function (success) {
+    orderModel_1.getOrderList.asSalesman(req.query.uid).then(function (success) {
         //console.log("order is placed successfully");
         res.json(success);
     }, function (err) {

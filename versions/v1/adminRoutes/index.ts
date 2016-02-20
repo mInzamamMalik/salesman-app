@@ -4,8 +4,9 @@ import bodyParser = require("body-parser");
 import url = require("url");
 
 //schemas methods
-import { getCompanyProfile } from "../../../DBrepo/userModel";
-import { salesmanSignup, getSalesmanList } from "../../../DBrepo/salesmanModel";
+import { getCompanyProfile }                from "../../../DBrepo/userModel";
+import { salesmanSignup, getSalesmanList }  from "../../../DBrepo/salesmanModel";
+import { getOrderList}                      from "../../../DBrepo/orderModel";
 
 let adminRoutes = express.Router()
 
@@ -79,7 +80,23 @@ adminRoutes.post("/salesmanSignup", (req: express.Request, res: express.Response
 });
 
 
+adminRoutes.get("/getOrderList", (req: express.Request, res: express.Response, next: Function) => {
 
+    console.log("get order by salesman is hitted");
+
+    getOrderList.asCompany(req.query.uid).then(
+
+        (success) => {
+            //console.log("order is placed successfully");
+            res.json(success);
+        },
+        (err) => {
+
+            res.json(err);
+            return;
+        });
+
+})
 
 
 
