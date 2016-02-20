@@ -46,18 +46,27 @@
         </div> <!--md-card end-->
 
 
-
-{{data}}
+        {{data}}
 <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
 
 
-
         <ion-list class="list">
-            <div class="item item-divider"
+            <div class="item item-divider "
                  ng-init="showOrderList = 2"
                  ng-click="showOrderList = showOrderList+1">
-                Orders List
-                <i class="badge badge-assertive" ng-show="profileObject.notificationCount" ng-bind="profileObject.notificationCount"></i>
+                    Orders List
+
+                <span class="item-note ">
+                    Mark all read
+                </span>
+
+
+                <span class="badge badge-assertive" ng-show="profileObject.notificationCount"
+                ng-bind="profileObject.notificationCount">
+
+                </span>
+
+
             </div>
 
             <div class="item" ng-repeat="order in orderList | orderBy: index:true " ng-show="showOrderList % 2">
@@ -74,10 +83,7 @@
         </ion-list>
 
 
-
-
-
-<!--/////////////////////////////////////////////////////////////////////////////////////////////////-->
+        <!--/////////////////////////////////////////////////////////////////////////////////////////////////-->
         <ion-list class="list">
             <div class="item item-divider"
                  ng-init="showsalesmansList = 2 "
