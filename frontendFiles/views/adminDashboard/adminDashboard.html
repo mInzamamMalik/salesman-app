@@ -1,14 +1,14 @@
-<ion-view  view-title="Admin Dashboard" hide-back-button="true">
+<ion-view view-title="Admin Dashboard" hide-back-button="true">
 
 
     <ion-nav-buttons side="primary">
-        <button class="button" ng-click="logout()" >
+        <button class="button" ng-click="logout()">
             logout
         </button>
     </ion-nav-buttons>
 
     <ion-nav-buttons side="secondary">
-        <button class="button button-balanced" ui-sref="salesmanSignup" >
+        <button class="button button-balanced" ui-sref="salesmanSignup">
             Add Salesman
         </button>
     </ion-nav-buttons>
@@ -18,11 +18,15 @@
 
         <div class="list card">
 
-            <div class="item item-avatar" >
-                <img ng-src={{photoUrl}} onClick=window.open("https://secure.gravatar.com","change-profile-photo","width=550,height=300,left=150,top=200,toolbar=0,status=0,"); value="Open child Window">
+            <div class="item item-avatar">
+                <img ng-src={{photoUrl}}
+                     onClick=window.open("https://secure.gravatar.com","change-profile-photo","width=550,height=300,left=150,top=200,toolbar=0,status=0,");
+                     value="Open child Window">
 
                 <h2 ng-bind="profileObject.companyName"></h2>
+
                 <p ng-bind="profileObject.email"></p>
+
                 <p ng-show="profileObject.createdOn">Joined: {{profileObject.createdOn | date}}</p>
             </div>
 
@@ -33,6 +37,7 @@
                     the content is from a card-body consisting of an image and paragraph text. The footer
                     consists of tabs, icons aligned left, within the card-footer.
                 </p>
+
                 <p>
                     <a href="#" class="subdued">view salesmans positions in map</a>
                     <a href="#" class="subdued positive">View Orders</a>
@@ -41,15 +46,28 @@
         </div> <!--md-card end-->
 
 
-        <ion-list class="list">
-            <div class="item item-divider">Orders List</div>
 
-            <div class="item" ng-repeat="order in orderList | orderBy: index:true ">
+{{data}}
+<!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+
+
+        <ion-list class="list">
+            <div class="item item-divider"
+                 ng-init="showOrderList = 2"
+                 ng-click="showOrderList = showOrderList+1">
+                Orders List
+                <i class="badge badge-assertive" ng-show="profileObject.notificationCount" ng-bind="profileObject.notificationCount"></i>
+            </div>
+
+            <div class="item" ng-repeat="order in orderList | orderBy: index:true " ng-show="showOrderList % 2">
                 <h2>{{order.clientName}}</h2>
 
                 <p>{{order.orderSubject}}</p>
 
-                <p  class="text-right">{{order.createdOn | date}} -- Lat: {{order.geoCoords[0]}} , Lon: {{order.geoCoords[1]}}</p>
+                <p class="text-right">{{order.createdOn | date}} -- Lat: {{order.geoCoords[0]}} , Lon:
+                    {{order.geoCoords[1]}}</p>
+
                 <p>{{order.orderDetail}}</p>
                 <!--<span ng-bind="time | date:'yyyy-MM-dd HH:mm:ss Z'">  </span>-->
             </div>
@@ -58,12 +76,25 @@
 
 
 
+
+<!--/////////////////////////////////////////////////////////////////////////////////////////////////-->
         <ion-list class="list">
-            <div class="item item-divider">Salesmans List</div>
-            <div class="item " ng-repeat="saleman in salesmansList">
+            <div class="item item-divider"
+                 ng-init="showsalesmansList = 2 "
+                 ng-click="showsalesmansList = showsalesmansList+1">
+                Salesmans List
+            </div>
+
+
+            <div class="item "
+                 ng-repeat="saleman in salesmansList | orderBy: index:true"
+                 ng-show="showsalesmansList % 2">
+
+
                 <h2>{{saleman.firstName + " " + saleman.lastName}}</h2>
 
                 <p class="ionic-body" ng-show="saleman.email">{{saleman.email}}</p>
+
                 <p class="ionic-body" ng-show="saleman.createdOn">since: {{saleman.createdOn | date}}</p>
             </div>
 
@@ -71,8 +102,7 @@
         </ion-list>
 
 
-
-<button ng-click="getSalesmanList()">refresh</button>
+        <button ng-click="getSalesmanList()">refresh</button>
 
     </ion-content>
 </ion-view>

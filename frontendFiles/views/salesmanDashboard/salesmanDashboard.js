@@ -77,7 +77,7 @@
 
                 $http({///////////send login request to server with login information in body
                     method: "post",
-                    url: "/v1/placeOrderAsSalesman",
+                    url: "/v1/placeOrder",
 
                     data: {
                         clientName: newOrderObject.clientName,

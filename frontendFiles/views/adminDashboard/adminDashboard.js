@@ -5,10 +5,16 @@
 
     angular.module("adminDashboard", [])
 
-        .controller("adminDashboardController", ['$scope', '$http', 'unversalFunctionsService', adminDashboardController]);
+        .controller("adminDashboardController", ['$scope', '$http', 'unversalFunctionsService', '$firebaseObject', adminDashboardController]);
 
 
-    function adminDashboardController($scope, $http, unversalFunctionsService) {
+    function adminDashboardController($scope, $http, unversalFunctionsService, $firebaseObject) {
+
+
+
+
+
+
 
         //unversalFunctionsService.isLoggedIn();
         $scope.photoUrl = localStorage.getItem("photoUrl");
@@ -21,18 +27,34 @@
         $scope.email = localStorage.getItem("email");
 
 
-        $scope.getCompanyProfile = function(){
+        $scope.getCompanyProfile = function () {
             $http.get("/v1/admin/getCompanyProfile").then(
                 function (response) {
 
                     console.log("profile: ", response);
                     $scope.profileObject = response.data;
 
+                    //on response
+                    ////////connect to firebase/////////////////////////////////////////
+                    var ref = new Firebase("https://sales-man-app.firebaseio.com/").child(response.data.firebaseUid);
+
+                    ref.on("value", function (snapshot) {
+
+                        $scope.profileObject.notificationCount = snapshot.val().notificationCount;
+
+                        console.log("firebase response", $scope.profileObject.notificationCount);
+                        $scope.getOrderList();//get order list as salesman call one time itself
+                        $scope.$apply();
+
+                    });
+                    ////////connect to firebase/////////////////////////////////////////
+
+
                 },
                 function (error) {
                     console.log("error getting profile: ", error);
 
-                    if(error.status == 401){
+                    if (error.status == 401) {
                         unversalFunctionsService.notLoggedIn();
                     }
 
@@ -40,7 +62,7 @@
             );
         }(); // this function will call it self once on controller load
 
-        $scope.getSalesmanList = function(){
+        $scope.getSalesmanList = function () {
             $http.get("/v1/admin/getSalesmanList").then(
                 function (response) {
 
@@ -51,7 +73,7 @@
                 function (error) {
                     console.log("error getting salesman list: ", error);
 
-                    if(error.status == 401){
+                    if (error.status == 401) {
                         unversalFunctionsService.notLoggedIn();
                     }
 
@@ -60,14 +82,13 @@
         }(); // this function will call it self once on controller load
 
 
-
         //////////////get order list as salesman/////////////////////////////////////
         $scope.getOrderList = function () {
 
             $http.get("/v1/admin/getOrderList").then(
                 function (response) {
 
-                    if ( (response.status / 100) < 4 ) {
+                    if ((response.status / 100) < 4) {
 
                         console.log("order list as admin: ", response);
                         $scope.orderList = response.data;//data should be an array
@@ -90,19 +111,6 @@
 
         };//get order list as salesman ended here
         $scope.getOrderList();//get order list as salesman call one time itself
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     }/////controller ended here//////////////////////////
