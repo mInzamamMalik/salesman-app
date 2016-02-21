@@ -5,7 +5,7 @@
 
     angular.module("adminDashboard", [])
 
-        .controller("adminDashboardController", ['$scope', '$http', 'unversalFunctionsService', '$firebaseObject', adminDashboardController]);
+        .controller("adminDashboardController", ['$scope', '$http', 'unversalFunctionsService', adminDashboardController]);
 
 
     function adminDashboardController($scope, $http, unversalFunctionsService, $firebaseObject) {
