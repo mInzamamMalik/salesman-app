@@ -23,8 +23,6 @@ app.use("/v1", v1 );
 
 
 
-let publicPath = path.resolve(__dirname, "public");
-app.use(express.static(publicPath));
 
 let indexPath = path.resolve(__dirname,"frontendFiles");
 app.use(express.static(indexPath));
@@ -33,6 +31,16 @@ app.use(express.static(indexPath));
 app.listen(app.get("port"), ()=> {
     console.log('app is running on port', app.get('port'));
 });
+
+
+
+
+
+
+
+
+
+
 
 
 
