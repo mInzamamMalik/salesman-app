@@ -24,22 +24,17 @@ let orderSchema = new mongoose.Schema({
     orderDetail: String, //this will contain order detail in string
     geoCoords: [Number],
     unRead: { type: Boolean, 'default': true },
+    suspended: { type: Boolean, 'default': false },
     createdOn: { type: Date, 'default': Date.now } //pack 'default' in single quotes(this is Optional) to avoid compile error
     
 });
-
 
 let orderModel = mongoose.model("orders", orderSchema);
 //////////////end order schema and model//////////////////////////////////////////
 
 
 
-
-
-
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////
 //this function will place order as salesman , take input salesman uid and order detail
 //then 
 function placeOrderAsSalesMan(salesmanUid, clientName, orderSubject, orderDetail, geoCoords) {
@@ -122,7 +117,7 @@ function placeOrderAsSalesMan(salesmanUid, clientName, orderSubject, orderDetail
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
+/////////////get order methods///////////////////////////////////////////////////////////////////
 let getOrderList = {
 
     asSalesman: function(salesmanUid) {
@@ -139,8 +134,8 @@ let getOrderList = {
             });
         return deferred.promise;
     },
-    
-    
+
+
 
     asCompany: function(companyUid) {
         let deferred = q.defer();
@@ -150,21 +145,48 @@ let getOrderList = {
                 if (!err) {
                     console.log(orderList);
                     deferred.resolve(orderList);
+
+
+
                 } else {
                     deferred.reject(err);
                 }
             });
         return deferred.promise;
     }
+}
+/////////////get order methods///////////////////////////////////////////////////////////////////
 
 
 
 
 
+
+
+
+
+
+/////////////delete order methods////////////////////////////////////////////////////////
+
+//only for admin
+function deleteOrders(companyUid: string, orderId: string[]) {
+
+    if (orderId)
+        ///$in takes an array, so orderId must be an array   
+        orderModel.remove({ companyUid: companyUid, _id: { $in: orderId } }, function(err ) {
+            if (!err) {
+               console.log("this is not error");
+            }else{
+                console.log("this is  error",err);
+            }
+            
+        });
 
 }
+//for checking
+ deleteOrders("477406ff-dc2a-427c-9495-0d3421cc8e76",["56c78a497a1190280a98e0b0","56c78a827a1190280a98e0b1"  ]);
 
-
+/////////////get order methods///////////////////////////////////////////////////////////////////
 
 
 
