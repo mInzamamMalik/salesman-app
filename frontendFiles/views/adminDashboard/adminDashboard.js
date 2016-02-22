@@ -97,7 +97,6 @@
                         console.log(response.data);
                     }
 
-
                     //localstorage.setItem("companyUid" , response.data.companyUid);//will save company uid of salesman in local storage
                     //i think this is not secure as salesman can change uid of company and can place order to another company
                 },
