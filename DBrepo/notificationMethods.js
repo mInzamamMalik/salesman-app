@@ -27,4 +27,5 @@ var notification = {
     }
 };
 exports.notification = notification;
-notification.incrementOne(123);
+// for checling
+// notification.incrementOne(123);
