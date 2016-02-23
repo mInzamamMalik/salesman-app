@@ -112,6 +112,40 @@
         $scope.getOrderList();//get order list as salesman call one time itself
 
 
+        $scope.deleteOrders = function (arrayOfOrderId) {
+
+
+
+            unversalFunctionsService.showConfirm("do you want to delete","",function(){//this function will exe if user click ok
+
+                $http.post("/v1/admin/deleteOrders", {arrayOfOrderId: arrayOfOrderId}).then(
+                    function (response) {
+
+                        unversalFunctionsService.hideLoading();
+
+                        if(response.data.deleted){
+                            $scope.getOrderList();
+                        }else{
+                            unversalFunctionsService.showAlert("Deleting Error","check logs for more detail")
+                        }
+
+                    },
+                    function (error) {
+                        unversalFunctionsService.hideLoading();
+                        console.log("error getting orders list: ", error);
+
+                        if (error.status == 401) {
+                            unversalFunctionsService.notLoggedIn();
+                        }
+                    });
+            },function(){//this function will exe if user click cancel
+
+
+            });
+
+        };//deleteOrders ended here
+
+
     }/////controller ended here//////////////////////////
 
 })();//self calling function ended here

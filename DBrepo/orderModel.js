@@ -121,19 +121,23 @@ exports.getOrderList = getOrderList;
 /////////////delete order methods////////////////////////////////////////////////////////
 //only for admin
 function deleteOrders(companyUid, orderId) {
-    if (orderId)
-        ///$in takes an array, so orderId must be an array   
-        orderModel.remove({ companyUid: companyUid, _id: { $in: orderId } }, function (err, data) {
-            if (!err) {
-                console.log("this is error", err);
-            }
-            else {
-                console.log("this is not error");
-            }
-        });
+    var deferred = q.defer();
+    ///$in takes an array, so orderId must be an array   
+    orderModel.remove({ companyUid: companyUid, _id: { $in: orderId } }, function (err) {
+        if (!err) {
+            console.log("this is not error");
+            deferred.resolve();
+        }
+        else {
+            console.log("this is  error", err);
+            deferred.reject(err);
+        }
+    });
+    return deferred.promise;
 }
+exports.deleteOrders = deleteOrders;
 //for checking
-deleteOrders("477406ff-dc2a-427c-9495-0d3421cc8e76", ["56c78a497a1190280a98e0b0", "56c78a827a1190280a98e0b1"]);
+//  deleteOrders("477406ff-dc2a-427c-9495-0d3421cc8e76",["56c78a497a1190280a98e0b0","56c78a827a1190280a98e0b1"  ]);
 /////////////get order methods///////////////////////////////////////////////////////////////////
 // this is a list of exported functions/methods
 // which are exported from this .ts file 

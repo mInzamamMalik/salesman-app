@@ -52,6 +52,8 @@
 
         <ion-list class="list">
             <div class="item item-divider "
+                 href="#orderList"
+                 id="#orderList"
                  ng-init="showOrderList = 2"
                  ng-click="showOrderList = showOrderList+1">
                     Orders List
@@ -69,15 +71,26 @@
 
             </div>
 
-            <div class="item" ng-repeat="order in orderList | orderBy: index:true " ng-show="showOrderList % 2">
+            <div class="item item-button-right item-checkbox-right" ng-repeat="order in orderList | orderBy: index:true " ng-show="showOrderList % 2">
                 <h2>{{order.clientName}}</h2>
 
                 <p>{{order.orderSubject}}</p>
 
-                <p class="text-right">{{order.createdOn | date}} -- Lat: {{order.geoCoords[0]}} , Lon:
+                <p>{{order.createdOn | date}} -- Lat: {{order.geoCoords[0]}} , Lon:
                     {{order.geoCoords[1]}}</p>
 
                 <p>{{order.orderDetail}}</p>
+
+                <div class="buttons">
+
+                   <!-- <button class="button button-icon">
+                        <i class="icon ion-edit"></i>
+                    </button>-->
+                    <button class="button button-icon" ng-click="deleteOrders( [order._id] )">
+                        <i class="icon ion-android-delete"></i>
+                    </button>
+
+                </div>
                 <!--<span ng-bind="time | date:'yyyy-MM-dd HH:mm:ss Z'">  </span>-->
             </div>
         </ion-list>

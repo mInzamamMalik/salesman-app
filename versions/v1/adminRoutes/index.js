@@ -61,4 +61,17 @@ adminRoutes.get("/getOrderList", function (req, res, next) {
         return;
     });
 });
+adminRoutes.post("/deleteOrders", function (req, res, next) {
+    console.log("deleteOrders is hitted");
+    orderModel_1.deleteOrders(req.query.uid, req.body.arrayOfOrderId).then(function (success) {
+        //console.log("order is placed successfully");
+        res.json({ deleted: true });
+    }, function (err) {
+        res.json({
+            deleted: false,
+            error: err
+        });
+        return;
+    });
+});
 module.exports = adminRoutes;

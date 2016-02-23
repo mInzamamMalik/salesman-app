@@ -171,20 +171,22 @@ let getOrderList = {
 //only for admin
 function deleteOrders(companyUid: string, orderId: string[]) {
 
-    if (orderId)
+    let deferred = q.defer();
+   
         ///$in takes an array, so orderId must be an array   
-        orderModel.remove({ companyUid: companyUid, _id: { $in: orderId } }, function(err ) {
+        orderModel.remove({ companyUid: companyUid, _id: { $in: orderId } }, function(err) {
             if (!err) {
-               console.log("this is not error");
-            }else{
-                console.log("this is  error",err);
+                console.log("this is not error");
+                deferred.resolve();
+            } else {
+                console.log("this is  error", err);
+                deferred.reject(err);
             }
-            
         });
-
+    return deferred.promise;
 }
 //for checking
- deleteOrders("477406ff-dc2a-427c-9495-0d3421cc8e76",["56c78a497a1190280a98e0b0","56c78a827a1190280a98e0b1"  ]);
+//  deleteOrders("477406ff-dc2a-427c-9495-0d3421cc8e76",["56c78a497a1190280a98e0b0","56c78a827a1190280a98e0b1"  ]);
 
 /////////////get order methods///////////////////////////////////////////////////////////////////
 
@@ -201,4 +203,4 @@ function deleteOrders(companyUid: string, orderId: string[]) {
 // this is a list of exported functions/methods
 // which are exported from this .ts file 
 // and free to import in any other .ts file
-export { placeOrderAsSalesMan, getOrderList }
+export { placeOrderAsSalesMan, getOrderList, deleteOrders}

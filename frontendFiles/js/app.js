@@ -56,7 +56,7 @@
         })
 
 
-        .service("unversalFunctionsService", function ($state, $ionicHistory, $ionicPopup, $ionicLoading, $ionicLoading, $http) {
+        .service("unversalFunctionsService", function ($state, $ionicHistory, $ionicPopup, $ionicLoading, $http) {
             var vm = this;
 
             //////////////////////////////////////////////////////////////////////////////////////
@@ -74,6 +74,26 @@
                     template: template
                 });
             };
+
+            this.showConfirm = function (title, template , onTrue , onFalse) {
+
+
+                    var confirmPopup = $ionicPopup.confirm({
+                        title: title,
+                        template: template
+
+                    }).then(function(res) {
+                        if(res) {
+                            vm.showLoading("deleting...");
+                           onTrue();
+                        } else {
+                            onFalse();
+                        }
+                    });
+            };
+
+
+
             //////////////////////////////////////////////////////////////////////////////////////
 
             this.clearCredentials = function () {

@@ -6,7 +6,7 @@ import url = require("url");
 //schemas methods
 import { getCompanyProfile }                from "../../../DBrepo/userModel";
 import { salesmanSignup, getSalesmanList }  from "../../../DBrepo/salesmanModel";
-import { getOrderList}                      from "../../../DBrepo/orderModel";
+import { getOrderList, deleteOrders}                      from "../../../DBrepo/orderModel";
 
 let adminRoutes = express.Router()
 
@@ -98,6 +98,25 @@ adminRoutes.get("/getOrderList", (req: express.Request, res: express.Response, n
 
 })
 
+
+adminRoutes.post("/deleteOrders", (req: express.Request, res: express.Response, next: Function) => {
+
+    console.log("deleteOrders is hitted");
+
+    deleteOrders(req.query.uid, req.body.arrayOfOrderId).then(
+
+        (success) => {
+            //console.log("order is placed successfully");
+            res.json({ deleted: true });
+        },
+        (err) => {
+            res.json({
+                deleted: false,
+                error: err
+            });
+            return;
+        });
+})
 
 
 
