@@ -29,11 +29,30 @@
         $scope.getSalesmanProfile = function () {
             $http.get("/v1/getSalesmanProfile").then(
                 function (response) {
-                    console.log("response: ", response);
+                    console.log("profile: ", response);
                     $scope.profileObject = response.data;
 
                     //localstorage.setItem("companyUid" , response.data.companyUid);//will save company uid of salesman in local storage
                     //i think this is not secure as salesman can change uid of company and can place order to another company
+
+
+                    //on response
+                    ////////connect to firebase/////////////////////////////////////////
+                    var ref = new Firebase("https://sales-man-app.firebaseio.com/").child(response.data.companyUid);
+
+                    ref.on("value", function (snapshot) {
+
+                        //$scope.profileObject.notificationCount = snapshot.val().notificationCount;
+
+                        console.log("firebase response", $scope.profileObject.notificationCount);
+                        $scope.getOrderList();//get order list as salesman call one time itself
+                        $scope.$apply();
+
+                    });
+                    ////////connect to firebase/////////////////////////////////////////
+
+
+
                 },
                 function (error) {
                     console.log("error getting profile: ", error);
@@ -130,7 +149,7 @@
 
                         if ( (response.status / 100) < 4 ) {
 
-                            console.log("response: ", response);
+                            console.log("order list: ", response);
                             $scope.orderList = response.data;//data should be an array
 
                         } else {

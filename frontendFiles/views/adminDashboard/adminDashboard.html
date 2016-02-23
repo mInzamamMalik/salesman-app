@@ -54,7 +54,7 @@
             <div class="item item-divider "
                  href="#orderList"
                  id="#orderList"
-                 ng-init="showOrderList = 2"
+                 ng-init="showOrderList = 1"
                  ng-click="showOrderList = showOrderList+1">
                     Orders List
 
@@ -71,7 +71,9 @@
 
             </div>
 
-            <div class="item item-button-right item-checkbox-right" ng-repeat="order in orderList | orderBy: index:true " ng-show="showOrderList % 2">
+            <div class="item item-button-right item-checkbox-right"
+                 ng-repeat="order in orderList | orderBy: index:true "
+                 ng-show="showOrderList % 2">
                 <h2>{{order.clientName}}</h2>
 
                 <p>{{order.orderSubject}}</p>

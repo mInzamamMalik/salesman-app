@@ -7,7 +7,7 @@ let ref = new Firebase("https://sales-man-app.firebaseio.com/");
 
 //db methods
 import { getSalesmanProfile } from "./../DBrepo/salesmanModel";
-import { notification } from "./../DBrepo/notificationMethods";
+import { notification , hiddenNotification } from "./../DBrepo/notificationMethods";
 
 
 
@@ -146,8 +146,6 @@ let getOrderList = {
                     console.log(orderList);
                     deferred.resolve(orderList);
 
-
-
                 } else {
                     deferred.reject(err);
                 }
@@ -177,6 +175,9 @@ function deleteOrders(companyUid: string, orderId: string[]) {
         orderModel.remove({ companyUid: companyUid, _id: { $in: orderId } }, function(err) {
             if (!err) {
                 console.log("this is not error");
+                
+                hiddenNotification.incrementOne();
+                
                 deferred.resolve();
             } else {
                 console.log("this is  error", err);

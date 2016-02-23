@@ -84,7 +84,6 @@
 
                     }).then(function(res) {
                         if(res) {
-                            vm.showLoading("deleting...");
                            onTrue();
                         } else {
                             onFalse();

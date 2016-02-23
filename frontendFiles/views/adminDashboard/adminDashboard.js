@@ -118,6 +118,8 @@
 
             unversalFunctionsService.showConfirm("do you want to delete","",function(){//this function will exe if user click ok
 
+                unversalFunctionsService.showLoading("deleting...");
+
                 $http.post("/v1/admin/deleteOrders", {arrayOfOrderId: arrayOfOrderId}).then(
                     function (response) {
 
