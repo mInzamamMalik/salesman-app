@@ -151,11 +151,14 @@
 
         $scope.showOrderDetails = function(order){
 
-
             $scope.modal.show();
+        }
+        $scope.closeModal = function(order){
 
+            $scope.modal.hide();
 
         }
+
 
 
         $ionicModal.fromTemplateUrl('./views/adminDashboard/modal-views/showOrderDetails.html', {
