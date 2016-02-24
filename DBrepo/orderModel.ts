@@ -176,7 +176,7 @@ function deleteOrders(companyUid: string, orderId: string[]) {
             if (!err) {
                 console.log("this is not error");
                 
-                hiddenNotification.incrementOne();
+                hiddenNotification.incrementOne(companyUid);
                 
                 deferred.resolve();
             } else {

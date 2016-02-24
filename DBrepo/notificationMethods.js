@@ -32,7 +32,7 @@ exports.notification = notification;
 var hiddenNotification = {
     incrementOne: function (companyUid) {
         var notificationcount = null;
-        var notificationNode = ref.child(companyUid.toString() + "/hidenNotification");
+        var notificationNode = ref.child(companyUid.toString()).child("hidenNotification");
         //firstly get current notification count by ref.once function    
         notificationNode.once("value", function (snapshot) {
             // console.log("this data is received by ref.once firebase in json form: ", snapshot.val());

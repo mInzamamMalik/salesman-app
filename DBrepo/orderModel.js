@@ -126,7 +126,7 @@ function deleteOrders(companyUid, orderId) {
     orderModel.remove({ companyUid: companyUid, _id: { $in: orderId } }, function (err) {
         if (!err) {
             console.log("this is not error");
-            notificationMethods_1.hiddenNotification.incrementOne();
+            notificationMethods_1.hiddenNotification.incrementOne(companyUid);
             deferred.resolve();
         }
         else {

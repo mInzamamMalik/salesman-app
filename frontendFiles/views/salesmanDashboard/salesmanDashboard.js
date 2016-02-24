@@ -38,13 +38,11 @@
 
                     //on response
                     ////////connect to firebase/////////////////////////////////////////
-                    var ref = new Firebase("https://sales-man-app.firebaseio.com/").child(response.data.companyUid);
+                    var ref = new Firebase("https://sales-man-app.firebaseio.com/").child(response.data.companyUid).child("hidenNotification");
 
                     ref.on("value", function (snapshot) {
 
-                        //$scope.profileObject.notificationCount = snapshot.val().notificationCount;
-
-                        console.log("firebase response", $scope.profileObject.notificationCount);
+                        console.log("firebase response", snapshot.val());
                         $scope.getOrderList();//get order list as salesman call one time itself
                         $scope.$apply();
 

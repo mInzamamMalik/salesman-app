@@ -52,7 +52,7 @@ let hiddenNotification = {
 
         let notificationcount = null;
 
-        let notificationNode = ref.child(companyUid.toString() + "/hidenNotification");
+        let notificationNode = ref.child(companyUid.toString()).child("hidenNotification");
 
         //firstly get current notification count by ref.once function    
         notificationNode.once("value", function(snapshot) {
