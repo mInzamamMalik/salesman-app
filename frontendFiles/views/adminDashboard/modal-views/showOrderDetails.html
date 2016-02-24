@@ -1,0 +1,44 @@
+<ion-modal-view>
+
+    <ion-header-bar align-title="left" class="bar-positive">
+        <div class="buttons">
+            <button class="button" ng-click="closeModal()">back</button>
+        </div>
+
+        <h1 class="title">Place new order!</h1>
+
+        <div class="buttons">
+            <button class="button button-balanced">Submit</button>
+        </div>
+    </ion-header-bar>
+
+
+    <ion-content>
+
+        <form ng-submit="placeOrderAsSalesman(newOrderObject)">
+            <div class="list">
+                <label class="item item-input">
+                    <input type="text"
+                           placeholder="Client / Shop Name"
+                           required ng-model="newOrderObject.clientName">
+                </label>
+
+
+                <label class="item item-input ">
+                    <input type="text"
+                           placeholder="order subject"
+                           ng-model="newOrderObject.orderSubject">
+                </label>
+
+
+                <label class="item item-input">
+                    <textarea rows="4" placeholder="order detail" ng-model="newOrderObject.orderDetail"></textarea>
+                </label>
+
+                <button class="button button-positive button-full" type="submit">Submit</button>
+            </div>
+        </form>
+
+
+    </ion-content>
+</ion-modal-view>

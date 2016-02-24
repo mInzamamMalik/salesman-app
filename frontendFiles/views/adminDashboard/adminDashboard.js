@@ -5,10 +5,10 @@
 
     angular.module("adminDashboard", [])
 
-        .controller("adminDashboardController", ['$scope', '$http', 'unversalFunctionsService', adminDashboardController]);
+        .controller("adminDashboardController", ['$scope', '$http','$ionicModal', 'unversalFunctionsService', adminDashboardController]);
 
 
-    function adminDashboardController($scope, $http, unversalFunctionsService, $firebaseObject) {
+    function adminDashboardController($scope, $http,$ionicModal, unversalFunctionsService) {
 
 
 
@@ -115,8 +115,6 @@
 
         $scope.deleteOrders = function (arrayOfOrderId) {
 
-
-
             unversalFunctionsService.showConfirm("do you want to delete","",function(){//this function will exe if user click ok
 
                 unversalFunctionsService.showLoading("deleting...");
@@ -147,6 +145,35 @@
             });
 
         };//deleteOrders ended here
+
+
+
+
+        $scope.showOrderDetails = function(order){
+
+
+            $scope.modal.show();
+
+
+        }
+
+
+        $ionicModal.fromTemplateUrl('./views/adminDashboard/modal-views/showOrderDetails.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function(modal) {
+            $scope.modal = modal;
+        });
+
+
+
+
+
+
+
+
+
+
 
 
     }/////controller ended here//////////////////////////

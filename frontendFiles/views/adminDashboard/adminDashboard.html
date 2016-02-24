@@ -73,7 +73,9 @@
 
             <div class="item item-button-right item-checkbox-right"
                  ng-repeat="order in orderList | orderBy: index:true "
-                 ng-show="showOrderList % 2">
+                 ng-show="showOrderList % 2"
+                 ng-click="showOrderDetails(order)">
+
                 <h2>{{order.clientName}}</h2>
 
                 <p>{{order.orderSubject}}</p>
