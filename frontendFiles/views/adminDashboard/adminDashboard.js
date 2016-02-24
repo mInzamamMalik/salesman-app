@@ -28,6 +28,7 @@
 
 
         $scope.getCompanyProfile = function () {
+
             $http.get("/v1/admin/getCompanyProfile").then(
                 function (response) {
 

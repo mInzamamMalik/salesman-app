@@ -48,9 +48,6 @@
 
                     });
                     ////////connect to firebase/////////////////////////////////////////
-
-
-
                 },
                 function (error) {
                     console.log("error getting profile: ", error);
