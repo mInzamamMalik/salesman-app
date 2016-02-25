@@ -15394,7 +15394,7 @@ function $RootScopeProvider() {
        *
        * @description
        * Shallow watches the properties of an object and fires whenever any of the properties change
-       * (for arrays, this implies watching the array items; for object maps, this implies watching
+       * (for arrays, this implies watching the array items; for object salemansInMaps, this implies watching
        * the properties). If a change is detected, the `listener` callback is fired.
        *
        * - The `obj` collection is observed via standard $watch operation and is examined on every

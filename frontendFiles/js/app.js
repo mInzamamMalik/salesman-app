@@ -4,7 +4,8 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 (function () {
-    angular.module('starter', ['ionic','geolocation','ngMap', 'home', 'signup', 'login', 'adminDashboard', 'salesmanDashboard', 'salesmanSignup'])
+    angular.module('starter', ['ionic', 'home', 'signup', 'login', 'adminDashboard',
+        'salesmanDashboard', 'salesmanSignup','salemansInMaps','geolocation','ngMap'])
 
 
         .controller("appController", ['$scope', appController])
@@ -33,13 +34,20 @@
                 .state("adminDashboard", {
                     cache: false, // controller will terminate on state change and not keep running
                     url: "/adminDashboard",
-                    templateUrl: "views/adminDashboard/adminDashboard.html",
+                    templateUrl: "views/adminDashboard/salemansInMaps.html",
                     controller: "adminDashboardController"
                 })
                 .state("salesmanSignup", {
-                    url: "/salesmanSignup",
+                    url: "/adminDashboard/salesmanSignup",
                     templateUrl: "views/salesmanSignup/salesmanSignup.html",
                     controller: "salesmanSignupController"
+                })
+
+                .state("salemansInMaps", {
+                    cache: false, // controller will terminate on state change and not keep running
+                    url: "/adminDashboard/salemansInMaps",
+                    templateUrl: "views/salemansInMaps/salemansInMaps.html",
+                    controller: "salemansInMapsController"
                 })
 
                 .state("salesmanDashboard", {
@@ -48,6 +56,8 @@
                     templateUrl: "views/salesmanDashboard/salesmanDashboard.html",
                     controller: "salesmanDashboardController"
                 });
+
+
 
 
             $urlRouterProvider.otherwise("/home");

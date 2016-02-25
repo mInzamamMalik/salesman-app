@@ -1,0 +1,140 @@
+<ion-view view-title="Admin Dashboard" hide-back-button="true">
+
+
+    <ion-nav-buttons side="primary">
+        <button class="button" ng-click="logout()">
+            logout
+        </button>
+    </ion-nav-buttons>
+
+    <ion-nav-buttons side="secondary">
+        <button class="button button-balanced" ui-sref="salesmanSignup">
+            Add Salesman
+        </button>
+    </ion-nav-buttons>
+
+    <ion-content>
+
+
+        <div class="list card">
+
+            <div class="item item-avatar">
+                <img ng-src={{photoUrl}}
+                     onClick=window.open("https://secure.gravatar.com","change-profile-photo","width=550,height=300,left=150,top=200,toolbar=0,status=0,");
+                     value="Open child Window">
+
+                <h2 ng-bind="profileObject.companyName"></h2>
+
+                <p ng-bind="profileObject.email"></p>
+
+                <p ng-show="profileObject.createdOn">Joined: {{profileObject.createdOn | date}}</p>
+            </div>
+
+            <div class="item item-body">
+                <!--<img class="full-image" src="./img/delorean.jpg">-->
+                <p>
+                    This is a "Facebook" styled Card. The header is created from a Thumbnail List item,
+                    the content is from a card-body consisting of an image and paragraph text. The footer
+                    consists of tabs, icons aligned left, within the card-footer.
+                </p>
+
+                <p>
+                    <a href="#" class="subdued">view salesmans positions in map</a>
+                    <a href="#" class="subdued positive">View Orders</a>
+                </p>
+            </div>
+        </div> <!--md-card end-->
+
+
+        {{data}}
+<!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+
+        <ion-list class="list">
+            <div class="item item-divider "
+                 href="#orderList"
+                 id="#orderList"
+                 ng-init="showOrderList = 1"
+                 ng-click="showOrderList = showOrderList+1">
+                    Orders List
+
+                <span class="item-note ">
+                    Mark all read
+                </span>
+
+
+                <span class="badge badge-assertive" ng-show="profileObject.notificationCount"
+                ng-bind="profileObject.notificationCount">
+
+                </span>
+
+
+            </div>
+
+            <div class="item item-button-right item-checkbox-right"
+                 ng-repeat="order in orderList | orderBy: index:true "
+                 ng-show="showOrderList % 2"
+                 ng-click="showOrderDetails(order)">
+
+                <h2>{{order.clientName}}</h2>
+
+                <p>{{order.orderSubject}}</p>
+
+                <p>{{order.createdOn | date}} -- Lat: {{order.geoCoords[0]}} , Lon:
+                    {{order.geoCoords[1]}}</p>
+
+                <p>{{order.orderDetail}}</p>
+
+                <div class="buttons">
+
+                   <!-- <button class="button button-icon">
+                        <i class="icon ion-edit"></i>
+                    </button>-->
+                    <button class="button button-icon" ng-click="deleteOrders( [order._id] )">
+                        <i class="icon ion-android-delete"></i>
+                    </button>
+
+                </div>
+                <!--<span ng-bind="time | date:'yyyy-MM-dd HH:mm:ss Z'">  </span>-->
+            </div>
+        </ion-list>
+
+
+        <!--/////////////////////////////////////////////////////////////////////////////////////////////////-->
+        <ion-list class="list">
+            <div class="item item-divider"
+                 ng-init="showsalesmansList = 2 "
+                 ng-click="showsalesmansList = showsalesmansList+1">
+                Salesmans List
+            </div>
+
+
+            <div class="item "
+                 ng-repeat="saleman in salesmansList | orderBy: index:true"
+                 ng-show="showsalesmansList % 2">
+
+
+                <h2>{{saleman.firstName + " " + saleman.lastName}}</h2>
+
+                <p class="ionic-body" ng-show="saleman.email">{{saleman.email}}</p>
+
+                <p class="ionic-body" ng-show="saleman.createdOn">since: {{saleman.createdOn | date}}</p>
+            </div>
+
+
+        </ion-list>
+
+
+        <button ng-click="getSalesmanList()">refresh</button>
+
+
+
+        <ng-map id="map"  zoom="18" center="[{{24.815276599999997}}, {{67.05424339999999}}]" >
+            <marker position="{{24.815276599999997}},{{67.05424339999999}}"  ></marker>
+        </ng-map>
+
+
+
+
+    </ion-content>
+</ion-view>

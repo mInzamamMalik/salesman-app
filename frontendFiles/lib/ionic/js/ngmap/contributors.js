@@ -3,7 +3,7 @@ var fs = require('fs');
 var options = {
   hostname: 'api.github.com',
   port: 443,
-  path: '/repos/allenhwkim/angularjs-google-maps/contributors',
+  path: '/repos/allenhwkim/angularjs-google-salemansInMaps/contributors',
   method: 'GET',
   agent: false,
   headers: {'user-agent': 'node.js'}

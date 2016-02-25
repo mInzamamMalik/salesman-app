@@ -661,8 +661,8 @@ Cluster.prototype.isMarkerAlreadyAdded_ = function (marker) {
  * @param {MarkerClustererOptions} [opt_options] The optional parameters.
  */
 function MarkerClusterer(map, opt_markers, opt_options) {
-  // MarkerClusterer implements google.maps.OverlayView interface. We use the
-  // extend function to extend MarkerClusterer with google.maps.OverlayView
+  // MarkerClusterer implements google.salemansInMaps.OverlayView interface. We use the
+  // extend function to extend MarkerClusterer with google.salemansInMaps.OverlayView
   // because it might not always be available when the code is defined so we
   // look for it at the last possible moment. If it doesn't exist now then
   // there is no point going ahead :)
@@ -1611,7 +1611,7 @@ MarkerClusterer.BATCH_SIZE_IE = 500;
  * @type {string}
  * @constant
  */
-MarkerClusterer.IMAGE_PATH = "http://google-maps-utility-library-v3.googlecode.com/svn/trunk/markerclustererplus/images/m";
+MarkerClusterer.IMAGE_PATH = "http://google-salemansInMaps-utility-library-v3.googlecode.com/svn/trunk/markerclustererplus/images/m";
 
 
 /**

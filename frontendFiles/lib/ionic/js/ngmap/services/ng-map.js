@@ -149,7 +149,7 @@
    * @memberof NgMap
    * @function observeAndSet
    * @param {String} attrName attribute name
-   * @param {Object} object A Google maps object to be changed
+   * @param {Object} object A Google salemansInMaps object to be changed
    * @returns attribue observe function
    */
   var observeAndSet = function(attrName, object) {

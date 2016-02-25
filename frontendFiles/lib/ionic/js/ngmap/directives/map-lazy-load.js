@@ -42,7 +42,7 @@
     var mapsUrl = attrs.mapLazyLoadParams || attrs.mapLazyLoad;
 
     window.lazyLoadCallback = function() {
-      console.log('Google maps script loaded:', mapsUrl);
+      console.log('Google salemansInMaps script loaded:', mapsUrl);
       $timeout(function() { /* give some time to load */
         element.html(savedHtml);
         $compile(element.contents())(scope);

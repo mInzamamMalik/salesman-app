@@ -2463,11 +2463,11 @@ angular.module('ngMap', []);
      * converts attributes hash to Google Maps API v3 options
      * ```
      *  . converts numbers to number
-     *  . converts class-like string to google maps instance
-     *    i.e. `LatLng(1,1)` to `new google.maps.LatLng(1,1)`
-     *  . converts constant-like string to google maps constant
-     *    i.e. `MapTypeId.HYBRID` to `google.maps.MapTypeId.HYBRID`
-     *    i.e. `HYBRID"` to `google.maps.MapTypeId.HYBRID`
+     *  . converts class-like string to google salemansInMaps instance
+     *    i.e. `LatLng(1,1)` to `new google.salemansInMaps.LatLng(1,1)`
+     *  . converts constant-like string to google salemansInMaps constant
+     *    i.e. `MapTypeId.HYBRID` to `google.salemansInMaps.MapTypeId.HYBRID`
+     *    i.e. `HYBRID"` to `google.salemansInMaps.MapTypeId.HYBRID`
      * ```
      * @memberof Attr2MapOptions
      * @param {Hash} attrs tag attributes
@@ -2811,7 +2811,7 @@ angular.module('ngMap', []);
   /**
    * @memberof NgMapPool
    * @function returnMapInstance
-   * @param {Map} an instance of google.maps.Map
+   * @param {Map} an instance of google.salemansInMaps.Map
    * @desc sets the flag inUse of the given map instance to false, so that it 
    * can be reused later
    */
@@ -2985,7 +2985,7 @@ angular.module('ngMap', []);
    * @memberof NgMap
    * @function observeAndSet
    * @param {String} attrName attribute name
-   * @param {Object} object A Google maps object to be changed
+   * @param {Object} object A Google salemansInMaps object to be changed
    * @returns attribue observe function
    */
   var observeAndSet = function(attrName, object) {

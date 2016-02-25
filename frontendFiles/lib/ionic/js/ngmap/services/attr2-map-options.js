@@ -206,11 +206,11 @@
      * converts attributes hash to Google Maps API v3 options
      * ```
      *  . converts numbers to number
-     *  . converts class-like string to google maps instance
-     *    i.e. `LatLng(1,1)` to `new google.maps.LatLng(1,1)`
-     *  . converts constant-like string to google maps constant
-     *    i.e. `MapTypeId.HYBRID` to `google.maps.MapTypeId.HYBRID`
-     *    i.e. `HYBRID"` to `google.maps.MapTypeId.HYBRID`
+     *  . converts class-like string to google salemansInMaps instance
+     *    i.e. `LatLng(1,1)` to `new google.salemansInMaps.LatLng(1,1)`
+     *  . converts constant-like string to google salemansInMaps constant
+     *    i.e. `MapTypeId.HYBRID` to `google.salemansInMaps.MapTypeId.HYBRID`
+     *    i.e. `HYBRID"` to `google.salemansInMaps.MapTypeId.HYBRID`
      * ```
      * @memberof Attr2MapOptions
      * @param {Hash} attrs tag attributes

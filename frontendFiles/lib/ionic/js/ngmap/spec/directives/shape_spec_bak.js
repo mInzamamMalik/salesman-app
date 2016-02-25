@@ -16,7 +16,7 @@ describe('shape', function() {
          '     bounds="[[40.74,-74.18], [40.78,-74.14]]" editable="true" />'+
          '   <shape id="circle" name="circle" stroke-color="#FF0000" stroke-opacity="0.8"stroke-weight="2" '+
          '     center="[40.70,-74.14]" radius="4000" editable="true" />'+
-         '   <shape id="image" name="image" url="https://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg"'+
+         '   <shape id="image" name="image" url="https://www.lib.utexas.edu/salemansInMaps/historical/newark_nj_1922.jpg"'+
          '     bounds="[[40.71,-74.22],[40.77,-74.12]]" opacity="0.7" clickable="true" />'+
          '</map>');
       scope = $rootScope;
@@ -40,7 +40,7 @@ describe('shape', function() {
     // circle
     expect(scope.map.shapes.circle.radius).toEqual(4000);
     // image
-    expect(scope.map.shapes.image.getUrl()).toEqual("https://www.lib.utexas.edu/maps/historical/newark_nj_1922.jpg");
+    expect(scope.map.shapes.image.getUrl()).toEqual("https://www.lib.utexas.edu/salemansInMaps/historical/newark_nj_1922.jpg");
   });
 
   it('should set shape events', function() {
