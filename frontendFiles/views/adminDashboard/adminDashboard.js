@@ -165,6 +165,9 @@
         }).then(function(modal) {
             $scope.modal = modal;
         });
+
+
+        $scope.name = "dfghdfg";
         //
         //NgMap.getMap().then(function(map) {
         //    console.log(map.getCenter());
