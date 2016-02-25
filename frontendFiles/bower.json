@@ -1,0 +1,24 @@
+{
+  "name": "frontendFiles",
+  "homepage": "https://github.com/malikasinger1/salesman-app",
+  "authors": [
+    "malikasinger1@gmail.com <malikasinger1@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "lib/ionic/js",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angularjs-geolocation": "~0.1.1",
+    "firebase": "2.x.x",
+    "ngmap": "^1.16.7"
+  }
+}
