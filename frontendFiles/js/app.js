@@ -34,7 +34,7 @@
                 .state("adminDashboard", {
                     cache: false, // controller will terminate on state change and not keep running
                     url: "/adminDashboard",
-                    templateUrl: "views/adminDashboard/salemansInMaps.html",
+                    templateUrl: "views/adminDashboard/adminDashboard.html",
                     controller: "adminDashboardController"
                 })
                 .state("salesmanSignup", {
