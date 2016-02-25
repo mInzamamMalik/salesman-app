@@ -5,10 +5,10 @@
 
     angular.module("adminDashboard", [])
 
-        .controller("adminDashboardController", ['$scope', '$http','$ionicModal', 'unversalFunctionsService', adminDashboardController]);
+        .controller("adminDashboardController", ['$scope', '$http','$ionicModal', 'unversalFunctionsService','NgMap', adminDashboardController]);
 
 
-    function adminDashboardController($scope, $http,$ionicModal, unversalFunctionsService) {
+    function adminDashboardController($scope, $http,$ionicModal, unversalFunctionsService, NgMap) {
 
 
 
@@ -159,23 +159,18 @@
 
         }
 
-
-
         $ionicModal.fromTemplateUrl('./views/adminDashboard/modal-views/showOrderDetails.html', {
             scope: $scope,
             animation: 'slide-in-up'
         }).then(function(modal) {
             $scope.modal = modal;
         });
-
-
-
-
-
-
-
-
-
+        //
+        //NgMap.getMap().then(function(map) {
+        //    console.log(map.getCenter());
+        //    console.log('markers', map.markers);
+        //    console.log('shapes', map.shapes);
+        //});
 
 
 
