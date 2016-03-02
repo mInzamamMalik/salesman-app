@@ -37,7 +37,7 @@
 
                     //on response
                     ////////connect to firebase/////////////////////////////////////////
-                    var ref = new Firebase("https://sales-man-app.firebaseio.com/").child(response.data.firebaseUid).child("notificationCount");
+                    ref = new Firebase("https://sales-man-app.firebaseio.com/").child(response.data.firebaseUid).child("notificationCount");
 
                     ref.on("value", function (snapshot) {
 
@@ -152,6 +152,8 @@
         $scope.showOrderDetails = function(order){
 
             $scope.modal.show();
+            ref.set(0);
+            
         }
         $scope.closeModal = function(order){
 
