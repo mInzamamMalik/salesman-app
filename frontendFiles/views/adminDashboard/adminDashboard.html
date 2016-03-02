@@ -47,7 +47,7 @@
 
 
         {{data}}
-<!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+        <!--/////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
 
 
         <ion-list class="list">
@@ -56,15 +56,15 @@
                  id="#orderList"
                  ng-init="showOrderList = 1"
                  ng-click="showOrderList = showOrderList+1">
-                    Orders List
+                Orders List
 
-                <span class="item-note ">
-                    Mark all read
-                </span>
+                <!--<span class="item-note ">-->
+                <!--Mark all read-->
+                <!--</span>-->
 
 
                 <span class="badge badge-assertive" ng-show="profileObject.notificationCount"
-                ng-bind="profileObject.notificationCount">
+                      ng-bind="profileObject.notificationCount">
 
                 </span>
 
@@ -74,22 +74,22 @@
             <div class="item item-button-right item-checkbox-right"
                  ng-repeat="order in orderList | orderBy: index:true "
                  ng-show="showOrderList % 2"
-                 ng-click="showOrderDetails(order)">
+            >
+                <div ng-click="showOrderDetails(order)">
+                    <h2>{{order.clientName}}</h2>
 
-                <h2>{{order.clientName}}</h2>
+                    <p>{{order.orderSubject}}</p>
 
-                <p>{{order.orderSubject}}</p>
+                    <p>{{order.createdOn | date}} -- Lat: {{order.geoCoords[0]}} , Lon:
+                        {{order.geoCoords[1]}}</p>
 
-                <p>{{order.createdOn | date}} -- Lat: {{order.geoCoords[0]}} , Lon:
-                    {{order.geoCoords[1]}}</p>
-
-                <p>{{order.orderDetail}}</p>
-
+                    <p>{{order.orderDetail}}</p>
+                </div>
                 <div class="buttons">
 
-                   <!-- <button class="button button-icon">
-                        <i class="icon ion-edit"></i>
-                    </button>-->
+                    <!-- <button class="button button-icon">
+                         <i class="icon ion-edit"></i>
+                     </button>-->
                     <button class="button button-icon" ng-click="deleteOrders( [order._id] )">
                         <i class="icon ion-android-delete"></i>
                     </button>
@@ -128,12 +128,9 @@
         <!--<button ng-click="getSalesmanList()">refresh</button>-->
 
 
-
         <!--<ng-map id="map"  zoom="18" center="[{{24.815276599999997}}, {{67.05424339999999}}]" >
             <marker position="{{24.815276599999997}},{{67.05424339999999}}"  ></marker>
         </ng-map>-->
-
-
 
 
     </ion-content>
