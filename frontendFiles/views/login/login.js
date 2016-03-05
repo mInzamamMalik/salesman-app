@@ -21,7 +21,7 @@
 
             $http({///////////send login request to server with login information in body
                 method: "post",
-                url: "/v1/login",
+                url: unversalFunctionsService.url + "/v1/login",
 
                 // this is login information pattern which is required by api
                 //  {

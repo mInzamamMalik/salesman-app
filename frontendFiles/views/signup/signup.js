@@ -22,7 +22,7 @@
 
                 $http({ // this line will send signup request to server with an object in request body
                     method: "post",
-                    url: "/v1/signup",
+                    url: unversalFunctionsService.url + "/v1/signup",
                     data: {
                         // this values are required by api if any one is missing there will be problem
                         email: $scope.userObject.email,

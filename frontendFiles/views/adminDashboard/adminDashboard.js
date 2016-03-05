@@ -29,7 +29,7 @@
 
         $scope.getCompanyProfile = function () {
 
-            $http.get("/v1/admin/getCompanyProfile").then(
+            $http.get(unversalFunctionsService.url + "/v1/admin/getCompanyProfile").then(
                 function (response) {
 
                     console.log("profile: ", response);
@@ -64,7 +64,7 @@
         }(); // this function will call it self once on controller load
 
         $scope.getSalesmanList = function () {
-            $http.get("/v1/admin/getSalesmanList").then(
+            $http.get(unversalFunctionsService.url + "/v1/admin/getSalesmanList").then(
                 function (response) {
 
                     console.log("salesman list: ", response.data);
@@ -86,7 +86,7 @@
         //////////////get order list as salesman/////////////////////////////////////
         $scope.getOrderList = function () {
 
-            $http.get("/v1/admin/getOrderList").then(
+            $http.get(unversalFunctionsService.url + "/v1/admin/getOrderList").then(
                 function (response) {
 
                     if ((response.status / 100) < 4) {
@@ -119,7 +119,7 @@
 
                 unversalFunctionsService.showLoading("deleting...");
 
-                $http.post("/v1/admin/deleteOrders", {arrayOfOrderId: arrayOfOrderId}).then(
+                $http.post(unversalFunctionsService.url + "/v1/admin/deleteOrders", {arrayOfOrderId: arrayOfOrderId}).then(
                     function (response) {
 
                         unversalFunctionsService.hideLoading();

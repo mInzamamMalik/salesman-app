@@ -27,7 +27,7 @@
 
         //this function call itself one time
         $scope.getSalesmanProfile = function () {
-            $http.get("/v1/getSalesmanProfile").then(
+            $http.get(unversalFunctionsService.url + "/v1/getSalesmanProfile").then(
                 function (response) {
                     console.log("profile: ", response);
                     $scope.profileObject = response.data;
@@ -91,7 +91,7 @@
 
                 $http({///////////send login request to server with login information in body
                     method: "post",
-                    url: "/v1/placeOrder",
+                    url: unversalFunctionsService.url + "/v1/placeOrder",
 
                     data: {
                         clientName: newOrderObject.clientName,
@@ -139,7 +139,7 @@
         $scope.getOrderList = function () {
 
 
-                $http.get("/v1/getOrderList").then(
+                $http.get(unversalFunctionsService.url + "/v1/getOrderList").then(
                     function (response) {
 
                         if ( (response.status / 100) < 4 ) {

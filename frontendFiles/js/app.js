@@ -68,6 +68,9 @@
 
         .service("unversalFunctionsService", function ($state, $ionicHistory, $ionicPopup, $ionicLoading, $http) {
             var vm = this;
+            
+            
+            this.api = "http://salesman-app.herokuapp.com";
 
             //////////////////////////////////////////////////////////////////////////////////////
             this.showLoading = function (text) {
