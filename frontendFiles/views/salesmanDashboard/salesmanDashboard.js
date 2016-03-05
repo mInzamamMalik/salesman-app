@@ -60,7 +60,7 @@
 
 
 
-        $ionicModal.fromTemplateUrl('./views/adminDashboard/modal-views/showOrderDetails.html', {
+        $ionicModal.fromTemplateUrl('./views/salesmanDashboard/modal-views/placeOrder.html', {
 
             scope: $scope,
             //animation: 'slide-in-up'

@@ -2,6 +2,7 @@ import express          = require("express");
 import mongoose         = require("mongoose");
 // import firebase         = require("firebase");
 import path             = require("path");
+let cors                = require('cors')
 
 
 //app versioning
@@ -13,6 +14,7 @@ let app = express();
 app.set('port', (process.env.PORT || 3000));
 
 
+app.use( cors() );
 
 
 
