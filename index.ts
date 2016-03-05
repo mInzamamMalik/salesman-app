@@ -2,7 +2,7 @@ import express          = require("express");
 import mongoose         = require("mongoose");
 // import firebase         = require("firebase");
 import path             = require("path");
-let cors                = require('cors')
+let cors                = require('cors');
 
 
 //app versioning

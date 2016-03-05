@@ -2,10 +2,13 @@ var express = require("express");
 var mongoose = require("mongoose");
 // import firebase         = require("firebase");
 var path = require("path");
+var cors = require('cors');
 //app versioning
 var v1 = require("./versions/v1");
 var app = express();
 app.set('port', (process.env.PORT || 3000));
+// abhi tk zaroorat nhe pari iski
+app.use(cors());
 app.use("/v1", v1);
 var indexPath = path.resolve(__dirname, "frontendFiles");
 app.use(express.static(indexPath));
