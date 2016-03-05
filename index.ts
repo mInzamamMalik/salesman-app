@@ -13,8 +13,8 @@ let app = express();
 
 app.set('port', (process.env.PORT || 3000));
 
-
-app.use( cors() );
+// abhi tk zaroorat nhe pari iski
+//app.use( cors() );
 
 
 
