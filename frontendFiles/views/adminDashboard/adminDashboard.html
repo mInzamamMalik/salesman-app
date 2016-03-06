@@ -72,11 +72,12 @@
             </div>
 
             <div class="item item-button-right item-checkbox-right"
+                 ng-class="order.unRead == false  ? 'item item-button-right item-checkbox-right' : 'item item-button-right item-checkbox-right unread'"
                  ng-repeat="order in orderList | orderBy: index:true "
                  ng-show="showOrderList % 2"
             >
                 <div ng-click="showOrderDetails(order)">
-                    <p ng-show="order.unRead">uread</p>
+
                     <h2>{{order.clientName}}</h2>
 
                     <p>{{order.orderSubject}}</p>
@@ -88,8 +89,8 @@
                 </div>
                 <div class="buttons">
 
-                    <!-- <button class="button button-icon">
-                         <i class="icon ion-edit"></i>
+                    <!-- <button class="button button-icon red" ng-show="order.unRead">
+                         <i class="icon ion-android-notifications"></i>
                      </button>-->
                     <button class="button button-icon" ng-click="deleteOrders( [order._id] )">
                         <i class="icon ion-android-delete"></i>

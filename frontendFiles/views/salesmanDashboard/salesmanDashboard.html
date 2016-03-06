@@ -48,8 +48,9 @@
         <ion-list class="list">
             <div class="item item-divider">Orders List</div>
 
-            <div class="item" ng-repeat="order in orderList | orderBy: index:true ">
-                <p ng-show="order.unRead">uread</p>
+            <div class="item" ng-repeat="order in orderList | orderBy: index:true "
+                 ng-class="order.unRead == false  ? 'item item-button-right item-checkbox-right' : 'item item-button-right item-checkbox-right unread'"
+                    >
 
                 <h2>{{order.clientName}}</h2>
 

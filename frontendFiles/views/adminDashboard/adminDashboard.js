@@ -44,7 +44,9 @@
                         $scope.profileObject.notificationCount = snapshot.val();
 
                         console.log("firebase response", $scope.profileObject.notificationCount);
-                        $scope.getOrderList();//get order list as salesman call one time itself
+                        if($scope.profileObject.notificationCount != 0) {
+                            $scope.getOrderList();//get order list as salesman call one time itself
+                        }
                         $scope.$apply();
 
                     });
@@ -149,14 +151,9 @@
 
         $scope.makeAnOrderRead = function(order){
             if(order.unRead ){
-                $http.post("/v1/admin/makeAnOrderRead", order).then(
-                    function (response) {
+                order.unRead = false;
 
-                        if(response.status < 400){
-                            order.unRead = false;
-                        }
-
-                    });
+                $http.post("/v1/admin/makeAnOrderRead", order);
             }
 
 
@@ -166,10 +163,12 @@
 
         $scope.showOrderDetails = function(order){
             $scope.makeAnOrderRead(order);
+            if($scope.notificationCount){
+                ref.set(0);
+            }
 
             $scope.modal.show();
-            ref.set(0);
-            
+
         }
         $scope.closeModal = function(order){
 
