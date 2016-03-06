@@ -163,7 +163,7 @@
 
         $scope.showOrderDetails = function(order){
             $scope.makeAnOrderRead(order);
-            if($scope.notificationCount){
+            if($scope.profileObject.notificationCount){
                 ref.set(0);
             }
 
