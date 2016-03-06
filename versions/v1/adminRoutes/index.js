@@ -74,4 +74,16 @@ adminRoutes.post("/deleteOrders", function (req, res, next) {
         return;
     });
 });
+adminRoutes.post("/makeAnOrderRead", function (req, res, next) {
+    console.log("makeAnOrderRead is hitted");
+    orderModel_1.makeAnOrderRead(req.body._id).then(function (success) {
+        res.json({ updated: true });
+    }, function (err) {
+        res.json({
+            updated: false,
+            error: err
+        });
+        return;
+    });
+});
 module.exports = adminRoutes;

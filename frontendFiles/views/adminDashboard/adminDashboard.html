@@ -76,6 +76,7 @@
                  ng-show="showOrderList % 2"
             >
                 <div ng-click="showOrderDetails(order)">
+                    <p ng-show="order.unRead">uread</p>
                     <h2>{{order.clientName}}</h2>
 
                     <p>{{order.orderSubject}}</p>

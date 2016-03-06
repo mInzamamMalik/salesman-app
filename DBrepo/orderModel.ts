@@ -7,7 +7,7 @@ let ref = new Firebase("https://sales-man-app.firebaseio.com/");
 
 //db methods
 import { getSalesmanProfile } from "./../DBrepo/salesmanModel";
-import { notification , hiddenNotification } from "./../DBrepo/notificationMethods";
+import { notification, hiddenNotification } from "./../DBrepo/notificationMethods";
 
 
 
@@ -171,19 +171,19 @@ function deleteOrders(companyUid: string, orderId: string[]) {
 
     let deferred = q.defer();
    
-        ///$in takes an array, so orderId must be an array   
-        orderModel.remove({ companyUid: companyUid, _id: { $in: orderId } }, function(err) {
-            if (!err) {
-                console.log("this is not error");
-                
-                hiddenNotification.incrementOne(companyUid);
-                
-                deferred.resolve();
-            } else {
-                console.log("this is  error", err);
-                deferred.reject(err);
-            }
-        });
+    ///$in takes an array, so orderId must be an array   
+    orderModel.remove({ companyUid: companyUid, _id: { $in: orderId } }, function(err) {
+        if (!err) {
+            console.log("this is not error");
+
+            hiddenNotification.incrementOne(companyUid);
+
+            deferred.resolve();
+        } else {
+            console.log("this is  error", err);
+            deferred.reject(err);
+        }
+    });
     return deferred.promise;
 }
 //for checking
@@ -193,15 +193,54 @@ function deleteOrders(companyUid: string, orderId: string[]) {
 
 
 
+///////////make an order read////////////////////////////////////////////////////////////////////
+function makeAnOrderRead(_id) {
+    let deferred = q.defer();
 
+    orderModel.findOne({ _id: _id }, (err, order: any) => {
 
+        if (!err) {
+            // 2: EDIT the record
+            order.unRead = false;
+            // 3: SAVE the record
+            order.save(function(err, order) {
+                console.log('order saved:', order);
+                //update record to all salemans by hidden notification
+                hiddenNotification.incrementOne(order.companyUid);
 
+                deferred.resolve();
+            });
+        } else {
+            deferred.reject(err);
+        }
+    });
+    return deferred.promise;
+};
+///////////make an order read////////////////////////////////////////////////////////////////////
 
+// //////////////order schema and model///////////////////////////////////////////
+// let orderSchema = new mongoose.Schema({
 
+//     companyUid: String, //this will contain company identification of which this order is related
+//     salesmanUid: String, // this will contain sale man identification who is placing this order
+    
+//     clientName: String, // this will contain client which order is placing for
+    
+//     orderSubject: String, // this will contain subject of order
+    
+//     orderDetail: String, //this will contain order detail in string
+//     geoCoords: [Number],
+//     unRead: { type: Boolean, 'default': true },
+//     suspended: { type: Boolean, 'default': false },
+//     createdOn: { type: Date, 'default': Date.now } //pack 'default' in single quotes(this is Optional) to avoid compile error
+    
+// });
 
+// let orderModel = mongoose.model("orders", orderSchema);
+// //////////////end order schema and model//////////////////////////////////////////
 
 
 // this is a list of exported functions/methods
 // which are exported from this .ts file 
 // and free to import in any other .ts file
-export { placeOrderAsSalesMan, getOrderList, deleteOrders}
+export { placeOrderAsSalesMan, getOrderList, deleteOrders, makeAnOrderRead}

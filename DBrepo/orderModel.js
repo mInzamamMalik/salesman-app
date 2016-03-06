@@ -140,6 +140,44 @@ exports.deleteOrders = deleteOrders;
 //for checking
 //  deleteOrders("477406ff-dc2a-427c-9495-0d3421cc8e76",["56c78a497a1190280a98e0b0","56c78a827a1190280a98e0b1"  ]);
 /////////////get order methods///////////////////////////////////////////////////////////////////
+///////////make an order read////////////////////////////////////////////////////////////////////
+function makeAnOrderRead(_id) {
+    var deferred = q.defer();
+    orderModel.findOne({ _id: _id }, function (err, order) {
+        if (!err) {
+            // 2: EDIT the record
+            order.unRead = false;
+            // 3: SAVE the record
+            order.save(function (err, order) {
+                console.log('order saved:', order);
+                //update record to all salemans by hidden notification
+                notificationMethods_1.hiddenNotification.incrementOne(order.companyUid);
+                deferred.resolve();
+            });
+        }
+        else {
+            deferred.reject(err);
+        }
+    });
+    return deferred.promise;
+}
+exports.makeAnOrderRead = makeAnOrderRead;
+;
+///////////make an order read////////////////////////////////////////////////////////////////////
+// //////////////order schema and model///////////////////////////////////////////
+// let orderSchema = new mongoose.Schema({
+//     companyUid: String, //this will contain company identification of which this order is related
+//     salesmanUid: String, // this will contain sale man identification who is placing this order
+//     clientName: String, // this will contain client which order is placing for
+//     orderSubject: String, // this will contain subject of order
+//     orderDetail: String, //this will contain order detail in string
+//     geoCoords: [Number],
+//     unRead: { type: Boolean, 'default': true },
+//     suspended: { type: Boolean, 'default': false },
+//     createdOn: { type: Date, 'default': Date.now } //pack 'default' in single quotes(this is Optional) to avoid compile error
+// });
+// let orderModel = mongoose.model("orders", orderSchema);
+// //////////////end order schema and model//////////////////////////////////////////
 // this is a list of exported functions/methods
 // which are exported from this .ts file 
 // and free to import in any other .ts file

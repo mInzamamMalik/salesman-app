@@ -147,9 +147,25 @@
         };//deleteOrders ended here
 
 
+        $scope.makeAnOrderRead = function(order){
+            if(order.unRead ){
+                $http.post("/v1/admin/makeAnOrderRead", order).then(
+                    function (response) {
+
+                        if(response.status < 400){
+                            order.unRead = false;
+                        }
+
+                    });
+            }
+
+
+        };
+
 
 
         $scope.showOrderDetails = function(order){
+            $scope.makeAnOrderRead(order);
 
             $scope.modal.show();
             ref.set(0);

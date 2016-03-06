@@ -49,6 +49,8 @@
             <div class="item item-divider">Orders List</div>
 
             <div class="item" ng-repeat="order in orderList | orderBy: index:true ">
+                <p ng-show="order.unRead">uread</p>
+
                 <h2>{{order.clientName}}</h2>
 
                 <p>{{order.orderSubject}}</p>
