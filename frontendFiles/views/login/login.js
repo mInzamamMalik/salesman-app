@@ -85,6 +85,7 @@
                 },
                 function (error) {
                     console.log(error);
+                    unversalFunctionsService.hideLoading();
                     unversalFunctionsService.showAlert("Login Failed !!", "check your email & password or contact support if not resolved ");
 
                 }
