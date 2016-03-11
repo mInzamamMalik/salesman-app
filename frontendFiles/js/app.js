@@ -70,7 +70,7 @@
             var vm = this;
             
             
-            this.api = "http://salesman-app.herokuapp.com";
+            vm.url = "http://salesman-app.herokuapp.com";
 
             //////////////////////////////////////////////////////////////////////////////////////
             this.showLoading = function (text) {
