@@ -70,7 +70,8 @@
             var vm = this;
             
             
-            vm.url = "http://salesman-app.herokuapp.com";
+            //vm.url = "http://salesman-app.herokuapp.com";//for development
+            vm.url = "https://salesman-app.herokuapp.com";//for production
 
             //////////////////////////////////////////////////////////////////////////////////////
             this.showLoading = function (text) {
